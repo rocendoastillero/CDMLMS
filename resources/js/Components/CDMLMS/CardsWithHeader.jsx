@@ -1,6 +1,13 @@
 import React from 'react'
 
-function CardsWithHeader({ header, body, withHeader }) {
+/**
+ * @function Component child for <CardsRow/> 
+ * Card with header
+ * @param  header Header 
+ * @param  body header Body
+ * @returns HTML
+ */
+function CardsWithHeader({ header, body }) {
   return (
     <div className="col-xxl-6 col-xl-12 mb-4">
       <div className="card card-header-actions h-100">

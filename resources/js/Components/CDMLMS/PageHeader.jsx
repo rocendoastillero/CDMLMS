@@ -1,5 +1,13 @@
 import React from 'react'
 
+/**
+ * @function Component Header for the page with a gradient of primary and secondary color
+ * 
+ * @param icon Page Header Icon
+ * @param title Page Title 
+ * @param subtitle Page SubTitle
+ * @returns HTML
+ */
 function PageHeader({icon, title, subtitle}) {
   return (
     <header className="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">

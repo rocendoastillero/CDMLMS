@@ -35,9 +35,11 @@ class AccomplishmentReportPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, AccomplishmentReport $accomplishmentReport): bool
+    public function update(User $user, AccomplishmentReport $accomplishmentReport): Response
     {
-        return $accomplishmentReport->user()->is($user);
+        return $accomplishmentReport->user()->is($user)?
+        Response::allow(): 
+        Response::deny($accomplishmentReport);
     }
     
     /**

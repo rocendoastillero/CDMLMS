@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccomplishmentReportController;
+use App\Http\Controllers\DummyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Foundation\Application;
@@ -29,8 +30,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('subjects', SubjectController::class)
     ->only(['index', 'store', 'update', 'show', 'destroy']);
+
+    Route::resource('dummy', DummyController::class)
+    ->only(['index', 'store', 'update', 'show', 'destroy']);
     
-    Route::resource('accomplishment reports', AccomplishmentReportController::class)
+    Route::resource('accomplishmentreports', AccomplishmentReportController::class)
     ->only(['index', 'store', 'update', 'show', 'destroy']);
 
 });
@@ -48,7 +52,6 @@ Route::middleware('auth')->group(function () {
     Route::get('people', function () {
         return Inertia::render('CDMLMS/People');
     });
-
    
     Route::get('/schedules', function () {
         return Inertia::render('CDMLMS/Schedules');

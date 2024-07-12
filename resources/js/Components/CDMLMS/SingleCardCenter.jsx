@@ -1,5 +1,12 @@
 import React from 'react'
 
+/**
+ * @function Component Single Card with no header
+ * 
+ * @param title Card Title 
+ * @param body Card Body
+ * @returns HTML
+ */
 function SingleCardCenter({ title, body}) {
     return (
 

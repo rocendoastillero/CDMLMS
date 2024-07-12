@@ -7,8 +7,15 @@ import IconCard from '@/Components/CDMLMS/IconCard';
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import { Link } from '@inertiajs/react';
+
 const headers = Headers('w-12 w-12');
 
+/**
+ * @function Page
+ * 
+ * @param  auth The Authentication 
+ * @returns Page
+ */
 export default function Anouncements({ auth }) {
     return (
         <Layout user={auth.user} icon={headers[1].icon} headerTitle={headers[1].title} headerSubTitle={headers[1].subTitle}>
@@ -70,7 +77,7 @@ export default function Anouncements({ auth }) {
                         </div>
                     </>
                 }
-                stickyNav={
+                stickyNavBody={
                     <li className="nav-item">
                         <Link className="nav-link" href="#cardWithHeader">
                             Sticky Navigation

@@ -44,7 +44,7 @@ class AccomplishmentReportController extends Controller
 
         $request->user()->accomplishmentreports()->create($validated);
 
-        return redirect(route('accomplishment reports.index'));
+        return redirect(route('accomplishmentreports.index'));
     }
 
     /**
@@ -66,17 +66,18 @@ class AccomplishmentReportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AccomplishmentReport $accomplishmentReport): RedirectResponse
+    public function update(Request $request, AccomplishmentReport $accomplishmentReport)
+    // : RedirectResponse
     {
-        Gate::authorize('update', $accomplishmentReport);
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'body' => 'required|string',
-        ]);
-        $accomplishmentReport->update($validated);
+        // Gate::authorize('update', $accomplishmentReport);
+        // $validated = $request->validate([
+        //     'title' => 'required|string|max:255',
+        //     'subtitle' => 'required|string|max:255',
+        //     'body' => 'required|string',
+        // ]);
+        // $accomplishmentReport->update($validated);
 
-        return redirect(route('accomplishment reports.index'));
+        return $accomplishmentReport;
     }
 
     /**
@@ -88,6 +89,6 @@ class AccomplishmentReportController extends Controller
 
         $accomplishmentReport->delete();
 
-        return redirect(route('accomplishment reports.index'));
+        return redirect(route('accomplishmentreports.index'));
     }
 }

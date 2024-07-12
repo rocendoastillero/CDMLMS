@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Subject extends Model
+class Dummy extends Model
 {
-    
     use HasFactory;
 
     protected $fillable = [
-        'subject',
-        'description'
+        'title',
+        'subtitle',
+        'body'
     ];
-    
+
     /**
-     * Get the user that owns the Subject
+     * Get the user that owns the AccomplishmentReport
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

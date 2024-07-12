@@ -1,9 +1,20 @@
 import React from 'react'
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
+/** TODOOOOOOO
+ * @function Component Card with Icon 
+ * @param  icon Icon of Card
+ * @param  title  Title of Card
+ * @param  body  Body of Card
+ * @param  className CHANGE THIS
+ * @param  editAction CHANGE THIS
+ * @param  deleteAction CHANGE THIS
+ * @param  PUT_THESE_IN_ONE_PROP
+ * @returns HTML
+ */
 function IconCard({ icon = null, title, body, className = 'bg-sky-800', editAction, deleteAction, active ,setWarning}) {
 
-
+    
     return (
         <div className={`card card-icon mb-4 lift !border-0 relative ${active ? "!translate-y-[-0.4444444rem] !shadow-[0_1.5rem_3rem_0_rgba(33,40,50,1)]" : ""}`} >
             <div className='absolute top-0 right-0 mr-3 mt-2 flex flex-row pt-2 pr-1'>

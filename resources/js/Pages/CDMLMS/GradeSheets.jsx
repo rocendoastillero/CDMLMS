@@ -1,24 +1,42 @@
 import React from 'react'
-import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Layout from '@/Layouts/Layout'
 import { Headers } from "@/utils/headers"
 import { Head } from '@inertiajs/react'
+import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
+import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 
 const headers = Headers('w-9 w-9');
 
+/**
+ * @function Page
+ * 
+ * @param  auth The Authentication 
+ * @returns Page
+ */
 export default function GradeSheets({ auth }) {
     return (
-    <Layout user={auth.user} icon={headers[7].icon} headerTitle={headers[7].title} headerSubTitle={"GradeSheets"} openDropdown={true}>
-        <Head title={headers[7].title}/>
-        <SingleCardWithHeader
-            header="Grade Sheets"
-            body={
-                <p>
+        <Layout user={auth.user} icon={headers[7].icon} headerTitle={"Grade Sheets"} headerSubTitle={headers[7].title} openDropdown={true}>
+            <Head title={headers[7].title} />
+            <CardsWithSticky
+                contentSize='!w-8/12'
+                stickySize='!w-4/12'    
+                cards={
+                    <SingleCardWithHeader
+                        header="Grade Sheets"
+                        body={
+                            <div className='h-96'>
+                            </div>
+                        }
+                    />
+                }
+                stickyNavHeader="Upload a File"
+                stickyNavBody={
+                    <div className='h-36 relative '>
+                        <button className="btn btn-primary !absolute !-translate-x-2/4 !left-2/4 bottom-0" type="button">Upload new image</button>
+                    </div>
+                }
+            />
 
-                    the action or process of talking about something in order to reach a decision or to exchange ideas.<br />"the proposals are not a blueprint but ideas for discussion"
-                </p>}
-        />
-
-    </Layout>
+        </Layout>
     )
 }

@@ -7,8 +7,30 @@ import { Bars3Icon, ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/2
 import { Link } from '@inertiajs/react';
 
 const headers = Headers('w-5 h-5');
+/**
+ * @function Component Main Layout for the app
+ * 
+ * SB Admin Pro Layout
+ * 
+ * @param user The Authenticated User 
+ * @param icon Page Header Icon
+ * @param headerTitle Page Header Title
+ * @param headerSubTitle Page Header Sub Title
+ * @param children Layout Children
+ * @param openDropdown Dropdown state
+ * @returns HTML
+ */
+export default function Layout(
+    {
+        user,
+        icon,
+        headerTitle,
+        headerSubTitle,
+        children,
+        openDropdown = false
 
-export default function Layout({ user, icon, headerTitle, headerSubTitle, children, openDropdown = false }) {
+    }
+) {
     const [isOpen, setIsOpen] = useState(true)
     const [dropdown, setDropDown] = useState(openDropdown);
 
@@ -83,7 +105,6 @@ export default function Layout({ user, icon, headerTitle, headerSubTitle, childr
                                             } else if (index == 7) {
                                                 return (
                                                     <div key={index}>
-
                                                         <Disclosure defaultOpen={openDropdown}>
                                                             <DisclosureButton className="nav-link hover:cursor-pointer !py-[10px] w-full justify-between py-2 flex flex-row" onClick={() => { setDropDown(!dropdown) }}>
                                                                 <div>
@@ -117,7 +138,7 @@ export default function Layout({ user, icon, headerTitle, headerSubTitle, childr
                                                 )
                                             } else {
                                                 return (
-                                                    <Link key={index.toString()} href={`${item.title.toLowerCase()}`} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                                    <Link key={index.toString()} href={`${(index == 8) ? "dummy" : item.title.toLowerCase()}`} className='nav-link hover:cursor-pointer !py-[10px]'  >
                                                         <div className='nav-link-icon'>
                                                             {item.icon}
                                                         </div>

@@ -6,6 +6,12 @@ import { Head } from '@inertiajs/react'
 
 const headers = Headers('w-9 w-9');
 
+/**
+ * @function Page
+ * 
+ * @param  auth The Authentication 
+ * @returns Page
+ */
 export default function Discussions({ auth }) {
     return (
     <Layout user={auth.user} icon={headers[2].icon} headerTitle={headers[2].title} headerSubTitle={headers[2].subTitle}>

@@ -1,5 +1,15 @@
 import React from 'react'
 
+
+/**
+ * @function Component Single Card with header
+ * 
+ * @param title Header Title 
+ * @param subtitle Sub Title
+ * @param body Card Body
+ * @param button Card button(s)
+ * @returns HTML
+ */
 function SingleCardWithHeader({ header, subtitle = '', body, button }) {
   return (
     <div className="card mb-4 relative">
@@ -12,9 +22,9 @@ function SingleCardWithHeader({ header, subtitle = '', body, button }) {
       <div className="card-body px-4 pt-0 !pb-4 relative flex flex-col">
         {
           (subtitle == '') ? (
-            <div className='mt-4'>
+            <>
               {body}
-            </div>
+            </>
           ) : (
             <>
               <div className='mb-3 mt-2 text-[1rem] font-semibold'>

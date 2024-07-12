@@ -527,7 +527,7 @@ export default function Tests() {
                                         <div className="nav-sticky">
                                             <div className="card">
                                                 <div className="card-body">
-                                                    <ul className="nav flex-column" id="stickyNav">
+                                                    <ul className="nav flex-column" id="stickyNavBody">
                                                         <li className="nav-item">
                                                             <Link className="nav-link" href="#navBordersComponent">
                                                                 <div className="d-flex align-items-center justify-content-between">

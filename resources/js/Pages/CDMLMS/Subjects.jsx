@@ -5,12 +5,23 @@ import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import { Headers } from "@/utils/headers"
 import { ExclamationTriangleIcon, XMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Link, Head, useForm } from '@inertiajs/react';
+import AlertCard from '@/Components/CDMLMS/AlertCard';
 
 
 const headers = Headers('w-9 w-9');
 
+
+/**
+ * @function Page
+ * 
+ * @param auth The Authentication 
+ * @returns Page
+ */
 export default function Subjects({ auth, subjects }) {
 
+    /**
+     * Empty Instance of Subjects
+     */
     const empty = {
         id: '',
         subject: '',
@@ -29,12 +40,18 @@ export default function Subjects({ auth, subjects }) {
 
     const [warning, setWarning] = useState(false);
 
+    /**
+     * Form for submition
+     */
     const { data, setData, post, patch, errors, hasErrors, processing, reset, recentlySuccessful } = useForm({
         id: '',
         subject: '',
         description: '',
     });
 
+    /**
+     * @function Post/Patch
+     */
     const submit = (e) => {
         e.preventDefault();
         if (data.subject != empty.subject) {
@@ -63,31 +80,27 @@ export default function Subjects({ auth, subjects }) {
                                 <>
                                     {Subject.description}
                                     {((warning && (selectedSubject.id == Subject.id)) && (
-                                        <div className='alert alert-warning alert-icon !absolute !-translate-x-2/4 !-translate-y-2/4 !m-0 !left-2/4 !top-2/4 !max-w-[40%]'>
-                                            <div className='flex flex-row absolute top-0 right-0  mt-[9px] mr-2 '>
-                                                <Link as='button' href={route('subjects.destroy', Subject.id)} method='delete'>
-                                                    <CheckIcon className="h-6 w-6 mx-1 hover:text-[#8b0d00]" />
-                                                </Link>
+                                        <AlertCard
+                                            type="alert-warning"
+                                            title={`Delete ${Subject.subject}?`}
+                                            message="The subject will be deleted forever and any related data to it"
+                                            actions={
+                                                <>
+                                                    <Link as='button' href={route('subjects.destroy', Subject.id)} method='delete'>
+                                                        <CheckIcon className="h-6 w-6 mx-1 hover:text-[#8b0d00]" />
+                                                    </Link>
 
-                                                <XMarkIcon className="h-6 w-6 mx-1 hover:cursor-pointer" onClick={() => { setWarning(false) }} />
-
-                                            </div>
-                                            <div className="alert-icon-aside">
-                                                <ExclamationTriangleIcon className="h-6 w-6" />
-                                            </div>
-                                            <div className="alert-icon-content">
-                                                <h6 className="alert-heading">Delete {Subject.subject}?</h6>
-                                                The subject will be deleted forever and any related data to it
-                                            </div>
-                                        </div>
+                                                    <XMarkIcon className="h-6 w-6 mx-1 hover:cursor-pointer" onClick={() => { setWarning(false) }} />
+                                                </>
+                                            }
+                                        />
                                     ))}
                                 </>
-
                             }
                             setWarning={
-                                 Subject.id == selectedSubject.id &&
-                                    warning
-                                
+                                Subject.id == selectedSubject.id &&
+                                warning
+
                             }
                             active={selectedSubject.id == Subject.id}
                             editAction={() => {
@@ -104,7 +117,6 @@ export default function Subjects({ auth, subjects }) {
                                     setSelectedSubject(empty);
                                     setData(empty);
                                 }
-
                                 if (warning) {
                                     setWarning(false);
                                 }
@@ -122,7 +134,8 @@ export default function Subjects({ auth, subjects }) {
                         />
                     )
                 }
-                stickyNav={
+                stickyNavHeader="Subject Details"
+                stickyNavBody={
                     <form onSubmit={submit} >
                         <div className="mb-3">
                             <label className="small !text-[16px] mb-1" >Subject {selectedSubject.id}</label>

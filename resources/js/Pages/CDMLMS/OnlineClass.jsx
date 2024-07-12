@@ -6,6 +6,12 @@ import { Head } from '@inertiajs/react'
 
 const headers = Headers('w-9 w-9');
 
+/**
+ * @function Page
+ * 
+ * @param  auth The Authentication 
+ * @returns Page
+ */
 export default function OnlineClass({ auth }) {
     return (
         <Layout user={auth.user} icon={headers[11].icon} headerTitle={headers[11].title} headerSubTitle={headers[11].subTitle}>

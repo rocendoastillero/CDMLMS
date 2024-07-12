@@ -1,5 +1,13 @@
 import React from 'react'
 
+/**
+ * @function Component a Card child for <CardsRow/> 
+ * Card with centered contents
+ * @param {*} title Header
+ * @param {*} body Card Body
+ * @param {*} image Image Content 
+ * @returns HTML
+ */
 function CardsCenter({ title, body , image = null}) {
     return (
         <div className="col-xxl-6 col-xl-12 mb-4">

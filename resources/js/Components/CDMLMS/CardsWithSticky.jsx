@@ -1,6 +1,17 @@
 import React from 'react'
 
-function CardsWithSticky({ cards, stickyNav, withCard = true, stickySize = '', contentSize = '' }) {
+/**
+ * @function Component Container of cards with Sticky Nav
+ * 
+ * @param  cards Cards children 
+ * @param withCard show Card of Sticky 
+ * @param  stickyNavHeader Header of Sticky Nav
+ * @param stickyNavBody Body of Sticky Nav
+ * @param stickySize tailwind for the width of Sticky column
+ * @param contentSize tailwind for the width of Cards column
+ * @returns HTML
+ */
+function CardsWithSticky({ cards,stickyNavHeader, stickyNavBody, withCard = true, stickySize = '', contentSize = '' }) {
     return (
         <div className="row">
             <div className={`col-lg-9 ${contentSize}`}>
@@ -12,14 +23,16 @@ function CardsWithSticky({ cards, stickyNav, withCard = true, stickySize = '', c
                     withCard ? (
                         <div className="nav-sticky">
                             <div className="card mb-4">
-                                <div className="card-header">Subject Details</div>
+                                <div className="card-header">
+                                    {stickyNavHeader}
+                                </div>
                                 <div className="card-body">
-                                    {stickyNav}
+                                    {stickyNavBody}
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        stickyNav
+                        stickyNavBody
                     )
                 }
             </div>

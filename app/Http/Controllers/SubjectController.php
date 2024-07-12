@@ -66,17 +66,18 @@ class SubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subject $subject) : RedirectResponse
+    public function update(Request $request, Subject $subject) 
+    // : RedirectResponse
     {
-        Gate::authorize('update', $subject);
-        $validated = $request->validate([
-            'subject' => 'required|string|max:255',
-            'description' => 'required|string|max:255'
-        ]);
+        // Gate::authorize('update', $subject);
+        // $validated = $request->validate([
+        //     'subject' => 'required|string|max:255',
+        //     'description' => 'required|string|max:255'
+        // ]);
 
-        $subject->update($validated);
+        // $subject->update($validated);
 
-        return redirect(route('subjects.index'));
+        return $subject;
     }
 
     /**

@@ -69,4 +69,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(AccomplishmentReport::class);
     }
+
+    /**
+     * Get all of the dummies for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function dummies(): HasMany
+    {
+        return $this->hasMany(Dummy::class);
+    }
 }

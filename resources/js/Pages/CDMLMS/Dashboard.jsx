@@ -11,6 +11,12 @@ import { useState } from "react";
 
 const headers = Headers('w-9 w-9');
 
+/**
+ * @function Page
+ * 
+ * @param  auth The Authentication 
+ * @returns Page
+ */
 export default function Dashboard({ auth }) {
 
     const [dropdown, setDropDown] = useState(false);

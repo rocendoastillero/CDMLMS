@@ -1,14 +1,22 @@
 import React, { useState } from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
-import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon, ArchiveBoxXMarkIcon } from "@heroicons/react/24/outline";
 
 import Layout from '@/Layouts/Layout'
 import { Headers } from "@/utils/headers"
-import { Head, useForm } from '@inertiajs/react'
+import { Head, Link, useForm } from '@inertiajs/react'
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
+import AlertCard from '@/Components/CDMLMS/AlertCard';
 
 const headers = Headers('w-9 w-9');
 
+/**
+ * @function Page Page of the Accomplishment Reports
+ * 
+ * @param auth The Authentication 
+ * @param reports Accomplishment Reports 
+ * @returns Page
+ */
 export default function AccomplishmentReports({ auth, reports }) {
 
     const [view, setView] = useState(1);
@@ -47,9 +55,10 @@ export default function AccomplishmentReports({ auth, reports }) {
             setEmptyName(true);
         } else {
             if (editing) {
-                patch(route('accomplishment reports.update', data.id), { onSuccess: () => reset() });
+                console.log(data.id);
+                patch(route('dummy.update', data.id), { onSuccess: () => reset() });
             } else {
-                post(route('accomplishment reports.store'), { onSuccess: () => reset() });
+                post(route('dummy.store'), { onSuccess: () => reset() });
                 setView(1);
             }
         }
@@ -64,47 +73,57 @@ export default function AccomplishmentReports({ auth, reports }) {
                 cards={
                     <>
                         {(() => {
-                            if (view == 1) {
-                                return (
-                                    reports.map(report =>
-                                        <SingleCardWithHeader
-                                            key={report.id}
-                                            header={
-                                                <div className='text-[1.2rem] font-semibold'>
-                                                    {report.title}
-                                                </div>
-                                            }
-                                            subtitle={report.subtitle}
-                                            body={report.body}
-                                            button={
-                                                <div className='flex flex-row'>
-                                                    <div className={`rounded-[50%] h-10 w-10 bg-sky-500 flex place-content-center items-center mx-1 hover:!bg-sky-700  `}
-                                                        onClick={
-                                                            () => {
-                                                                setEditing(true);
-                                                                setSelectedReport(report);
-                                                                setData(report);
-                                                                setView(2);
-                                                            }
-                                                        }
-                                                    >
-                                                        <PencilIcon className={`h-5 w-5 !text-white hover:!text-white `} />
-                                                    </div>
-                                                    <div className='rounded-[50%] h-10 w-10 bg-red-500 flex place-content-center items-center mx-1 hover:!bg-red-700'
-                                                        onClick={
-                                                            () => {
-                                                                setSelectedReport(report);
-                                                            }
-                                                        }
-                                                    >
-                                                        <TrashIcon class="h-5 w-5  text-white" />
-                                                    </div>
-                                                </div>
-                                            }
-                                        />
-                                    )
-                                );
 
+                            if (view == 1) {
+                                if (reports == '') {
+                                    return (
+                                        <AlertCard
+                                            type='alert-info'
+                                            icon={<ArchiveBoxXMarkIcon class="h-6 w-6 " />}
+                                            title="Empty!"
+                                            message="Reports are empty"
+                                        />
+                                    );
+                                } else {
+
+
+                                    return (
+                                        reports.map(report =>
+                                            <SingleCardWithHeader
+                                                key={report.id}
+                                                header={
+                                                    <div className='text-[1.2rem] font-semibold'>
+                                                        {report.title}
+                                                    </div>
+                                                }
+                                                subtitle={report.subtitle}
+                                                body={report.body}
+                                                button={
+                                                    <div className='flex flex-row'>
+                                                        <div className={`rounded-[50%] h-10 w-10 bg-sky-500 flex place-content-center items-center mx-1 hover:!bg-sky-700  `}
+                                                            onClick={
+                                                                () => {
+                                                                    setEditing(true);
+                                                                    setSelectedReport(report);
+                                                                    setData(report);
+                                                                    setView(2);
+                                                                }
+                                                            }
+                                                        >
+                                                            <PencilIcon className={`h-5 w-5 !text-white hover:!text-white `} />
+                                                        </div>
+
+                                                        <Link className='rounded-[50%] h-10 w-10 bg-red-500 flex place-content-center items-center mx-1 hover:!bg-red-700' as='button' method='delete'
+                                                            href={route('dummy.destroy', report.id)}
+                                                        >
+                                                            <TrashIcon class="h-5 w-5  text-white" />
+                                                        </Link>
+                                                    </div>
+                                                }
+                                            />
+                                        )
+                                    );
+                                }
                             } else if (view == 0 || view == 2) {
                                 return (
                                     <SingleCardWithHeader
@@ -126,6 +145,7 @@ export default function AccomplishmentReports({ auth, reports }) {
                                         }
                                         body={
                                             <form className='p-3' onSubmit={submit}>
+                                                {data.id}
                                                 <div className="mb-4">
                                                     <input className="form-control !rounded-none !border-0 !border-b-2 !text-lg focus:!border-black focus:!ring-0 !w-2/3" type="text" placeholder="Title" value={data.title} onChange={(e) => { setData('title', e.target.value) }} />
                                                 </div>
@@ -149,34 +169,39 @@ export default function AccomplishmentReports({ auth, reports }) {
                                     />
                                 );
                             }
+
                         })()}
                     </>
                 }
                 withCard={false}
-                stickyNav={
+                stickyNavBody={
                     <div className='flex flex-col text-right pr-4'>
-                        <div className='text-slate-800 font-bold text-lg my-2 w-full hover:cursor-pointer ' 
-                        onClick={() => {
-                            setEditing(false);
-                            setData(empty);
-                            setSelectedReport(empty);
-                            setView(1) ;
-                        }}
+                        <div className='text-slate-800 font-bold text-lg my-2 w-full hover:cursor-pointer '
+                            onClick={() => {
+                                setEditing(false);
+                                setData(empty);
+                                setSelectedReport(empty);
+                                setView(1);
+                            }}
                         >
-                            <div className={`transition ease-in-out delay-100 hover:translate-x-[-18px] hover:!text-slate-900 ${(view == 1) && ("!translate-x-[-48px]")}`}>
-                                Reports
+                            <div className={` border-[#009F1B] ${(view == 1) && ("border-l-2")}`}>
+                                <div className={`transition ease-in-out delay-100 hover:translate-x-[-18px] hover:!text-[#009F1B] ${(view == 1) && ("!translate-x-[-48px] !text-[#009F1B]")}`}>
+                                    Reports
+                                </div>
                             </div>
                         </div>
-                        <div className='text-slate-800 font-bold text-lg my-2 w-full hover:cursor-pointer ' 
-                        onClick={() => {
-                            setEditing(false);
-                            setData(empty);
-                            setSelectedReport(empty);
-                            setView(0) ;
-                        }}
+                        <div className='text-slate-800 font-bold text-lg my-2 w-full hover:cursor-pointer '
+                            onClick={() => {
+                                setEditing(false);
+                                setData(empty);
+                                setSelectedReport(empty);
+                                setView(0);
+                            }}
                         >
-                            <div className={`transition ease-in-out delay-100 hover:translate-x-[-18px] hover:!text-slate-900 ${(view == 0) && ("!translate-x-[-48px]")}`}>
-                                Create
+                            <div className={` border-[#009F1B] ${(view == 0) && ("border-l-2")}`}>
+                                <div className={`transition ease-in-out delay-100 hover:translate-x-[-18px] hover:!text-[#009F1B] ${(view == 0) && ("!translate-x-[-48px] !text-[#009F1B]")}`}>
+                                    Create
+                                </div>
                             </div>
                         </div>
                         {
