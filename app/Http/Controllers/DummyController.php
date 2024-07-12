@@ -33,10 +33,10 @@ class DummyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'bail|required|string|max:255',
             'subtitle' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
@@ -74,6 +74,7 @@ class DummyController extends Controller
             'subtitle' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
+        
         $dummy->update($validated);
 
         return redirect(route('dummy.index'));

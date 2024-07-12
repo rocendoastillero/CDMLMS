@@ -54,16 +54,15 @@ export default function Subjects({ auth, subjects }) {
      */
     const submit = (e) => {
         e.preventDefault();
-        if (data.subject != empty.subject) {
+        // if (data.subject != empty.subject) {
             if (editing) {
-                console.log('asdasdasd');
                 patch(route('subjects.update', data.id), { preserveScroll: true });
             } else {
                 post(route('subjects.store'), { onSuccess: () => reset() });
             }
-        } else {
-            setEmptyName(true);
-        }
+        // } else {
+        //     setEmptyName(true);
+        // }
     };
 
     return (
@@ -158,7 +157,7 @@ export default function Subjects({ auth, subjects }) {
                             {
                                 hasErrors && (
                                     <div className="alert alert-danger !py-2 !pt-3 !my-0 ml-2 !text-[12px]" role="alert">
-                                        {errors}
+                                        {errors.subject}
                                     </div>
                                 )
                             }

@@ -38,7 +38,7 @@ class SubjectController extends Controller
     public function store(Request $request) : RedirectResponse
     {
         $validated = $request->validate([
-            'subject' => 'required|string|max:255',
+            'subject' => 'required|unique:subjects|string|max:255',
             'description' => 'required|string|max:255'
         ]);
 

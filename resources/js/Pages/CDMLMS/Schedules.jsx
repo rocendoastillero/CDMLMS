@@ -12,7 +12,7 @@ const headers = Headers('w-9 w-9');
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function Schedules({ auth }) {
+export default function Schedules({ auth, subjects, schedules }) {
     return (
         <Layout user={auth.user} icon={headers[5].icon} headerTitle={headers[5].title} headerSubTitle={headers[5].subTitle}>
             <Head title={headers[5].title} />

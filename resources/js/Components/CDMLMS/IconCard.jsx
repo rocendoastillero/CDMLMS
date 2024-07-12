@@ -22,7 +22,7 @@ function IconCard({ icon = null, title, body, className = 'bg-sky-800', editActi
                     <PencilIcon className={`h-5 w-5 !text-white hover:!text-white ${active ? " !text-gray-600" : ""}`} />
                 </div>
                 <div className='rounded-[50%] h-10 w-10 bg-red-500 flex place-content-center items-center mx-1 hover:!bg-red-700' onClick={deleteAction}>
-                    <TrashIcon class="h-5 w-5  text-white"  />
+                    <TrashIcon className="h-5 w-5  text-white"  />
                 </div>
 
             </div>
