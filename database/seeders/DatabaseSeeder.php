@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Subject;
+    use App\Models\Subject;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -102,7 +102,7 @@ class DatabaseSeeder extends Seeder
 
             ['code' =>'CPEDES2'	, 'description' => 'CpE Practice and Design 2', 'year' => '4th', 'sem' => '2nd'],
             ['code' =>'CPESAFT'	, 'description' => 'Seminars and Field Trips', 'year' => '4th', 'sem' => '2nd']
-
+            //TODO IT Subbjects
         ];
 
         Subject::insert($subjects);
