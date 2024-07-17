@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('dummies', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->cascadeOnDelete();
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->longText('body');

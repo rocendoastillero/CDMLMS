@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Subject::class);
-            $table->dateTime('schedule');
-            $table->string('description')->nullable();
+            $table->foreignIdFor(User::class)->cascadeOnDelete();
+            $table->foreignIdFor(Subject::class)->cascadeOnDelete();
+            $table->dateTime('schedule')->nullable();
+            $table->string('room')->nullable();
             $table->timestamps();
         });
     }

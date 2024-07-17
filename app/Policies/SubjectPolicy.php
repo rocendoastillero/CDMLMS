@@ -14,7 +14,7 @@ class SubjectPolicy
      */
     public function viewAny(User $user): bool
     {
-
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class SubjectPolicy
      */
     public function create(User $user): bool
     {
-
+        return $user->type === 'admin';
     }
 
     /**

@@ -1,19 +1,19 @@
 import React from 'react'
 
 
-/** TODOOOOOOO
+/** 
+ * 
  * @function Component Card with Icon 
  * @param  icon Icon of Card
  * @param  title  Title of Card
  * @param  body  Body of Card
- * @param  className CHANGE THIS
- * @param  editAction CHANGE THIS
- * @param  deleteAction CHANGE THIS
- * @param  PUT_THESE_IN_ONE_PROP
+ * @param  iconColor Tailwind bg-color
+ * @param  selectAction Funtion for when the card is clicked
+ * @param  setWarning Boolean for a warning 
  * 
  * @returns HTML
  */
-function IconCard({ icon = null, title, body, className = 'bg-sky-800', actions, active, selectAction, setWarning}) {
+function IconCard({ icon = null, title, body, iconColor = 'bg-sky-800', actions, active, selectAction, setWarning}) {
 
     
     return (
@@ -22,7 +22,7 @@ function IconCard({ icon = null, title, body, className = 'bg-sky-800', actions,
                 {actions}
             </div>
             <div className="row g-0 ">
-                <div className={`col-auto card-icon-aside ` + className} >
+                <div className={`col-auto card-icon-aside ` + iconColor} >
                     {icon}
                 </div>
                 <div className="col">

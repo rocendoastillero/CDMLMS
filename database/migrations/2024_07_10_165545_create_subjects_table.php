@@ -14,12 +14,13 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->cascadeOnDelete();
-            $table->string('subject');
+            $table->foreignIdFor(User::class)->nullable();
+            $table->string('code')->unique();
             $table->string('description');
+            $table->string('year');
+            $table->string('sem');
             $table->timestamps();
         });
-
     }
 
     /**

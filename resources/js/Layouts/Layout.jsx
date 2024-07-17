@@ -42,7 +42,7 @@ export default function Layout(
                 <button onClick={() => { setIsOpen(!isOpen) }} className="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0" id="sidebarToggle">
                     <Bars3Icon className="h-5 w-5 text-gray-600" />
                 </button>
-                <Link className="navbar-brand pe-3 ps-4 ps-lg-2" href={route('d')}>
+                <Link className="navbar-brand pe-3 ps-4 ps-lg-2" href={route('dashboard')}>
                     CDM LMS
                 </Link>
                 <form className="form-inline me-auto d-none d-lg-block">

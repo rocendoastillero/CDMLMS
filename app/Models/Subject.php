@@ -16,6 +16,10 @@ class Subject extends Model
         'description'
     ];
     
+    protected $appends = [
+        'instructor'
+    ];
+
     /**
      * Get the user that owns the Subject
      *
