@@ -14976,42 +14976,42 @@ body {
   overflow-x: hidden;
 }
 
-@font-face {
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-Thin.otf");
   font-weight: 100;
   font-style: normal;
-}
-@font-face {
+} */
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-ThinItalic.otf");
   font-weight: 100;
   font-style: italic;
-}
-@font-face {
+} */
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-ExtraLight.otf");
   font-weight: 200;
   font-style: normal;
-}
-@font-face {
+} */
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-ExtraLightItalic.otf");
   font-weight: 200;
   font-style: italic;
-}
-@font-face {
+} */
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-Light.otf");
   font-weight: 300;
   font-style: normal;
-}
-@font-face {
+} */
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-LightItalic.otf");
   font-weight: 300;
   font-style: italic;
-}
+} */
 @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-Regular.otf");
@@ -15030,60 +15030,60 @@ body {
   font-weight: 500;
   font-style: normal;
 }
-@font-face {
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-MediumItalic.otf");
   font-weight: 500;
   font-style: italic;
-}
+} */
 @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-SemiBold.otf");
   font-weight: 600;
   font-style: normal;
 }
-@font-face {
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-SemiBoldItalic.otf");
   font-weight: 600;
   font-style: italic;
-}
+} */
 @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-Bold.otf");
   font-weight: 700;
   font-style: normal;
 }
-@font-face {
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-BoldItalic.otf");
   font-weight: 700;
   font-style: italic;
-}
-@font-face {
+} */
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-ExtraBold.otf");
   font-weight: 800;
   font-style: normal;
-}
-@font-face {
+} */
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-ExtraBoldItalic.otf");
   font-weight: 800;
   font-style: italic;
-}
-@font-face {
+} */
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-Black.otf");
   font-weight: 800;
   font-style: normal;
-}
-@font-face {
+} */
+/* @font-face {
   font-family: "Metropolis";
   src: url("@/font/Metropolis-BlackItalic.otf");
   font-weight: 800;
   font-style: italic;
-}
+} */
 #layoutAuthentication {
   display: flex;
   flex-direction: column;

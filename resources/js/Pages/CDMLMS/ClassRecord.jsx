@@ -14,9 +14,11 @@ const headers = Headers('w-9 w-9');
  * @returns Page
  */
 export default function ClassRecord({ auth }) {
+
+    
     return (
-        <Layout user={auth.user} icon={headers[7].icon} headerTitle={"Class Record"} headerSubTitle={headers[7].title} openDropdown={true}>
-            <Head title={headers[7].title} />
+        <Layout user={auth.user} icon={headers[5].icon} headerTitle={"Class Record"} headerSubTitle={headers[5].title} openDropdown={true}>
+            <Head title={headers[5].title} />
             <CardsWithSticky
                 contentSize='!w-8/12'
                 stickySize='!w-4/12'
@@ -36,7 +38,6 @@ export default function ClassRecord({ auth }) {
                     </div>
                 }
             />
-
         </Layout>
     )
 }

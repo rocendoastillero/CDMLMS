@@ -36,11 +36,9 @@ class SubjectPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Subject $subject): Response
+    public function update(User $user, Subject $subject): bool
     {
-        return $subject->user()->is($user)?
-        Response::deny($subject):
-        Response::deny($subject);
+        return $subject->user()->is($user);
     }
 
     /**

@@ -37,7 +37,7 @@ class AccomplishmentReportController extends Controller
     public function store(Request $request) : RedirectResponse
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|unique:subjects|string|max:255',
             'subtitle' => 'required|string|max:255',
             'body' => 'required|string',
         ]);

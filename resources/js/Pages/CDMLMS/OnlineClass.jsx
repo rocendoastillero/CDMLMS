@@ -14,8 +14,8 @@ const headers = Headers('w-9 w-9');
  */
 export default function OnlineClass({ auth }) {
     return (
-        <Layout user={auth.user} icon={headers[11].icon} headerTitle={headers[11].title} headerSubTitle={headers[11].subTitle}>
-            <Head title={headers[11].title} />
+        <Layout user={auth.user} icon={headers[9].icon} headerTitle={headers[9].title} headerSubTitle={headers[9].subTitle}>
+            <Head title={headers[9].title} />
             <SingleCardWithHeader
                 header="OnlineClass"
                 body={

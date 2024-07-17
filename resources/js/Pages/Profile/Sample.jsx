@@ -75,7 +75,7 @@ export default function Sample({auth, mustVerifyEmail , status}) {
                                     </div>
                                     <div className="col-md-6">
                                         <label className="small mb-1" for="inputBirthday">Birthday</label>
-                                        <input className="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday"  />
+                                        <input className="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Enter your birthday"  />
                                     </div>
                                 </div>
                                 <button className="btn btn-primary" type="button">Save changes</button>

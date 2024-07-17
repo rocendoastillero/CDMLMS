@@ -3,7 +3,7 @@ import Layout from "@/Layouts/Layout";
 import IconCard from '@/Components/CDMLMS/IconCard';
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import { Headers } from "@/utils/headers"
-import { ExclamationTriangleIcon, XMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon, XMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { Link, Head, useForm } from '@inertiajs/react';
 import AlertCard from '@/Components/CDMLMS/AlertCard';
 
@@ -55,19 +55,19 @@ export default function Subjects({ auth, subjects }) {
     const submit = (e) => {
         e.preventDefault();
         // if (data.subject != empty.subject) {
-            if (editing) {
-                patch(route('subjects.update', data.id), { preserveScroll: true });
-            } else {
-                post(route('subjects.store'), { onSuccess: () => reset() });
-            }
+        if (editing) {
+            patch(route('subjects.update', data.id), { preserveScroll: true });
+        } else {
+            post(route('subjects.store'), { onSuccess: () => reset() });
+        }
         // } else {
         //     setEmptyName(true);
         // }
     };
 
     return (
-        <Layout user={auth.user} icon={headers[4].icon} headerTitle={headers[4].title} headerSubTitle={headers[4].subTitle}>
-            <Head title={headers[4].title} />
+        <Layout user={auth.user} icon={headers[2].icon} headerTitle={headers[2].title} headerSubTitle={headers[2].subTitle}>
+            <Head title={headers[2].title} />
             <CardsWithSticky
                 cards={
                     //TODO check if the key is not the same
@@ -102,8 +102,7 @@ export default function Subjects({ auth, subjects }) {
 
                             }
                             active={selectedSubject.id == Subject.id}
-                            editAction={() => {
-
+                            selectAction={() => {
                                 if (editing && (Subject.id != selectedSubject.id)) {
                                     setSelectedSubject(Subject);
                                     setData(Subject);
@@ -120,16 +119,46 @@ export default function Subjects({ auth, subjects }) {
                                     setWarning(false);
                                 }
                             }}
-                            deleteAction={() => {
-                                if (Subject.id == selectedSubject.id) {
-                                    setWarning(!warning);
-                                } else if (!editing && selectedSubject.id == '') {
-                                    setEditing(true);
-                                    setSelectedSubject(Subject);
-                                    setData(Subject);
-                                    setWarning(!warning);
-                                }
-                            }}
+                            actions={
+                                <>
+                                    <div className={`rounded-[50%] h-10 w-10 bg-sky-500 flex place-content-center items-center mx-1 hover:!bg-sky-700  ${selectedSubject.id == Subject.id ? "!bg-sky-700 " : ""}`}
+                                        onClick={() => {
+                                            if (editing && (Subject.id != selectedSubject.id)) {
+                                                setSelectedSubject(Subject);
+                                                setData(Subject);
+                                            } else if (!editing && selectedSubject.id == '') {
+                                                setEditing(true);
+                                                setSelectedSubject(Subject);
+                                                setData(Subject);
+                                            } else if (editing && Subject.id == selectedSubject.id) {
+                                                setEditing(false);
+                                                setSelectedSubject(empty);
+                                                setData(empty);
+                                            }
+                                            if (warning) {
+                                                setWarning(false);
+                                            }
+                                        }} >
+                                        <PencilIcon className={`h-5 w-5 !text-white hover:!text-white ${selectedSubject.id == Subject.id ? " !text-gray-600" : ""}`} />
+                                    </div>
+                                    <div className='rounded-[50%] h-10 w-10 bg-red-500 flex place-content-center items-center mx-1 hover:!bg-red-700' 
+                                    onClick={
+                                        () => {
+                                            if (Subject.id == selectedSubject.id) {
+                                                setWarning(!warning);
+                                            } else if (!editing && selectedSubject.id == '') {
+                                                setEditing(true);
+                                                setSelectedSubject(Subject);
+                                                setData(Subject);
+                                                setWarning(!warning);
+                                            }
+                                        }   
+                                    }>
+                                        <TrashIcon className="h-5 w-5  text-white" />
+                                    </div>
+
+                                </>
+                            }
                         />
                     )
                 }
@@ -137,8 +166,8 @@ export default function Subjects({ auth, subjects }) {
                 stickyNavBody={
                     <form onSubmit={submit} >
                         <div className="mb-3">
-                            <label className="small !text-[16px] mb-1" >Subject {selectedSubject.id}</label>
-                            <input className={`form-control  ${empytName ? "!border-red-600" : ""}`} id="inputSubject" type="text" placeholder="Subject Name" value={data.subject} onChange={(e) => { setData('subject', e.target.value) }} />
+                            <label className="small !text-[16px] mb-1" >Subject</label>
+                            <input className={`form-control  ${empytName ? "!border-red-600" : ""}`} type="text" placeholder="Subject Name" value={data.subject} onChange={(e) => { setData('subject', e.target.value) }} />
                         </div>
                         <div className="mb-3">
                             <label className="small !text-[16px] mb-1" >Description</label>

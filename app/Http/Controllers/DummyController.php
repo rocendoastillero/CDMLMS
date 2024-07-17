@@ -17,6 +17,7 @@ class DummyController extends Controller
      */
     public function index(): Response
     {
+        // return Inertia::render('Tests');
         return Inertia::render('CDMLMS/AccomplishmentReports', [
             'reports' => Dummy::where('user_id', Auth::user()->id)->latest()->get()
         ]);

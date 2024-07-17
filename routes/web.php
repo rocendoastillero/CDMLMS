@@ -3,15 +3,11 @@
 use App\Http\Controllers\AccomplishmentReportController;
 use App\Http\Controllers\DummyController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-Route::get('/t', function () {
-    return Inertia::render('Tests');
-});
-
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -29,13 +25,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::resource('subjects', SubjectController::class)
-    ->only(['index', 'store', 'update', 'show', 'destroy']);
+    ->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('dummy', DummyController::class)
-    ->only(['index', 'store', 'update', 'show', 'destroy']);
+    ->only(['index', 'store', 'update', 'destroy']);
     
     Route::resource('accomplishmentreports', AccomplishmentReportController::class)
-    ->only(['index', 'store', 'update', 'show', 'destroy']);
+    ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('schedules', ScheduleController::class)
+    ->only(['index', 'store', 'update', 'destroy']);
 
 });
 
@@ -53,9 +52,6 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('CDMLMS/People');
     });
    
-    Route::get('/schedules', function () {
-        return Inertia::render('CDMLMS/Schedules');
-    });
     Route::get('/attendance', function () {
         return Inertia::render('CDMLMS/Attendance');
     });

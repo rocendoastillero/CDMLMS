@@ -21,6 +21,8 @@ export default function Anouncements({ auth }) {
         <Layout user={auth.user} icon={headers[1].icon} headerTitle={headers[1].title} headerSubTitle={headers[1].subTitle}>
             <Head title={headers[1].title} />
             <CardsWithSticky
+                contentSize='!w-10/12'
+                stickySize='!w-2/12'
                 cards={
                     <>
                         <IconCard

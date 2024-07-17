@@ -1,8 +1,9 @@
-import React from 'react'
-import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
+import React, { useEffect, useState } from 'react'
 import Layout from '@/Layouts/Layout'
 import { Headers } from "@/utils/headers"
 import { Head } from '@inertiajs/react'
+import AlertCard from '@/Components/CDMLMS/AlertCard';
+import { ArchiveBoxXMarkIcon } from '@heroicons/react/24/outline';
 
 const headers = Headers('w-9 w-9');
 
@@ -13,29 +14,69 @@ const headers = Headers('w-9 w-9');
  * @returns Page
  */
 export default function Schedules({ auth, subjects, schedules }) {
+
+    const [tab, setTab] = useState({
+        index: 0,
+        subject_id: subjects == '' ? '' : subjects[0].id,
+        subject_name: subjects == '' ? '' : subjects[0].subject
+    });
+
+    useEffect(() => {
+    }, []);
+
     return (
-        <Layout user={auth.user} icon={headers[5].icon} headerTitle={headers[5].title} headerSubTitle={headers[5].subTitle}>
-            <Head title={headers[5].title} />
-            <nav className="nav nav-borders  !mb-8">
-                <a className="nav-link !text-white ms-0" href="account-profile.html">Profile</a>
-                <a className="nav-link !text-white active" href="account-billing.html">Billing</a>
-                <a className="nav-link !text-white" href="account-security.html">Security</a>
-                <a className="nav-link !text-white" href="account-notifications.html">Notifications</a>
-            </nav>
-            <div className='w-full flex flex-row overflow-x-auto'>
-                <div className='flex w-[14.2857142857%] mx-2'>
-                    <a className="card lift lift-sm h-100" href="https://request.pnm.edu.ph">
-                        <div className="card-body py-5">
-                            <h5 className="card-title text-primary mb-2 flex">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="feather feather-clipboard me-2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                                Student Google Email                                            </h5>
-                            <p className="card-text">Get your your.name@student.pnm.edu.ph email now! Exclusively available for enrolled students of Colegio de Montalban. Go to request.pnm.edu.ph or click this card.</p>
-                        </div>
-                        <div className="card-footer">
-                            <div className="small text-muted">May-30-24</div>
-                        </div>
-                    </a>
+        <Layout user={auth.user} icon={headers[3].icon} headerTitle={headers[3].title} headerSubTitle={headers[3].subTitle}>
+            <Head title={headers[3].title} />
+            <nav className="nav nav-borders flex justify-between !mb-8">
+                <div className='flex flex-row items-center'>
+                    {
+
+                        subjects.map((subject, index) =>
+                            <div className={`nav-link cursor-pointer ${tab.index == index ? "border-b-4 border-white !text-white" : "!text-gray-300 "}`} key={subject.id} onClick={() => setTab({ index: index, subject_id: subject.id, subject_name: subject.subject })}>
+                                {subject.subject}
+                            </div>
+                        )
+                    }
                 </div>
+                <div className='flex flex-row items-center text-white'>
+                    <div className='cursor-pointer '>
+
+                    </div>
+                </div>
+            </nav>
+            <div className='w-full grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 '>
+                {
+                    schedules != '' ? (
+                        schedules.map(schedule => tab.subject_id == schedule.subject_id && (
+                            <div className='flex mx-2 mb-4'>
+                                <a className="card lift lift-sm h-100" href="https://request.pnm.edu.ph">
+                                    <div className="card-body py-5">
+                                        <h5 className="card-title text-primary mb-2 flex">
+                                            {tab.subject_name}
+                                        </h5>
+                                        <p className="card-text">Description</p>
+                                    </div>
+                                    <div className="card-footer">
+                                        <div className="small text-muted">May-30-24</div>
+                                    </div>
+                                </a>
+                            </div>
+                        ))
+                    ) : (
+                        <AlertCard
+                            type='alert-info'
+                            icon={<ArchiveBoxXMarkIcon className="h-6 w-6" />}
+                            title="Empty!"
+                            message={
+                                <div className='flex flex-row'>
+                                    Schedules for
+                                    <h6 className='alert-heading mx-1 mt-[.2rem]'>{tab.subject_name}</h6>
+                                     are empty
+                                </div>
+                            }
+                        />
+                    )
+                }
             </div>
         </Layout>
     )
