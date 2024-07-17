@@ -20,9 +20,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::table('subjects', function (Blueprint $table){
-            $table->foreignIdFor(User::class)->cascadeOnDelete();
-        });
     }
 
     /**
