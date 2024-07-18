@@ -21,6 +21,7 @@ class AdminController extends Controller
         return Inertia::render('Admin/Instructors',[
             'instructors' => User::where('type', 'user')
             ->latest()
+            ->orderBy('verified')
             ->get()
             ->makeHidden(['username','address','email','email_verified_at','created_at','updated_at','phone'])
         ]);

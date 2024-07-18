@@ -4,8 +4,8 @@ import { Bars3Icon, UsersIcon } from '@heroicons/react/24/outline';
 import { Link } from '@inertiajs/react';
 import React, { useState } from 'react'
 
-//TODO faculty verification, finish admin layout
-export default function Admin({ user , children, icon, headerTitle, headerSubtitle}) {
+//TODO Subjects, finish admin layout
+export default function Admin({ user, children, icon, headerTitle, headerSubtitle }) {
 
     const [isOpen, setIsOpen] = useState(true)
 
@@ -27,40 +27,40 @@ export default function Admin({ user , children, icon, headerTitle, headerSubtit
                         <div className="input-group-text"><i data-feather="search"></i></div>
                     </div>
                 </form>
-                    <div className="ms-3 mr-6 relative">
-                        <Dropdown>
-                            <Dropdown.Trigger>
-                                <span className="inline-flex rounded-md">
-                                    <button
-                                        type="button"
-                                        className="text-[#212832] inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                <div className="ms-3 mr-6 relative">
+                    <Dropdown>
+                        <Dropdown.Trigger>
+                            <span className="inline-flex rounded-md">
+                                <button
+                                    type="button"
+                                    className="text-[#212832] inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                >
+                                    {user.username}
+
+                                    <svg
+                                        className="ms-2 -me-0.5 h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
                                     >
-                                        {user.username}
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                            </span>
+                        </Dropdown.Trigger>
 
-                                        <svg
-                                            className="ms-2 -me-0.5 h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </Dropdown.Trigger>
-
-                            <Dropdown.Content>
-                                <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                <Dropdown.Link href={route('logout')} method="post" as="button">
-                                    Log Out
-                                </Dropdown.Link>
-                            </Dropdown.Content>
-                        </Dropdown>
-                    </div>
+                        <Dropdown.Content>
+                            <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                            <Dropdown.Link href={route('logout')} method="post" as="button">
+                                Log Out
+                            </Dropdown.Link>
+                        </Dropdown.Content>
+                    </Dropdown>
+                </div>
             </nav>
             <div id="layoutSidenav">
                 <div id="layoutSidenav_nav" style={{ width: isOpen ? "240px" : "0px" }}>
@@ -75,9 +75,19 @@ export default function Admin({ user , children, icon, headerTitle, headerSubtit
                                 {/* { icon: <UsersIcon className={`${size} text-gray-500`} />, title: 'People', subTitle: "View People" } */}
                                 <Link className='nav-link hover:cursor-pointer !py-[10px]' href={route('admin.instructors')}>
                                     <div className='nav-link-icon'>
-                                        <UsersIcon className='w-5 h-5 text-gray-500' /> 
+                                        <UsersIcon className='w-5 h-5 text-gray-500' />
                                     </div>
                                     Instructors
+                                </Link>
+                                <Link>
+                                
+                                    Subjects
+                                </Link>
+                                <Link>
+                                    Schedule
+                                </Link>
+                                <Link>
+                                    Anouncements
                                 </Link>
                                 <div className="sidenav-menu-heading text-gray-500">Faculty</div>
 
