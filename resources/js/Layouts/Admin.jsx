@@ -79,14 +79,14 @@ export default function Admin({ user, children, icon, headerTitle, headerSubtitl
                                     </div>
                                     Instructors
                                 </Link>
-                                <Link>
+                                <Link className="nav-link hover:cursor-pointer">
                                 
                                     Subjects
                                 </Link>
-                                <Link>
+                                <Link className="nav-link hover:cursor-pointer">
                                     Schedule
                                 </Link>
-                                <Link>
+                                <Link className="nav-link hover:cursor-pointer">
                                     Anouncements
                                 </Link>
                                 <div className="sidenav-menu-heading text-gray-500">Faculty</div>
