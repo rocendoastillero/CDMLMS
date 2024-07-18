@@ -22,7 +22,7 @@ export default function Dashboard({ auth }) {
     const [dropdown, setDropDown] = useState(false);
 
     return (
-        <Layout user={auth.user} icon={headers[0].icon} headerTitle={headers[0].title} headerSubTitle={headers[0].subTitle}>
+        <Layout user={auth.user} icon={headers[0].icon} headerTitle={headers[0].title} headerSubtitle={headers[0].subTitle}>
             <Head title={headers[0].title} />
 
             <CardsRow

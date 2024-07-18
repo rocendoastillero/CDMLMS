@@ -18,7 +18,7 @@ const headers = Headers('w-12 w-12');
  */
 export default function Anouncements({ auth }) {
     return (
-        <Layout user={auth.user} icon={headers[1].icon} headerTitle={headers[1].title} headerSubTitle={headers[1].subTitle}>
+        <Layout user={auth.user} icon={headers[1].icon} headerTitle={headers[1].title} headerSubtitle={headers[1].subTitle}>
             <Head title={headers[1].title} />
             <CardsWithSticky
                 contentSize='!w-10/12'

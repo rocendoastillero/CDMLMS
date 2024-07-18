@@ -14,7 +14,7 @@ const headers = Headers('w-9 w-9');
  */
 export default function RepositoryOfFiles({ auth }) {
     return (
-    <Layout user={auth.user} icon={headers[7].icon} headerTitle={headers[7].title} headerSubTitle={headers[7].subTitle}>
+    <Layout user={auth.user} icon={headers[7].icon} headerTitle={headers[7].title} headerSubtitle={headers[7].subTitle}>
     <Head title={headers[7].title}/>
         <SingleCardWithHeader
             header = "Repository"

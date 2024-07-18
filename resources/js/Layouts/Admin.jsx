@@ -1,10 +1,11 @@
+import PageHeader from '@/Components/CDMLMS/PageHeader';
 import Dropdown from '@/Components/Dropdown';
 import { Bars3Icon, UsersIcon } from '@heroicons/react/24/outline';
 import { Link } from '@inertiajs/react';
 import React, { useState } from 'react'
 
 //TODO faculty verification, finish admin layout
-export default function Admin({ user , children}) {
+export default function Admin({ user , children, icon, headerTitle, headerSubtitle}) {
 
     const [isOpen, setIsOpen] = useState(true)
 
@@ -26,14 +27,13 @@ export default function Admin({ user , children}) {
                         <div className="input-group-text"><i data-feather="search"></i></div>
                     </div>
                 </form>
-                <div className="hidden sm:flex sm:items-center sm:ms-6 !mr-7">
-                    <div className="ms-3 relative">
+                    <div className="ms-3 mr-6 relative">
                         <Dropdown>
                             <Dropdown.Trigger>
                                 <span className="inline-flex rounded-md">
                                     <button
                                         type="button"
-                                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                        className="text-[#212832] inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                     >
                                         {user.username}
 
@@ -61,7 +61,6 @@ export default function Admin({ user , children}) {
                             </Dropdown.Content>
                         </Dropdown>
                     </div>
-                </div>
             </nav>
             <div id="layoutSidenav">
                 <div id="layoutSidenav_nav" style={{ width: isOpen ? "240px" : "0px" }}>
@@ -74,11 +73,11 @@ export default function Admin({ user , children}) {
                                 </Link>
                                 <div className="sidenav-menu-heading text-gray-500">Admin</div>
                                 {/* { icon: <UsersIcon className={`${size} text-gray-500`} />, title: 'People', subTitle: "View People" } */}
-                                <Link className='nav-link hover:cursor-pointer !py-[10px]'>
+                                <Link className='nav-link hover:cursor-pointer !py-[10px]' href={route('admin.instructors')}>
                                     <div className='nav-link-icon'>
-                                        <UsersIcon className='w-5 h-5 text-gray-500' />
+                                        <UsersIcon className='w-5 h-5 text-gray-500' /> 
                                     </div>
-                                    People
+                                    Instructors
                                 </Link>
                                 <div className="sidenav-menu-heading text-gray-500">Faculty</div>
 
@@ -95,11 +94,11 @@ export default function Admin({ user , children}) {
                 </div>
                 <div id="layoutSidenav_content" style={{ "marginLeft": isOpen ? "0rem" : "-15rem" }}>
                     <main onClick={() => { if (isOpen) { setIsOpen(false); } }}>
-                        {/* <PageHeader
+                        <PageHeader
                             icon={icon}
                             title={headerTitle}
-                            subtitle={headerSubTitle}
-                        /> */}
+                            subtitle={headerSubtitle}
+                        />
                         <div className="container-xl px-4 mt-n10">
                             {children}
                         </div>

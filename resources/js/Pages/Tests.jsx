@@ -43,7 +43,7 @@ export default function Tests({ auth }) {
     };
 
     return (
-        <Layout user={auth.user} icon={null} headerTitle="Test" headerSubTitle="Test" >
+        <Layout user={auth.user} icon={null} headerTitle="Test" headerSubtitle="Test" >
             <SingleCardWithHeader
                 header=
                 {

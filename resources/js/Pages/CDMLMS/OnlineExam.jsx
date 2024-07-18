@@ -14,7 +14,7 @@ const headers = Headers('w-9 w-9');
  */
 export default function OnlineExam({ auth }) {
     return (
-        <Layout user={auth.user} icon={headers[8].icon} headerTitle={headers[8].title} headerSubTitle={headers[8].subTitle}>
+        <Layout user={auth.user} icon={headers[8].icon} headerTitle={headers[8].title} headerSubtitle={headers[8].subTitle}>
             <Head title={headers[8].title} />
             <SingleCardWithHeader
                 header="OnlineExam"

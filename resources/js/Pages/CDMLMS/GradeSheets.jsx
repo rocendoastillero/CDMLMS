@@ -15,7 +15,7 @@ const headers = Headers('w-9 w-9');
  */
 export default function GradeSheets({ auth }) {
     return (
-        <Layout user={auth.user} icon={headers[5].icon} headerTitle={"Grade Sheets"} headerSubTitle={headers[5].title} openDropdown={true}>
+        <Layout user={auth.user} icon={headers[5].icon} headerTitle={"Grade Sheets"} headerSubtitle={headers[5].title} openDropdown={true}>
             <Head title={headers[5].title} />
             <CardsWithSticky
                 contentSize='!w-8/12'

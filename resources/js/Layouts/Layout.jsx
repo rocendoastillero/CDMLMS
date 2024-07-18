@@ -15,7 +15,7 @@ const headers = Headers('w-5 h-5');
  * @param user The Authenticated User 
  * @param icon Page Header Icon
  * @param headerTitle Page Header Title
- * @param headerSubTitle Page Header Sub Title
+ * @param headerSubtitle Page Header Sub Title
  * @param children Layout Children
  * @param openDropdown Dropdown state
  * @returns HTML
@@ -25,14 +25,14 @@ export default function Layout(
         user,
         icon,
         headerTitle,
-        headerSubTitle,
+        headerSubtitle,
         children,
         openDropdown = false
 
     }
 ) {
     const [isOpen, setIsOpen] = useState(true)
-    
+
     const [dropdown, setDropDown] = useState(openDropdown);
 
     return (
@@ -51,41 +51,39 @@ export default function Layout(
                         <div className="input-group-text"><i data-feather="search"></i></div>
                     </div>
                 </form>
-                <div className="hidden sm:flex sm:items-center sm:ms-6 !mr-7">
-                    <div className="ms-3 relative">
-                        <Dropdown>
-                            <Dropdown.Trigger>
-                                <span className="inline-flex rounded-md">
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                <div className="ms-3 mr-6 relative">
+                    <Dropdown>
+                        <Dropdown.Trigger>
+                            <span className="inline-flex rounded-md">
+                                <button
+                                    type="button"
+                                    className="text-[#212832] inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                >
+                                    {user.username}
+
+                                    <svg
+                                        className="ms-2 -me-0.5 h-4 w-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
                                     >
-                                        {user.username}
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                            </span>
+                        </Dropdown.Trigger>
 
-                                        <svg
-                                            className="ms-2 -me-0.5 h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
-                                    </button>
-                                </span>
-                            </Dropdown.Trigger>
-
-                            <Dropdown.Content>
-                                <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                <Dropdown.Link href={route('logout')} method="post" as="button">
-                                    Log Out
-                                </Dropdown.Link>
-                            </Dropdown.Content>
-                        </Dropdown>
-                    </div>
+                        <Dropdown.Content>
+                            <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                            <Dropdown.Link href={route('logout')} method="post" as="button">
+                                Log Out
+                            </Dropdown.Link>
+                        </Dropdown.Content>
+                    </Dropdown>
                 </div>
             </nav>
             <div id="layoutSidenav">
@@ -122,7 +120,7 @@ export default function Layout(
                                                                 )
                                                             }
                                                         </DisclosureButton>
-                                                        <DisclosurePanel transition className={`origin-top transition duration-50 ease-in-out pl-[14px] ml-[26px] border-l-[1px] border-gray-500 ${(route().current('syllabus')||route().current('classrecord')||route().current('gradesheets')) ? "" : "data-[closed]:-translate-y-6 data-[closed]:opacity-0"}`}>
+                                                        <DisclosurePanel transition className={`origin-top transition duration-50 ease-in-out pl-[14px] ml-[26px] border-l-[1px] border-gray-500 ${(route().current('syllabus') || route().current('classrecord') || route().current('gradesheets')) ? "" : "data-[closed]:-translate-y-6 data-[closed]:opacity-0"}`}>
                                                             <Link href="syllabus" className='nav-link hover:cursor-pointer !py-[10px]'  >
                                                                 Syllabus
                                                             </Link>
@@ -159,11 +157,11 @@ export default function Layout(
                     </nav>
                 </div>
                 <div id="layoutSidenav_content" style={{ "marginLeft": isOpen ? "0rem" : "-15rem" }}>
-                    <main onClick={() => {if (isOpen) {setIsOpen(false);}}}>
+                    <main onClick={() => { if (isOpen) { setIsOpen(false); } }}>
                         <PageHeader
                             icon={icon}
                             title={headerTitle}
-                            subtitle={headerSubTitle}
+                            subtitle={headerSubtitle}
                         />
                         <div className="container-xl px-4 mt-n10">
                             {children}

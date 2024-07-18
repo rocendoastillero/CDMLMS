@@ -24,7 +24,7 @@ export default function Sample({auth, mustVerifyEmail , status}) {
 
 
     return (
-        <Layout user={auth.user} icon={<UserIcon className="h-9 w-9 text-gray-500" />} headerTitle={"Account"} headerSubTitle={"Profile"}>
+        <Layout user={auth.user} icon={<UserIcon className="h-9 w-9 text-gray-500" />} headerTitle={"Account"} headerSubtitle={"Profile"}>
             <div className="row">
                 <div className="col-xl-4">
                     <div className="card mb-4 mb-xl-0">

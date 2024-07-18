@@ -1,7 +1,7 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Link } from '@inertiajs/react';
 
-export default function Guest({ children }) {
+export default function Guest({ children, footer }) {
     return (
         <div className="bg-primary">
             <div id="layoutAuthentication">
@@ -19,6 +19,7 @@ export default function Guest({ children }) {
                                             </div>
                                             {children}
                                         </div>
+                                        {footer}
                                     </div>
                                 </div>
                             </div>

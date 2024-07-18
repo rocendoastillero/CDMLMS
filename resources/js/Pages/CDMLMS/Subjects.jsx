@@ -66,7 +66,7 @@ export default function Subjects({ auth, subjects }) {
     };
 
     return (
-        <Layout user={auth.user} icon={headers[2].icon} headerTitle={headers[2].title} headerSubTitle={headers[2].subTitle}>
+        <Layout user={auth.user} icon={headers[2].icon} headerTitle={headers[2].title} headerSubtitle={headers[2].subTitle}>
             <Head title={headers[2].title} />
             <CardsWithSticky
                 cards={

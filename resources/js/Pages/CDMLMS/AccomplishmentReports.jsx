@@ -59,7 +59,7 @@ export default function AccomplishmentReports({ auth, reports }) {
     }
 
     return (
-        <Layout user={auth.user} icon={headers[6].icon} headerTitle={headers[6].title} headerSubTitle={headers[6].subTitle} >
+        <Layout user={auth.user} icon={headers[6].icon} headerTitle={headers[6].title} headerSubtitle={headers[6].subTitle} >
             <Head title={headers[6].title} />
             <CardsWithSticky
                 contentSize='!w-10/12'

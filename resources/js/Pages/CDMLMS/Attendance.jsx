@@ -15,7 +15,7 @@ const headers = Headers('w-9 w-9');
 export default function Attendance({ auth }) {
 
     return (
-        <Layout user={auth.user} icon={headers[4].icon} headerTitle={headers[4].title} headerSubTitle={headers[4].subTitle}>
+        <Layout user={auth.user} icon={headers[4].icon} headerTitle={headers[4].title} headerSubtitle={headers[4].subTitle}>
             <Head title={headers[4].title} />
             <SingleCardWithHeader
                 header="Attendance"

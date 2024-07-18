@@ -15,7 +15,7 @@ const headers = Headers('w-9 w-9');
  */
 export default function People({ auth }) {
     return (
-        <Layout user={auth.user} icon={headers[3].icon} headerTitle={headers[3].title} headerSubTitle={headers[3].subTitle}>
+        <Layout user={auth.user} icon={headers[3].icon} headerTitle={headers[3].title} headerSubtitle={headers[3].subTitle}>
         <Head title={headers[3].title}/>
             <CardsRow
                 card1=

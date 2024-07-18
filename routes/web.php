@@ -9,14 +9,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::redirect('/', '/login', 301);
 
 Route::middleware('auth')->group(function () {
 
@@ -78,6 +71,8 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('admin')->group(function (){
         Route::get('/admin',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/admin/instructors',[AdminController::class, 'instructors'])->name('admin.instructors');
+        Route::patch('/admin/instructors',[AdminController::class, 'verify'])->name('admin.verify');
     });
 
 });

@@ -27,7 +27,13 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <GuestLayout>
+        <GuestLayout
+            footer={
+                <div class="card-footer text-center">
+                    <div class="small"><Link className='text-primary' href={route('register')}>Need an account? Sign up!</Link></div>
+                </div>
+            }
+        >
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
@@ -69,7 +75,7 @@ export default function Login({ status, canResetPassword }) {
                         <InputError message={errors.password} className="mt-2" />
                     </div>
 
-                    <div className="d-flex align-items-center justify-content-left mb-0mb-3">
+                    <div className="d-flex align-items-center justify-between mb-3">
                         <div className="form-check !text-[#69707a]">
                             <Checkbox
                                 name="remember"
@@ -78,9 +84,12 @@ export default function Login({ status, canResetPassword }) {
                             />
                             Remember Me
                         </div>
+                        <div>
+
+                        </div>
                     </div>
 
-                    <div className="d-flex align-items-center justify-content-between mb-0">
+                    <div className="d-flex place-content-center items-center justify-content-between mb-0">
                         {canResetPassword && (
                             <Link
                                 href={route('password.request')}
@@ -90,12 +99,13 @@ export default function Login({ status, canResetPassword }) {
                             </Link>
                         )}
 
-                        <PrimaryButton className="ms-4" disabled={processing}>
+                        <PrimaryButton disabled={processing}>
                             Log in
                         </PrimaryButton>
                     </div>
                 </form>
             </div>
+
 
         </GuestLayout>
     );

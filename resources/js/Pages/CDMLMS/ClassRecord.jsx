@@ -17,7 +17,7 @@ export default function ClassRecord({ auth }) {
 
     
     return (
-        <Layout user={auth.user} icon={headers[5].icon} headerTitle={"Class Record"} headerSubTitle={headers[5].title} openDropdown={true}>
+        <Layout user={auth.user} icon={headers[5].icon} headerTitle={"Class Record"} headerSubtitle={headers[5].title} openDropdown={true}>
             <Head title={headers[5].title} />
             <CardsWithSticky
                 contentSize='!w-8/12'

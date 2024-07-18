@@ -14,7 +14,7 @@ const headers = Headers('w-9 w-9');
  */
 export default function Discussions({ auth }) {
     return (
-    <Layout user={auth.user} icon={headers[2].icon} headerTitle={headers[2].title} headerSubTitle={headers[2].subTitle}>
+    <Layout user={auth.user} icon={headers[2].icon} headerTitle={headers[2].title} headerSubtitle={headers[2].subTitle}>
         <Head title={headers[2].title}/>
         <SingleCardWithHeader
             header="Discussions"
