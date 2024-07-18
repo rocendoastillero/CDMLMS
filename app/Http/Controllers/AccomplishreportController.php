@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dummy;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Accomplishreport;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
-use Inertia\Response;
 
-class DummyController extends Controller
+class AccomplishreportController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        // return Inertia::render('Tests');
         return Inertia::render('CDMLMS/AccomplishmentReports', [
-            'reports' => Dummy::where('user_id', Auth::user()->id)->latest()->get()
-        ]);
+            'reports' => AccomplishReport::where('user_id', Auth::user()->id)->latest()->get()
+        ]); 
     }
 
     /**
@@ -34,23 +31,23 @@ class DummyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'bail|required|string|max:255',
+            'title' => 'required|unique:subjects|string|max:255',
             'subtitle' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
 
-        $request->user()->dummies()->create($validated);
+        $request->user()->accomplishreports()->create($validated);
 
-        return redirect(route('dummy.index'));
+        return redirect(route('accomplishmentreports.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Dummy $dummy)
+    public function show(Accomplishreport $accomplishreport)
     {
         //
     }
@@ -58,7 +55,7 @@ class DummyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Dummy $dummy)
+    public function edit(Accomplishreport $accomplishreport)
     {
         //
     }
@@ -66,30 +63,28 @@ class DummyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dummy $dummy): RedirectResponse
+    public function update(Request $request, Accomplishreport $accomplishreport)
     {
-        Gate::authorize('update', $dummy);
-
+        Gate::authorize('update', $accomplishreport);
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
-        
-        $dummy->update($validated);
+        $accomplishreport->update($validated);
 
-        return redirect(route('dummy.index'));
+        return redirect(route('accomplishmentreports.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dummy $dummy)
+    public function destroy(Accomplishreport $accomplishreport)
     {
-        Gate::authorize('delete', $dummy);
+        Gate::authorize('delete', $accomplishreport);
 
-        $dummy->delete();
+        $accomplishreport->delete();
 
-        return redirect(route('dummy.index'));
+        return redirect(route('accomplishmentreports.index'));
     }
 }

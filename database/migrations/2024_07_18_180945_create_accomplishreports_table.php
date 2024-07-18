@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dummies', function (Blueprint $table) {
+        Schema::create('accomplishreports', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->cascadeOnDelete();
             $table->string('title');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dummies');
+        Schema::dropIfExists('accomplishreports');
     }
 };

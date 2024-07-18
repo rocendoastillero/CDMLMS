@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
+        'course',
         'firstname',
         'lastname',
         'address',
@@ -62,23 +63,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of the accomplishmentreports for the User
+     * Get all of the accomplishreports for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function accomplishmentreports(): HasMany
     {
-        return $this->hasMany(AccomplishmentReport::class);
-    }
-
-    /**
-     * Get all of the dummies for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function dummies(): HasMany
-    {
-        return $this->hasMany(Dummy::class);
+        return $this->hasMany(Accomplishreport::class);
     }
 
     /**

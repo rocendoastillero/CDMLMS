@@ -16,8 +16,12 @@ class Subject extends Model
         'description'
     ];
     
+    protected $hidden = [
+        'user',
+    ];
+
     protected $appends = [
-        'instructor'
+        'instructor',
     ];
 
     /**
@@ -28,5 +32,12 @@ class Subject extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getInstructorAttribute() : String {
+        if ($this->user == null){
+            return "Vacant";
+        }
+        return $this->user->lastname + ", " + $this->user->firstname; 
     }
 }

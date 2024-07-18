@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class Admin
+class VerifiedFaculty
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->type != 'admin'){
-            return redirect(route('login'));
+        if(!Auth::user()->verified){
+            return redirect(route('unverified faculty'));
+        } else if (Auth::user()->type == 'admin'){
+            return redirect(route('admin.dashboard'));
         }
         return $next($request);
     }

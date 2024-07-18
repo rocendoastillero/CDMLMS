@@ -1,7 +1,14 @@
+import Admin from '@/Layouts/Admin'
+import { Link } from '@inertiajs/react'
 import React from 'react'
 
-export default function Dashboard() {
+export default function Dashboard({auth}) {
   return (
-    <div>Admin</div>
+    <Admin
+      user = {auth.user}
+
+    >
+      aaaaaaa
+    </Admin>
   )
 }

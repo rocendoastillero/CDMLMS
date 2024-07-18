@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Subject::class)->cascadeOnDelete();
             $table->dateTime('schedule')->nullable();
             $table->string('room')->nullable();
+            $table->string('type')->default('Lec');
             $table->timestamps();
         });
     }
