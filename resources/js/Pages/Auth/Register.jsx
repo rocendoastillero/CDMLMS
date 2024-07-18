@@ -6,6 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
+//TODO add required fields for new columns
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         username: '',

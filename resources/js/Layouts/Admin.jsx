@@ -3,6 +3,7 @@ import { Bars3Icon, UsersIcon } from '@heroicons/react/24/outline';
 import { Link } from '@inertiajs/react';
 import React, { useState } from 'react'
 
+//TODO faculty verification, finish admin layout
 export default function Admin({ user , children}) {
 
     const [isOpen, setIsOpen] = useState(true)
