@@ -2,7 +2,7 @@ import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Admin from '@/Layouts/Admin'
 import { CheckCircleIcon, UsersIcon, XCircleIcon } from '@heroicons/react/24/outline'
-import { Link } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import React from 'react'
 
 export default function Instructors({ auth, instructors }) {
@@ -13,6 +13,7 @@ export default function Instructors({ auth, instructors }) {
             headerTitle="Instructors"
             headerSubtitle="View Instructors"
         >
+            <Head title='Instructors'/>
             <CardsWithSticky
                 cards={
                     <SingleCardWithHeader

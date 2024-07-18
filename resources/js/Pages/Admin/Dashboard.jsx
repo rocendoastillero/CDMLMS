@@ -1,5 +1,5 @@
 import Admin from '@/Layouts/Admin'
-import { Link } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import React from 'react'
 
 export default function Dashboard({ auth }) {
@@ -10,6 +10,7 @@ export default function Dashboard({ auth }) {
       headerTitle="Dashboard"
       headerSubtitle="The Dashboard"
     >
+      <Head title='Admin Dashboard'/>
       aaaaaaa
     </Admin>
   )
