@@ -23,23 +23,24 @@ Route::middleware('auth')->group(function () {
             return Inertia::render('Faculty/Dashboard');
         })->name('dashboard');
 
-        Route::get('subjects/{search}', [SubjectController::class, 'search'])->name('subjects.search');
+        Route::get('/subjects/{search}', [SubjectController::class, 'search'])->name('subjects.search');
+        Route::patch('subjects/assign', [SubjectController::class, 'assign'])->name('subjects.assign');
         Route::resource('subjects', SubjectController::class)
             ->only(['index', 'store', 'update', 'destroy']);
 
         Route::resource('accomplishmentreports', AccomplishreportController::class)
             ->only(['index', 'store', 'update', 'destroy']);
 
-        Route::get('anouncements', function () {
+        Route::get('/anouncements', function () {
             return Inertia::render('Faculty/Anouncements');
-        });
+        })->name('anouncements');
 
         Route::resource('schedules', ScheduleController::class)
             ->only(['index', 'store', 'update', 'destroy']);
 
         Route::get('/attendance', function () {
             return Inertia::render('Faculty/Attendance');
-        });
+        })->name('attendance');
         Route::get('/syllabus', function () {
             return Inertia::render('Faculty/Syllabus');
         })->name('syllabus');
@@ -50,15 +51,15 @@ Route::middleware('auth')->group(function () {
             return Inertia::render('Faculty/GradeSheets');
         })->name('gradesheets');
 
-        Route::get('/repository of files', function () {
+        Route::get('/repositoryoffiles', function () {
             return Inertia::render('Faculty/RepositoryOfFiles');
-        });
-        Route::get('/online exam', function () {
+        })->name('repositoryoffiles');
+        Route::get('/onlineexam', function () {
             return Inertia::render('Faculty/OnlineExam');
-        });
-        Route::get('/online class', function () {
+        })->name('onlineexam');
+        Route::get('/onlineclass', function () {
             return Inertia::render('Faculty/OnlineClass');
-        });
+        })->name('onlineclass');
 
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
