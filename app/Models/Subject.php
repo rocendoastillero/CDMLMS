@@ -38,6 +38,6 @@ class Subject extends Model
         if ($this->user == null){
             return "Vacant";
         }
-        return $this->user->lastname + ", " + $this->user->firstname; 
+        return $this->user->lastname . ", " . $this->user->firstname; 
     }
 }

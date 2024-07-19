@@ -35,6 +35,6 @@ class Accomplishreport extends Model
     }
 
     public function getInstructorAttribute() : String {
-        return $this->user->lastname + ", " + $this->user->firstname; 
+        return $this->user->lastname . ", " . $this->user->firstname; 
     }
 }
