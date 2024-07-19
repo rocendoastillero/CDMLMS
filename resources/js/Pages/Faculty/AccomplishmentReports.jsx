@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
-import { PencilIcon, TrashIcon, ArchiveBoxXMarkIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon, ArchiveBoxXMarkIcon, CheckIcon, XMarkIcon, TrophyIcon } from "@heroicons/react/24/outline";
 import Layout from '@/Layouts/Layout'
-import { Headers } from "@/utils/headers"
 import { Head, Link, useForm } from '@inertiajs/react'
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
 import AlertCard from '@/Components/CDMLMS/AlertCard';
 
-const headers = Headers('w-9 w-9');
 //TODO test new model,controller Accomplishreport
 /**
  * @function Page Page of the Accomplishment Reports
@@ -49,18 +47,23 @@ export default function AccomplishmentReports({ auth, reports }) {
         e.preventDefault();
         if (editing) {
             console.log(data.id);
-            patch(route('dummy.update', data.id), { onSuccess: () => reset(), preserveScroll: true });
+            patch(route('accomplishmentreports.update', data.id), { onSuccess: () => reset(), preserveScroll: true });
         } else {
+            console.log(data);
             console.log('creating');
-            post(route('dummy.store'), { onSuccess: () => { reset(); setView(1); }, preserveScroll: true });
+            post(route('accomplishmentreports.store'), { onSuccess: () => { reset(); setView(1); }, preserveScroll: true });
             console.log(errors)
 
         }
     }
 
     return (
-        <Layout user={auth.user} icon={headers[6].icon} headerTitle={headers[6].title} headerSubtitle={headers[6].subTitle} >
-            <Head title={headers[6].title} />
+        <Layout
+            user={auth.user}
+            icon={<TrophyIcon className='w-9 h-9 text-gray-500' />}
+            headerTitle='Accomplishment Reports'
+            headerSubtitle='View Accomplishment Reports' >
+            <Head title='Accomplishment Reports' />
             <CardsWithSticky
                 contentSize='!w-10/12'
                 stickySize='!w-2/12'
@@ -102,7 +105,7 @@ export default function AccomplishmentReports({ auth, reports }) {
                                                                 actions={
                                                                     <>
                                                                         <Link as='button' method='delete'
-                                                                            href={route('dummy.destroy', report.id)}
+                                                                            href={route('accomplishmentreports.destroy', report.id)}
                                                                         >
                                                                             <CheckIcon className="h-6 w-6 mx-1 hover:text-[#8b0d00]" />
                                                                         </Link>

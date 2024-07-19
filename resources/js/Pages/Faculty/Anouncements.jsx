@@ -1,14 +1,12 @@
 import React from 'react'
 import Layout from "@/Layouts/Layout";
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader';
-import { Headers } from '@/utils/headers';
 import { Head } from '@inertiajs/react';
 import IconCard from '@/Components/CDMLMS/IconCard';
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { ExclamationCircleIcon, MegaphoneIcon } from "@heroicons/react/24/outline";
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import { Link } from '@inertiajs/react';
 
-const headers = Headers('w-12 w-12');
 
 /**
  * @function Page
@@ -18,8 +16,12 @@ const headers = Headers('w-12 w-12');
  */
 export default function Anouncements({ auth }) {
     return (
-        <Layout user={auth.user} icon={headers[1].icon} headerTitle={headers[1].title} headerSubtitle={headers[1].subTitle}>
-            <Head title={headers[1].title} />
+        <Layout 
+        user={auth.user} 
+        icon={<MegaphoneIcon className='w-9 h-9 text-gray-500' />} 
+        headerTitle='Anouncements' 
+        headerSubtitle='View Anouncements'>
+            <Head title='Anouncements' />
             <CardsWithSticky
                 contentSize='!w-10/12'
                 stickySize='!w-2/12'
@@ -34,7 +36,7 @@ export default function Anouncements({ auth }) {
                             className='bg-orange-800'
                         />
                         <SingleCardWithHeader
-                            header={headers[1].title}
+                            header='Anouncements'
                             body={
                                 <>
                                     <p>
@@ -69,7 +71,7 @@ export default function Anouncements({ auth }) {
                         />
                         <div id="cardWithHeader">
                             <SingleCardWithHeader
-                                header={headers[1].title}
+                                header='Anouncements'
                                 body={<p>
 
                                     a public and typically formal statement about a fact, occurrence, or intention. <br />"the spokesperson was about to make an announcement"</p>

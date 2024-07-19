@@ -33,10 +33,10 @@ export default function Tests({ auth }) {
         e.preventDefault();
         if (editing) {
             console.log(data.id);
-            patch(route('dummy.update', data.id), { onSuccess: () => reset() });
+            patch(route('accomplishmentreports.update', data.id), { onSuccess: () => reset() });
         } else {
             console.log('creating');
-            post(route('dummy.store'), { onSuccess: () => reset() });
+            post(route('accomplishmentreports.store'), { onSuccess: () => reset() });
             console.log(errors)
             setView(1);
         }

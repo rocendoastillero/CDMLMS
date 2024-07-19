@@ -1,10 +1,9 @@
 import React from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Layout from '@/Layouts/Layout'
-import { Headers } from "@/utils/headers"
 import { Head } from '@inertiajs/react'
+import { PencilSquareIcon } from '@heroicons/react/24/outline'
 
-const headers = Headers('w-9 w-9');
 
 /**
  * @function Page
@@ -14,10 +13,14 @@ const headers = Headers('w-9 w-9');
  */
 export default function OnlineExam({ auth }) {
     return (
-        <Layout user={auth.user} icon={headers[8].icon} headerTitle={headers[8].title} headerSubtitle={headers[8].subTitle}>
-            <Head title={headers[8].title} />
+        <Layout 
+        user={auth.user} 
+        icon={<PencilSquareIcon className='w-9 h-9 text-gray-500' />} 
+        headerTitle='Online Exam' 
+        headerSubtitle='View Online Exam'>
+            <Head title='Online Exam' />
             <SingleCardWithHeader
-                header="OnlineExam"
+                header="Online Exam"
                 body={
                     <p>
 

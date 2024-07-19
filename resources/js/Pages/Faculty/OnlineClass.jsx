@@ -1,10 +1,9 @@
 import React from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Layout from '@/Layouts/Layout'
-import { Headers } from "@/utils/headers"
 import { Head } from '@inertiajs/react'
+import { TrophyIcon } from '@heroicons/react/24/outline'
 
-const headers = Headers('w-9 w-9');
 
 /**
  * @function Page
@@ -14,10 +13,14 @@ const headers = Headers('w-9 w-9');
  */
 export default function OnlineClass({ auth }) {
     return (
-        <Layout user={auth.user} icon={headers[9].icon} headerTitle={headers[9].title} headerSubtitle={headers[9].subTitle}>
-            <Head title={headers[9].title} />
+        <Layout 
+        user={auth.user} 
+        icon={<TrophyIcon className='w-9 h-9 text-gray-500' />} 
+        headerTitle='Online Class' 
+        headerSubtitle='View Online Class'>
+            <Head title='Online Class' />
             <SingleCardWithHeader
-                header="OnlineClass"
+                header="Online Class"
                 body={
                     <p>
 

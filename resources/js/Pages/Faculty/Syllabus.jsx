@@ -1,11 +1,10 @@
 import React from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Layout from '@/Layouts/Layout'
-import { Headers } from "@/utils/headers"
 import { Head } from '@inertiajs/react'
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
+import { DocumentIcon } from '@heroicons/react/24/outline'
 
-const headers = Headers('w-9 w-9');
 
 /**
  * @function Page
@@ -15,8 +14,13 @@ const headers = Headers('w-9 w-9');
  */
 export default function Syllabus({ auth }) {
     return (
-        <Layout user={auth.user} icon={headers[5].icon} headerTitle={"Syllabus"} headerSubtitle={headers[5].title} openDropdown={true}>
-            <Head title={headers[5].title} />
+        <Layout 
+        user={auth.user} 
+        icon={<DocumentIcon className='w-9 h-9 text-gray-500' />} 
+        headerTitle="Syllabus" 
+        headerSubtitle='Files' 
+        openDropdown={true}>
+            <Head title='Files' />
             <CardsWithSticky
                 contentSize='!w-8/12'
                 stickySize='!w-4/12'

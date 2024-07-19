@@ -1,10 +1,9 @@
 import React from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Layout from '@/Layouts/Layout'
-import { Headers } from "@/utils/headers"
 import { Head } from '@inertiajs/react'
+import { CloudArrowUpIcon } from '@heroicons/react/24/outline'
 
-const headers = Headers('w-9 w-9');
 
 /**
  * @function Page
@@ -14,8 +13,12 @@ const headers = Headers('w-9 w-9');
  */
 export default function RepositoryOfFiles({ auth }) {
     return (
-    <Layout user={auth.user} icon={headers[7].icon} headerTitle={headers[7].title} headerSubtitle={headers[7].subTitle}>
-    <Head title={headers[7].title}/>
+    <Layout 
+    user={auth.user} 
+    icon={<CloudArrowUpIcon className='w-9 h-9 text-gray-500' />} 
+    headerTitle='Repository of Files' 
+    headerSubtitle='View Repository of Files'>
+    <Head title='Repository of Files'/>
         <SingleCardWithHeader
             header = "Repository"
             body={

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '@/Layouts/Layout'
-import { Headers } from "@/utils/headers"
 import { Head } from '@inertiajs/react'
 import AlertCard from '@/Components/CDMLMS/AlertCard';
-import { ArchiveBoxXMarkIcon } from '@heroicons/react/24/outline';
+import { ArchiveBoxXMarkIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
 
-const headers = Headers('w-9 w-9');
 
 /**
  * @function Page
@@ -25,8 +23,12 @@ export default function Schedules({ auth, subjects, schedules }) {
     }, []);
 
     return (
-        <Layout user={auth.user} icon={headers[3].icon} headerTitle={headers[3].title} headerSubtitle={headers[3].subTitle}>
-            <Head title={headers[3].title} />
+        <Layout 
+        user={auth.user} 
+        icon={<CalendarDaysIcon className='w-9 h-9 text-gray-500' />} 
+        headerTitle='Schedule' 
+        headerSubtitle='view Schedule'>
+            <Head title='Schedule' />
             <nav className="nav nav-borders flex justify-between !mb-8">
                 <div className='flex flex-row items-center'>
                     {

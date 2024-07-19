@@ -1,12 +1,10 @@
 import Dropdown from '@/Components/Dropdown';
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import PageHeader from '@/Components/CDMLMS/PageHeader';
-import { Headers } from '../utils/headers';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
-import { Bars3Icon, ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon } from "@heroicons/react/24/outline";
 import { Link } from '@inertiajs/react';
 
-const headers = Headers('w-5 h-5');
 /**
  * @function Component Main Layout for the app
  * 
@@ -27,8 +25,7 @@ export default function Layout(
         headerTitle,
         headerSubtitle,
         children,
-        openDropdown = false,
-        paging = false
+        openDropdown = false
     }
 ) {
     const [isOpen, setIsOpen] = useState(true)
@@ -96,56 +93,91 @@ export default function Layout(
                                     Dashboard
                                 </Link>
                                 <div className="sidenav-menu-heading text-gray-500">Faculty</div>
-                                {
-                                    headers.map((item, index) => {
-                                        if (index == 0) {
-                                            return null
-                                        } else if (index == 5) {
-                                            return (
-                                                <div key={index}>
-                                                    <Disclosure defaultOpen={openDropdown}>
-                                                        <DisclosureButton className="nav-link hover:cursor-pointer !py-[10px] w-full justify-between flex flex-row" onClick={() => { setDropDown(!dropdown) }}>
-                                                            <div>
-                                                                <div className='nav-link-icon'>
-                                                                    {item.icon}
-                                                                </div>
-                                                                {item.title}
-                                                            </div>
-                                                            {
-                                                                (dropdown) ? (
-                                                                    <ChevronDownIcon className="h-5 w-5 text-gray-500" />
-
-                                                                ) : (
-                                                                    <ChevronRightIcon className="h-5 w-5 text-gray-500" />
-                                                                )
-                                                            }
-                                                        </DisclosureButton>
-                                                        <DisclosurePanel transition className={`origin-top transition duration-50 ease-in-out pl-[14px] ml-[26px] border-l-[1px] border-gray-500 ${(route().current('syllabus') || route().current('classrecord') || route().current('gradesheets')) ? "" : "data-[closed]:-translate-y-6 data-[closed]:opacity-0"}`}>
-                                                            <Link href="syllabus" className='nav-link hover:cursor-pointer !py-[10px]'  >
-                                                                Syllabus
-                                                            </Link>
-                                                            <Link href="classrecord" className='nav-link hover:cursor-pointer !py-[10px]'  >
-                                                                Class Record
-                                                            </Link>
-                                                            <Link href="gradesheets" className='nav-link hover:cursor-pointer !py-[10px]'  >
-                                                                Grade Sheets
-                                                            </Link>
-                                                        </DisclosurePanel>
-                                                    </Disclosure>
+                                <Link href={route('accomplishmentreports.index')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                    <div className='nav-link-icon'>
+                                        <TrophyIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
+                                    Accomplishment Reports
+                                </Link>
+                                <Link href={route('anouncements')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                    <div className='nav-link-icon'>
+                                        <MegaphoneIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
+                                    Anouncements
+                                </Link>
+                                <Link href={route('attendance')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                    <div className='nav-link-icon'>
+                                        <HandRaisedIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
+                                    Attendance
+                                </Link>
+                                <div>
+                                    <Disclosure defaultOpen={openDropdown}>
+                                        <DisclosureButton className="nav-link hover:cursor-pointer !py-[10px] w-full justify-between flex flex-row" onClick={() => { setDropDown(!dropdown) }}>
+                                            <div>
+                                                <div className='nav-link-icon'>
+                                                    <DocumentIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
-                                            )
-                                        } else {
-                                            return (
-                                                <Link key={index.toString()} href={`${(index == 6) ? "dummy" : item.title.toLowerCase()}`} className='nav-link hover:cursor-pointer !py-[10px]'  >
-                                                    <div className='nav-link-icon'>
-                                                        {item.icon}
-                                                    </div>
-                                                    {item.title}
-                                                </Link>
-                                            );
-                                        }
-                                    })
-                                }
+                                                Files
+                                            </div>
+                                            {
+                                                (dropdown) ? (
+                                                    <ChevronDownIcon className="h-5 w-5 text-gray-500" />
+
+                                                ) : (
+                                                    <ChevronRightIcon className="h-5 w-5 text-gray-500" />
+                                                )
+                                            }
+                                        </DisclosureButton>
+                                        <DisclosurePanel transition className={`origin-top transition duration-50 ease-in-out pl-[14px] ml-[26px] border-l-[1px] border-gray-500 ${(route().current('syllabus') || route().current('classrecord') || route().current('gradesheets')) ? "" : "data-[closed]:-translate-y-6 data-[closed]:opacity-0"}`}>
+                                            <Link href="classrecord" className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                                Class Record
+                                            </Link>
+                                            <Link href="gradesheets" className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                                Grade Sheets
+                                            </Link>
+                                            <Link href="syllabus" className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                                Syllabus
+                                            </Link>
+                                        </DisclosurePanel>
+                                    </Disclosure>
+                                </div>
+                                <Link className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                    <div className='nav-link-icon'>
+                                        <LockClosedIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
+                                    File Encrypter
+                                </Link>
+                                <Link href={route('onlineclass')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                    <div className='nav-link-icon'>
+                                        <TrophyIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
+                                    Online Class
+                                </Link>
+                                <Link href={route('onlineexam')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                    <div className='nav-link-icon'>
+                                        <PencilSquareIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
+                                    Online Exam
+                                </Link>
+                                <Link href={route('repositoryoffiles')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                    <div className='nav-link-icon'>
+                                        <CloudArrowUpIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
+                                    Repository of Files
+                                </Link>
+                                <Link href={route('schedules.index')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                    <div className='nav-link-icon'>
+                                        <CalendarDaysIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
+                                    Schedule
+                                </Link>
+                                <Link href={route('subjects.index')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                    <div className='nav-link-icon'>
+                                        <BookOpenIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
+                                    Subjects
+                                </Link>
                             </div>
                         </div>
                         <div className="sidenav-footer" style={{ visibility: isOpen ? "visible" : "hidden" }}>
