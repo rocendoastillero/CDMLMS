@@ -111,7 +111,7 @@ export default function Admin({ user, children, icon, headerTitle, headerSubtitl
                     </nav>
                 </div>
                 <div id="layoutSidenav_content" style={{ "marginLeft": isOpen ? "0rem" : "-15rem" }}>
-                    <main onClick={() => { if (isOpen) { setIsOpen(false); } }}>
+                    <main >
                         <PageHeader
                             icon={icon}
                             title={headerTitle}

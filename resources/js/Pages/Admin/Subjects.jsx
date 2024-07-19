@@ -68,12 +68,12 @@ export default function Subjects({ auth, paginated }) {
                 <thead>
                   <tr>
 
-                    <th>Instructor</th>
-                    <th>Course</th>
-                    <th>Code</th>
-                    <th>Description</th>
-                    <th>Year/Sem</th>
-                    <th>Actions</th>
+                    <th className='text-center'>Instructor</th>
+                    <th className='text-center'>Course</th>
+                    <th className='text-center'>Code</th>
+                    <th className='text-center'>Description</th>
+                    <th className='text-center'>Year/Sem</th>
+                    <th className='text-center'>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -96,16 +96,14 @@ export default function Subjects({ auth, paginated }) {
               </table>
               <div className='w-full flex flex-row justify-between'>
                   <div>
-                      <h1>{paginated.current_page}</h1>
+                      <p>Current page: {paginated.current_page}</p>
                   </div>
                   <div className='flex flex-row'>
                     {
                       paginated.links.map(link =>
-                        <div className={`border border-black ${link.active? "bg-emerald-200" : ""}`}>
-                          <Link href={link.url}>
-                            {link.label}
+                          <Link className={`flex flex-row p-2 h-11 ${link.active? "bg-emerald-200" : ""}`} href={link.url} as='button'>
+                            <p dangerouslySetInnerHTML={{ __html: link.label }}/>
                           </Link>
-                        </div>
                       )
                     }
                   </div>
