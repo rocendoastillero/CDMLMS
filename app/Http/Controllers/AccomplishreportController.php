@@ -17,7 +17,7 @@ class AccomplishreportController extends Controller
     {
         return Inertia::render('Faculty/AccomplishmentReports', [
             'reports' => AccomplishReport::where('user_id', Auth::user()->id)->latest()->get()
-        ]); 
+        ]);
     }
 
     /**
@@ -34,12 +34,12 @@ class AccomplishreportController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|unique:subjects|string|max:255',
+            'title' => 'required|unique:accomplishreports|string|max:255',
             'subtitle' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
 
-        $request->user()->accomplishreports()->create($validated);
+        $request->user()->accomplishmentreports()->create($validated);
 
         return redirect(route('accomplishmentreports.index'));
     }
