@@ -8,7 +8,6 @@ import { useForm } from '@inertiajs/react';
 export default function Sample({auth, mustVerifyEmail , status}) {
 
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
-        username: auth.user.username,
         firstname: auth.user.firstname,
         lastname: auth.user.lastname,
         address: auth.user.address,
@@ -41,8 +40,8 @@ export default function Sample({auth, mustVerifyEmail , status}) {
                         <div className="card-body">
                             <form>
                                 <div className="mb-3">
-                                    <label className="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                                    <input className="form-control" id="inputUsername" type="text"  value={data.username} disabled={true}/>
+                                    <label className="small mb-1" for="inputUsername">Email (how your name will appear to other users on the site)</label>
+                                    <input className="form-control" id="inputUsername" type="text"  value={data.email} disabled={true}/>
                                 </div>
                                 <div className="row gx-3 mb-3">
                                     <div className="col-md-6">

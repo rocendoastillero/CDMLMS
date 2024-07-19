@@ -9,7 +9,6 @@ import { Head, Link, useForm } from '@inertiajs/react';
 //TODO add required fields for new columns
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        username: '',
         email: '',
         password: '',
         password_confirmation: '',
@@ -36,19 +35,19 @@ export default function Register() {
 
                 <form onSubmit={submit}>
                     <div>
-                        <InputLabel htmlFor="username" value="Username" />
+                        <InputLabel htmlFor="null" value="null" />
 
                         <TextInput
-                            id="username"
-                            name="username"
-                            value={data.username}
-                            autoComplete="username"
+                            id="null"
+                            name="null"
+                            value={null}
+                            autoComplete="null"
                             isFocused={true}
-                            onChange={(e) => setData('username', e.target.value)}
+                            onChange={null}
                             required
                         />
 
-                        <InputError message={errors.username} className="mt-2" />
+                        <InputError message={null} className="mt-2" />
                     </div>
 
                     <div className="mt-4">
@@ -59,7 +58,7 @@ export default function Register() {
                             type="email"
                             name="email"
                             value={data.email}
-                            autoComplete="username"
+                            autoComplete="email"
                             onChange={(e) => setData('email', e.target.value)}
                             required
                         />

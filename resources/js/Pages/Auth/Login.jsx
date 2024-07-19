@@ -51,7 +51,7 @@ export default function Login({ status, canResetPassword }) {
                             name="email"
                             value={data.email}
                             placeholder="Enter Email Address"
-                            autoComplete="username"
+                            autoComplete="email"
                             isFocused={true}
                             onChange={(e) => setData('email', e.target.value)}
                         />
