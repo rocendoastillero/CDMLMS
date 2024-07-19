@@ -18,7 +18,7 @@ class ScheduleController extends Controller
     public function index()
     {
         
-        return Inertia::render('CDMLMS/Schedules', [
+        return Inertia::render('Faculty/Schedules', [
             'subjects' => Subject::where('user_id', Auth::user()->id)->latest()->get(),
             'schedules' => Schedule::where('user_id', Auth::user()->id)->latest()->get()
         ]

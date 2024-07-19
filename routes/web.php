@@ -17,64 +17,63 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Unverified');
     })->name('unverified faculty');
 
-    Route::get('anouncements', function () {
-        return Inertia::render('CDMLMS/Anouncements');
-    });
-    Route::get('discussions', function () {
-        return Inertia::render('CDMLMS/Discussions');
-    });
-    Route::get('people', function () {
-        return Inertia::render('CDMLMS/People');
-    });
-   
-    Route::get('/attendance', function () {
-        return Inertia::render('CDMLMS/Attendance');
-    });
-    Route::get('/syllabus', function () {
-        return Inertia::render('CDMLMS/Syllabus');
-    })->name('syllabus');
-    Route::get('/classrecord', function () {
-        return Inertia::render('CDMLMS/ClassRecord');
-    })->name('classrecord');
-    Route::get('/gradesheets', function () {
-        return Inertia::render('CDMLMS/GradeSheets');
-    })->name('gradesheets');
-    
-    Route::get('/repository of files', function () {
-        return Inertia::render('CDMLMS/RepositoryOfFiles');
-    });
-    Route::get('/online exam', function () {
-        return Inertia::render('CDMLMS/OnlineExam');
-    });
-    Route::get('/online class', function () {
-        return Inertia::render('CDMLMS/OnlineClass');
-    });
-   
     Route::middleware('faculty')->group(function () {
+
         Route::get('/dashboard', function () {
-            return Inertia::render('CDMLMS/Dashboard');
+            return Inertia::render('Faculty/Dashboard');
         })->name('dashboard');
-    
+
         Route::resource('subjects', SubjectController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
-        
+            ->only(['index', 'store', 'update', 'destroy']);
+
         Route::resource('accomplishmentreports', AccomplishreportController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
-    
+            ->only(['index', 'store', 'update', 'destroy']);
+
+        Route::get('anouncements', function () {
+            return Inertia::render('Faculty/Anouncements');
+        });
+
         Route::resource('schedules', ScheduleController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
-    
+            ->only(['index', 'store', 'update', 'destroy']);
+
+        Route::get('/attendance', function () {
+            return Inertia::render('Faculty/Attendance');
+        });
+        Route::get('/syllabus', function () {
+            return Inertia::render('Faculty/Syllabus');
+        })->name('syllabus');
+        Route::get('/classrecord', function () {
+            return Inertia::render('Faculty/ClassRecord');
+        })->name('classrecord');
+        Route::get('/gradesheets', function () {
+            return Inertia::render('Faculty/GradeSheets');
+        })->name('gradesheets');
+
+        Route::get('/repository of files', function () {
+            return Inertia::render('Faculty/RepositoryOfFiles');
+        });
+        Route::get('/online exam', function () {
+            return Inertia::render('Faculty/OnlineExam');
+        });
+        Route::get('/online class', function () {
+            return Inertia::render('Faculty/OnlineClass');
+        });
+
+
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 
-    Route::middleware('admin')->group(function (){
-        Route::get('/admin',[AdminController::class, 'dashboard'])->name('admin.dashboard');
-        Route::get('/admin/instructors',[AdminController::class, 'instructors'])->name('admin.instructors');
-        Route::patch('/admin/instructors',[AdminController::class, 'verify'])->name('admin.verify');
-    });
+    Route::middleware('admin')->group(function () {
+        
+        Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+        Route::get('/admin/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
+        Route::patch('/admin/instructors', [AdminController::class, 'verify'])->name('admin.verify');
+
+        Route::get('/admin/subjects', [AdminController::class, 'subjects'])->name('admin.subjects');
+    });
 });
 
 

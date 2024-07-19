@@ -6,12 +6,15 @@ export default function Unverified() {
     return (
         <Guest>
             <div className='px-3 my-4 text-lg font-semibold text-center'>
-                Kindly contact the Dean for the verification of your account,<br />Thank you for your cooperation.
+                Kindly contact the Dean for the verification of your account,<br /><br />Thank you for your cooperation.
 
             </div>
-            <div className='w-full flex flex-row place-content-center items-center'>
-                <Link className='my-3 pt-4 txt-lg font-semibold' href={route('logout')} method="post" as="button">
+            <div className='w-full flex flex-row justify-between items-center'>
+                <Link className='my-3 mx-4 pt-4 txt-lg font-semibold' href={route('logout')} method="post" as="button">
                     Log Out
+                </Link>
+                <Link className='my-3 mx-4 pt-4 txt-lg font-semibold' href={route('dashboard')}  as="button">
+                    Already Verified?
                 </Link>
             </div>
         </Guest>

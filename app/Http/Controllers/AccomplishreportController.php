@@ -15,7 +15,7 @@ class AccomplishreportController extends Controller
      */
     public function index()
     {
-        return Inertia::render('CDMLMS/AccomplishmentReports', [
+        return Inertia::render('Faculty/AccomplishmentReports', [
             'reports' => AccomplishReport::where('user_id', Auth::user()->id)->latest()->get()
         ]); 
     }

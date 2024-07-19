@@ -14,7 +14,7 @@ export default forwardRef(function TextInput({ type = 'text', className = '', is
             {...props}
             type={type}
             className={
-                `form-control`+
+                `form-control `+
                 className
             }
             ref={input}

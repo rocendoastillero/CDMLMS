@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
@@ -6,8 +6,12 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 export default function Login({ status, canResetPassword }) {
+
+    const [show, setShow] = useState(0);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -29,8 +33,8 @@ export default function Login({ status, canResetPassword }) {
     return (
         <GuestLayout
             footer={
-                <div class="card-footer text-center">
-                    <div class="small"><Link className='text-primary' href={route('register')}>Need an account? Sign up!</Link></div>
+                <div className="card-footer text-center">
+                    <div className="small"><Link className='text-primary' href={route('register')}>Need an account? Sign up!</Link></div>
                 </div>
             }
         >
@@ -59,18 +63,28 @@ export default function Login({ status, canResetPassword }) {
                         <InputError message={errors.email} className="mt-2" />
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-3 ">
                         <InputLabel htmlFor="password" value="Password" />
-
-                        <TextInput
-                            id="password"
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            placeholder="Enter Password"
-                            autoComplete="current-password"
-                            onChange={(e) => setData('password', e.target.value)}
-                        />
+                        <div className='relative'>
+                            <TextInput
+                                id="password"
+                                type={show ? "text" : "password"}
+                                name="password"
+                                value={data.password}
+                                placeholder="Enter Password"
+                                autoComplete="current-password"
+                                onChange={(e) => setData('password', e.target.value)}
+                            />
+                            <div className='!absolute !-translate-y-2/4 !m-0 !top-2/4 right-3 cursor-pointer' onClick={() => {setShow(!show)}}>
+                                {
+                                    show ? (
+                                        <EyeSlashIcon className='w-6 h-6' />
+                                    ) : (
+                                        <EyeIcon className='w-6 h-6' />
+                                    )
+                                }
+                            </div>
+                        </div>
 
                         <InputError message={errors.password} className="mt-2" />
                     </div>

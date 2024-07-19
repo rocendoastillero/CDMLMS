@@ -1,6 +1,6 @@
 import Dropdown from '@/Components/Dropdown';
 import { useState, useEffect } from 'react'
-import PageHeader from '../Components/CDMLMS/PageHeader';
+import PageHeader from '@/Components/CDMLMS/PageHeader';
 import { Headers } from '../utils/headers';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
@@ -91,7 +91,7 @@ export default function Layout(
                     <nav className="sidenav shadow-right sidenav-light">
                         <div className="sidenav-menu">
                             <div className="nav accordion transition-transform duration-900 ease-in-out" id="accordionSidenav">
-                                <Link href="/d" className="nav-link mt-4 hover:cursor-pointer" >
+                                <Link href={route('dashboard')} className="nav-link mt-4 hover:cursor-pointer" >
                                     <div className="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity text-gray-500"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
                                     Dashboard
                                 </Link>

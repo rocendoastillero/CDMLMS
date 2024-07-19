@@ -1,20 +1,32 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Select } from '@headlessui/react';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
 //TODO add required fields for new columns
 export default function Register() {
+
+    const [show, setShow] = useState(0);
+    const [showC, setShowC] = useState(0);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
+        firstname: '',
+        lastname: '',
+        course: 'CPE',
+        phone: '',
         password: '',
         password_confirmation: '',
     });
 
     useEffect(() => {
+        console.log(data);
+
         return () => {
             reset('password', 'password_confirmation');
         };
@@ -34,67 +46,140 @@ export default function Register() {
 
 
                 <form onSubmit={submit}>
-                    <div>
-                        <InputLabel htmlFor="null" value="null" />
 
-                        <TextInput
-                            id="null"
-                            name="null"
-                            value={null}
-                            autoComplete="null"
-                            isFocused={true}
-                            onChange={null}
-                            required
-                        />
+                    <div className='flex flex-row justify-between mt-4'>
+                        <div className='w-full mr-2'>
+                            <InputLabel htmlFor="firstname" value="First Name" />
 
-                        <InputError message={null} className="mt-2" />
+                            <TextInput
+                                className='capitalize'
+                                id="firstname"
+                                name="firstname"
+                                value={data.firstname}
+                                autoComplete="firstname"
+                                isFocused={true}
+                                onChange={(e) => { setData('firstname', e.target.value) }}
+                                required
+                            />
+
+                            <InputError message={errors.firstname} className="mt-2" />
+                        </div>
+                        <div className='w-full ml-2'>
+                            <InputLabel htmlFor="lastname" value="Last Name" />
+
+                            <TextInput
+                                className='capitalize'
+                                id="lastname"
+                                name="lastname"
+                                value={data.lastname}
+                                autoComplete="lastname"
+                                isFocused={true}
+                                onChange={(e) => { setData('lastname', e.target.value) }}
+                                required
+                            />
+
+                            <InputError message={errors.lastname} className="mt-2" />
+                        </div>
                     </div>
 
-                    <div className="mt-4">
-                        <InputLabel htmlFor="email" value="Email" />
+                    <div className='flex flex-row justify-between mt-4'>
+                        <div className='w-2/3 mr-2'>
+                            <InputLabel htmlFor="email" value="Email" />
+
+                            <TextInput
+                                id="email"
+                                type="email"
+                                name="email"
+                                value={data.email}
+                                autoComplete="email"
+                                onChange={(e) => setData('email', e.target.value)}
+                                required
+                            />
+
+                            <InputError message={errors.email} className="mt-2" />
+                        </div>
+                        <div className='w-1/3 ml-2'>
+                            <InputLabel htmlFor="course" value="Course" />
+                            <Select
+                                name='course'
+                                aria-label='Course'
+                                className="form-control"
+                                onChange={(e) => { setData('course', e.target.value) }}
+                            >
+                                <option value="CPE">CPE</option>
+                                <option value="IT">IT</option>
+                            </Select>
+                        </div>
+                    </div>
+
+                    <div className='mt-4'>
+                        <InputLabel htmlFor="phone" value="Phone" />
 
                         <TextInput
-                            id="email"
-                            type="email"
-                            name="email"
-                            value={data.email}
-                            autoComplete="email"
-                            onChange={(e) => setData('email', e.target.value)}
+                            id="phone"
+                            name="phone"
+                            type='tel'
+                            value={data.phone}
+                            autoComplete="phone"
+                            isFocused={true}
+                            onChange={(e) => { setData('phone', e.target.value) }}
+                            placeholder='09XXXXXXXXX'
+                            pattern='[0-9]{11}'
                             required
                         />
 
-                        <InputError message={errors.email} className="mt-2" />
+                        <InputError message={errors.phone} className="mt-2" />
                     </div>
 
                     <div className="mt-4">
                         <InputLabel htmlFor="password" value="Password" />
+                        <div className='relative'>
 
-                        <TextInput
-                            id="password"
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            autoComplete="new-password"
-                            onChange={(e) => setData('password', e.target.value)}
-                            required
-                        />
 
+                            <TextInput
+                                id="password"
+                                type={show ? "text" : "password"}
+                                name="password"
+                                value={data.password}
+                                autoComplete="new-password"
+                                onChange={(e) => setData('password', e.target.value)}
+                                required
+                            />
+                            <div className='!absolute !-translate-y-2/4 !m-0 !top-2/4 right-3 cursor-pointer' onClick={() => { setShow(!show) }}>
+                                {
+                                    show ? (
+                                        <EyeSlashIcon className='w-6 h-6' />
+                                    ) : (
+                                        <EyeIcon className='w-6 h-6' />
+                                    )
+                                }
+                            </div>
+                        </div>
                         <InputError message={errors.password} className="mt-2" />
                     </div>
 
                     <div className="mt-4">
                         <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                        <TextInput
-                            id="password_confirmation"
-                            type="password"
-                            name="password_confirmation"
-                            value={data.password_confirmation}
-                            autoComplete="new-password"
-                            onChange={(e) => setData('password_confirmation', e.target.value)}
-                            required
-                        />
-
+                        <div className='relative'>
+                            <TextInput
+                                id="password_confirmation"
+                                type={showC ? "text" : "password"}
+                                name="password_confirmation"
+                                value={data.password_confirmation}
+                                autoComplete="new-password"
+                                onChange={(e) => setData('password_confirmation', e.target.value)}
+                                required
+                            />
+                            <div className='!absolute !-translate-y-2/4 !m-0 !top-2/4 right-3 cursor-pointer' onClick={() => { setShowC(!showC) }}>
+                                {
+                                    showC ? (
+                                        <EyeSlashIcon className='w-6 h-6' />
+                                    ) : (
+                                        <EyeIcon className='w-6 h-6' />
+                                    )
+                                }
+                            </div>
+                        </div>
                         <InputError message={errors.password_confirmation} className="mt-2" />
                     </div>
 

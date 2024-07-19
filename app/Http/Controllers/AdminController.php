@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,6 +28,14 @@ class AdminController extends Controller
         ]);
     }
 
+    public function subjects() : Response
+    {
+        return Inertia::render('Admin/Subjects',[
+            'paginated' => Subject::orderby('year')->orderBy('sem')->paginate(8)
+        ]);
+        // return Subject::orderby('year')->orderBy('sem')->paginate(8);
+    }
+
     public function verify(Request $request) : RedirectResponse
     {
         $user = User::where('id', $request->id)->first();
@@ -37,4 +46,6 @@ class AdminController extends Controller
 
         return redirect(route('admin.instructors'));
     }
+
+    
 }

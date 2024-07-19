@@ -19,7 +19,7 @@ class SubjectController extends Controller
     {
         // return Subject::where('user_id', Auth::user()->id)
         // ->pluck('subject','id');
-        return Inertia::render('CDMLMS/Subjects', [
+        return Inertia::render('Faculty/Subjects', [
             'subjects' => Subject::where('user_id', Auth::user()->id)->latest()->get()
         ]);
     }

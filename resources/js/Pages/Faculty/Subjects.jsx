@@ -54,15 +54,11 @@ export default function Subjects({ auth, subjects }) {
      */
     const submit = (e) => {
         e.preventDefault();
-        // if (data.subject != empty.subject) {
         if (editing) {
             patch(route('subjects.update', data.id), { preserveScroll: true });
         } else {
             post(route('subjects.store'), { onSuccess: () => reset() });
         }
-        // } else {
-        //     setEmptyName(true);
-        // }
     };
 
     return (
@@ -70,7 +66,6 @@ export default function Subjects({ auth, subjects }) {
             <Head title={headers[2].title} />
             <CardsWithSticky
                 cards={
-                    //TODO check if the key is not the same
                     subjects.map(Subject =>
                         <IconCard
                             key={Subject.id}

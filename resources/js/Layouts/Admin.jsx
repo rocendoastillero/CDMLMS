@@ -1,6 +1,6 @@
 import PageHeader from '@/Components/CDMLMS/PageHeader';
 import Dropdown from '@/Components/Dropdown';
-import { Bars3Icon, UsersIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, MegaphoneIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { Link } from '@inertiajs/react';
 import React, { useState } from 'react'
 
@@ -79,14 +79,22 @@ export default function Admin({ user, children, icon, headerTitle, headerSubtitl
                                     </div>
                                     Instructors
                                 </Link>
-                                <Link className="nav-link hover:cursor-pointer">
-                                
+                                <Link className="nav-link hover:cursor-pointer" href={route('admin.subjects')}>
+                                    <div className='nav-link-icon'>
+                                        <BookOpenIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
                                     Subjects
                                 </Link>
                                 <Link className="nav-link hover:cursor-pointer">
+                                    <div className='nav-link-icon'>
+                                        <CalendarDaysIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
                                     Schedule
                                 </Link>
                                 <Link className="nav-link hover:cursor-pointer">
+                                    <div className='nav-link-icon'>
+                                        <MegaphoneIcon className='w-5 h-5 text-gray-500' />
+                                    </div>
                                     Anouncements
                                 </Link>
                                 <div className="sidenav-menu-heading text-gray-500">Faculty</div>

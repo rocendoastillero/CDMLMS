@@ -7,7 +7,7 @@ import React from 'react'
  * @param body Card Body
  * @returns HTML
  */
-function SingleCardCenter({ title, body}) {
+function SingleCardCenter({ title, body, table}) {
     return (
 
         <div className={`card mb-4`}>
@@ -16,6 +16,7 @@ function SingleCardCenter({ title, body}) {
                     <div className="text-center text-xl-start text-xxl-center mb-4 mb-xl-0 mb-xxl-4">
                         <h1 className="text-primary">{title}</h1>
                         <p className="text-gray-700 mb-0">{body}</p>
+                        {table}
                     </div>
                 </div>
             </div>
