@@ -10,7 +10,6 @@ export default function Sample({auth, mustVerifyEmail , status}) {
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
         firstname: auth.user.firstname,
         lastname: auth.user.lastname,
-        address: auth.user.address,
         phone: auth.user.phone,
         email: auth.user.email,
     });
@@ -60,7 +59,7 @@ export default function Sample({auth, mustVerifyEmail , status}) {
                                     </div>
                                     <div className="col-md-6">
                                         <label className="small mb-1" for="inputLocation">Address</label>
-                                        <input className="form-control" id="inputLocation" type="text" placeholder="Enter your Address"  value={data.address}/>
+                                        <input className="form-control" id="inputLocation" type="text" placeholder="Enter your Address"  value=""/>
                                     </div>
                                 </div>
                                 <div className="mb-3">

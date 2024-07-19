@@ -32,7 +32,6 @@ class DatabaseSeeder extends Seeder
             'course' => 'CPE',
             'firstname' => 'Ron Neil',
             'lastname' => 'Castro',
-            'address' => 'Blk3 Lot4 P1LL Sub Urban, San Isidro, Rizal',
             'type' => 'user',
             'email' => 'ron@example.com',
             'phone' => '09876543212',

@@ -23,7 +23,7 @@ class AdminController extends Controller
             ->latest()
             ->orderBy('verified')
             ->get()
-            ->makeHidden(['address','email','email_verified_at','created_at','updated_at','phone'])
+            ->makeHidden(['email','email_verified_at','created_at','updated_at','phone'])
         ]);
     }
 
