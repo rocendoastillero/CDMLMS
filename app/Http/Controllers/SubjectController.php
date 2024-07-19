@@ -15,12 +15,14 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : Response
+    public function index(): Response
     {
         // return Subject::where('user_id', Auth::user()->id)
         // ->pluck('subject','id');
         return Inertia::render('Faculty/Subjects', [
-            'paginated' => Subject::where('course', Auth::user()->course)->paginate(8)
+            'paginated' => Subject::where('course', Auth::user()->course)
+            ->orderBy('user_id', Auth::user()->id)
+            ->paginate(8)
         ]);
     }
 
@@ -35,7 +37,7 @@ class SubjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'subject' => 'required|unique:subjects|string|max:255',
@@ -58,7 +60,7 @@ class SubjectController extends Controller
         return $subject;
     }
 
-    public function search($search) : Response
+    public function search($search): Response
     {
         return Inertia::render('Faculty/Subjects', [
             'paginated' => Subject::where('code', 'LIKE', "%{$search}%")->paginate(8)
@@ -78,7 +80,7 @@ class SubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Subject $subject) : RedirectResponse
+    public function update(Request $request, Subject $subject): RedirectResponse
     {
         Gate::authorize('update', $subject);
         $validated = $request->validate([
@@ -91,10 +93,25 @@ class SubjectController extends Controller
         return redirect(route('subjects.index'));
     }
 
+    public function assign(Request $request)
+    {
+        $subject = Subject::where('id', $request->id)->first();
+
+        if ($request->assign) {
+            $subject->user_id = $request->user()->id;
+        } else {
+            $subject->user_id = null;
+        }
+
+        $subject->save();
+
+        return $subject;
+    }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subject $subject) : RedirectResponse
+    public function destroy(Subject $subject): RedirectResponse
     {
         Gate::authorize('delete', $subject);
 
