@@ -15,15 +15,17 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
+    // : Response
     {
-        // return Subject::where('user_id', Auth::user()->id)
-        // ->pluck('subject','id');
+        $mySubjects = Subject::where('user_id', Auth::user()->id)->get();
+        $otherSubjects = Subject::where('user_id','!=', Auth::user()->id)->orWhereNull('user_id')->get();
+
+        $all = $mySubjects->concat($otherSubjects);
         return Inertia::render('Faculty/Subjects', [
-            'paginated' => Subject::where('course', Auth::user()->course)
-            ->orderBy('user_id', Auth::user()->id)
-            ->paginate(8)
+            'paginated' => $all->paginate(8)
         ]);
+
     }
 
     /**
@@ -63,7 +65,12 @@ class SubjectController extends Controller
     public function search($search): Response
     {
         return Inertia::render('Faculty/Subjects', [
-            'paginated' => Subject::where('code', 'LIKE', "%{$search}%")->paginate(8)
+            'paginated' => Subject::where('code', 'LIKE', "%{$search}%")
+            ->orWhere('description', 'LIKE', "%{$search}%")
+            ->orWhere('year', 'LIKE', "%{$search}%")
+            ->orWhere('sem', 'LIKE', "%{$search}%")
+            ->paginate(8),
+            'searched' => $search,
         ]);
         // return Subject::where('code', 'LIKE', "%{$search}%")->paginate(8);
     }
