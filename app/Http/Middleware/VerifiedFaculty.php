@@ -16,11 +16,16 @@ class VerifiedFaculty
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::user()->verified){
-            return redirect(route('unverified faculty'));
-        } else if (Auth::user()->type == 'admin'){
-            return redirect(route('admin.dashboard'));
+        if (Auth::user() == null) {
+            return redirect('login');
+        } else {
+
+            if (!Auth::user()->verified) {
+                return redirect(route('unverified faculty'));
+            } else if (Auth::user()->type == 'admin') {
+                return redirect(route('admin.dashboard'));
+            }
+            return $next($request);
         }
-        return $next($request);
     }
 }
