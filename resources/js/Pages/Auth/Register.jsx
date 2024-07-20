@@ -6,12 +6,14 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { Select } from '@headlessui/react';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import Dropdown from '@/Components/Dropdown';
 
 //TODO add required fields for new columns
 export default function Register() {
 
     const [show, setShow] = useState(0);
+
     const [showC, setShowC] = useState(0);
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -100,7 +102,7 @@ export default function Register() {
                         </div>
                         <div className='w-1/3 ml-2'>
                             <InputLabel htmlFor="course" value="Course" />
-                            <Select
+                            {/* <Select
                                 name='course'
                                 aria-label='Course'
                                 className="form-control"
@@ -108,7 +110,19 @@ export default function Register() {
                             >
                                 <option value="CPE">CPE</option>
                                 <option value="IT">IT</option>
-                            </Select>
+                            </Select> */}
+                            <Dropdown>
+                                <Dropdown.Trigger>
+                                    <button className='form-control relative text-start' type='button'>
+                                        {data.course}
+                                        <ChevronDownIcon className='absolute -translate-y-2/4 top-2/4 right-3 w-5 h-5'/>
+                                    </button>
+                                </Dropdown.Trigger>
+                                <Dropdown.Content margin='!mt-0'>
+                                    <div onClick={()=>{setData('course','CPE')}} className='cursor-pointer py-1 hover:bg-green-100'>CPE</div>
+                                    <div onClick={()=>{setData('course','IT')}} className='cursor-pointer py-1 hover:bg-green-100'>IT</div>
+                                </Dropdown.Content>
+                            </Dropdown>
                         </div>
                     </div>
 
