@@ -1,12 +1,12 @@
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
+import Dropdown from '@/Components/Dropdown';
 import Admin from '@/Layouts/Admin'
-import { Select } from '@headlessui/react';
-import { BookOpenIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
-import { Head, Link, useForm } from '@inertiajs/react';
+import { BookOpenIcon, ChevronDownIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react'
 
-export default function Subjects({ auth, paginated }) {
+export default function Subjects({ auth, paginated, searched = '' }) {
 
   /**
     * Empty Instance of Subjects
@@ -31,6 +31,9 @@ export default function Subjects({ auth, paginated }) {
 
   const [warning, setWarning] = useState(false);
 
+  const [search, setSearch] = useState(searched);
+
+
   /**
    * Form for submition
    */
@@ -54,9 +57,9 @@ export default function Subjects({ auth, paginated }) {
     }
   };
 
-  useEffect(() => {
+  useEffect((() => {
     console.log(paginated);
-  }, []);
+  }), []);
 
   return (
     <Admin
@@ -71,22 +74,43 @@ export default function Subjects({ auth, paginated }) {
           <SingleCardCenter
             table={
               <>
-                <table className='datatable-table'>
+                <div className='w-1/3 mb-4 relative'>
+                  <input className='form-control'
+                    placeholder='Search Subject'
+                    value={search}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        console.log(search);
+                        router.visit(route('admin.subjects.search', search), { preserveScroll: true });
+                      }
+                    }}
+                    onChange={(e) => { setSearch(e.target.value); }}
+                  />
+                  {
+                    search == '' ? (
+                      <MagnifyingGlassIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 text-gray-600' />
+                    ) : (
+                      <Link className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  ' href={route('admin.subjects')} as='button'>
+                        <XCircleIcon className='w-8 h-8 text-gray-600' />
+                      </Link>
+                    )
+                  }
+                </div>
+                <table className='datatable-table text-center'>
                   <thead>
                     <tr>
-
-                      <th className='text-center'>Instructor</th>
-                      <th className='text-center'>Course</th>
-                      <th className='text-center'>Code</th>
-                      <th className='text-center'>Description</th>
-                      <th className='text-center'>Year/Sem</th>
-                      <th className='text-center'>Actions</th>
+                      <th>Instructor</th>
+                      <th>Course</th>
+                      <th>Code</th>
+                      <th>Description</th>
+                      <th>Year/Sem</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {
                       paginated.data.map(subject =>
-                        <tr key={subject.id}>
+                        <tr key={subject.id} className={`${subject.user_id == null ? "bg-red-100" : ""}`}>
                           <td key={subject.user_id}>{subject.instructor}</td>
                           <td>{subject.course}</td>
                           <td>{subject.code}</td>
@@ -110,12 +134,12 @@ export default function Subjects({ auth, paginated }) {
                   <div>
                     <p>Current page: {paginated.current_page}</p>
                   </div>
-                  <div className='flex flex-row'>
+                  <div className='flex flex-row border border-gray-400 rounded text-[#044721]'>
                     {
                       paginated.links.map(link =>
-                        <Link className={`flex flex-row p-2 h-11 rounded-[50%] ${link.active ? "bg-emerald-200" : ""}`} href={link.url} as='button' preserveScroll={true}>
-                          <p dangerouslySetInnerHTML={{ __html: link.label }} />
-                        </Link>
+                        <Link dangerouslySetInnerHTML={{ __html: link.label }} className={`flex flex-row p-2 h-11 border-r-2 border-gray-400 ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`} href={link.url} as='button' disabled={link.url == null} preserveScroll={true} />
+
+
                       )
                     }
                   </div>
@@ -137,23 +161,38 @@ export default function Subjects({ auth, paginated }) {
               <label className="small !text-[16px] mb-1" >Description</label>
               <input className="form-control" id="inputDescription" type="text" placeholder="Description" value={data.description} onChange={(e) => { setData('description', e.target.value) }} />
             </div>
-            <div className='mb-3 flex flex-row'>
+            <div className='mb-3 flex flex-row text-center'>
               <div className='w-1/2'>
                 <label className="small !text-[16px] mb-1" >Year</label>
-                <Select className="form-control mr-1" onChange={(e)=>{setData('year', e.target.value)}}>
-                  <option value="1st">1st</option>
-                  <option value="2nd">2nd</option>
-                  <option value="3rd">3rd</option>
-                  <option value="4th">4th</option>
-                </Select>
+                <Dropdown>
+                  <Dropdown.Trigger>
+                    <button className='form-control text-start mr-1 relative' type='button'>
+                      {data.year}
+                      <ChevronDownIcon className='absolute -translate-y-2/4 top-2/4 right-3 w-5 h-5' />
+                    </button>
+                  </Dropdown.Trigger>
+                  <Dropdown.Content>
+                    <div onClick={() => { setData('year', '1st') }} className='cursor-pointer py-2 hover:bg-green-100'>1st</div>
+                    <div onClick={() => { setData('year', '2nd') }} className='cursor-pointer py-2 hover:bg-green-100'>2nd</div>
+                    <div onClick={() => { setData('year', '3rd') }} className='cursor-pointer py-2 hover:bg-green-100'>3rd</div>
+                    <div onClick={() => { setData('year', '4th') }} className='cursor-pointer py-2 hover:bg-green-100'>4th</div>
+                  </Dropdown.Content>
+                </Dropdown>
               </div>
               <div className='w-1/2'>
                 <label className="small !text-[16px] mb-1" >Sem</label>
-                <Select className="form-control ml-1" onChange={(e)=>{setData('sem', e.target.value)}}>
-                  <option value="1st">1st</option>
-                  <option value="2nd">2nd</option>
-                  <option value="intersem">intersem</option>
-                </Select>
+                <Dropdown>
+                  <Dropdown.Trigger>
+                    <button className='form-control text-start ml-1 relative' type='button'>
+                      {data.sem}
+                      <ChevronDownIcon className='absolute -translate-y-2/4 top-2/4 right-3 w-5 h-5' />
+                    </button>
+                  </Dropdown.Trigger>
+                  <Dropdown.Content>
+                    <div onClick={() => { setData('sem', '1st') }} className='cursor-pointer py-2 hover:bg-green-100'>1st</div>
+                    <div onClick={() => { setData('sem', '2nd') }} className='cursor-pointer py-2 hover:bg-green-100'>2nd</div>
+                  </Dropdown.Content>
+                </Dropdown>
               </div>
             </div>
             <div className='flex flex-row'>
