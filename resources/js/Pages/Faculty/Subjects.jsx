@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import Layout from "@/Layouts/Layout";
-import IconCard from '@/Components/CDMLMS/IconCard';
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import { Headers } from "@/utils/headers"
-import { PencilIcon, TrashIcon, XMarkIcon, CheckIcon } from "@heroicons/react/24/outline";
-import { Link, Head, useForm } from '@inertiajs/react';
-import AlertCard from '@/Components/CDMLMS/AlertCard';
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { Link, Head, useForm, router } from '@inertiajs/react';
+import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 
 
 const headers = Headers('w-9 w-9');
@@ -17,22 +16,24 @@ const headers = Headers('w-9 w-9');
  * @param auth The Authentication 
  * @returns Page
  */
-export default function Subjects({ auth, subjects }) {
+export default function Subjects({ auth, paginated }) {
 
     /**
      * Empty Instance of Subjects
      */
     const empty = {
         id: '',
-        subject: '',
+        code: '',
         description: ''
     };
 
     const [selectedSubject, setSelectedSubject] = useState({
         id: '',
-        subject: '',
+        code: '',
         description: ''
     });
+
+    const [search, setSearch] = useState('');
 
     const [empytName, setEmptyName] = useState(false);
 
@@ -45,7 +46,7 @@ export default function Subjects({ auth, subjects }) {
      */
     const { data, setData, post, patch, errors, hasErrors, processing, reset, recentlySuccessful } = useForm({
         id: '',
-        subject: '',
+        code: '',
         description: '',
     });
 
@@ -66,96 +67,71 @@ export default function Subjects({ auth, subjects }) {
             <Head title={headers[2].title} />
             <CardsWithSticky
                 cards={
-                    subjects.map(Subject =>
-                        <IconCard
-                            key={Subject.id}
-                            title={Subject.subject}
-                            body={
-                                <>
-                                    {Subject.description}
-                                    {((warning && (selectedSubject.id == Subject.id)) && (
-                                        <AlertCard
-                                            type="alert-warning"
-                                            title={`Delete ${Subject.subject}?`}
-                                            message="The subject will be deleted forever and any related data to it"
-                                            actions={
-                                                <>
-                                                    <Link as='button' href={route('subjects.destroy', Subject.id)} method='delete'>
-                                                        <CheckIcon className="h-6 w-6 mx-1 hover:text-[#8b0d00]" />
-                                                    </Link>
+                    <SingleCardCenter
+                        table={
+                            <>
+                                <div className='w-1/3 mb-4 relative'>
+                                    <input className='form-control !'
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                console.log(search);
+                                                router.visit(route('subjects.search', search));
+                                            }
+                                        }}
+                                        onChange={(e) => {setSearch(e.target.value)}}
+                                    />
+                                    <MagnifyingGlassIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-5 h-5' />
+                                </div>
+                                <table className='datatable-table'>
+                                    <thead>
+                                        <tr>
 
-                                                    <XMarkIcon className="h-6 w-6 mx-1 hover:cursor-pointer" onClick={() => { setWarning(false) }} />
-                                                </>
-                                            }
-                                        />
-                                    ))}
-                                </>
-                            }
-                            setWarning={
-                                Subject.id == selectedSubject.id &&
-                                warning
+                                            <th className='text-center'>Instructor</th>
+                                            <th className='text-center'>Course</th>
+                                            <th className='text-center'>Code</th>
+                                            <th className='text-center'>Description</th>
+                                            <th className='text-center'>Year/Sem</th>
+                                            <th className='text-center'>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            paginated.data.map(subject =>
+                                                <tr key={subject.id}>
+                                                    <td key={subject.user_id}>{subject.instructor}</td>
+                                                    <td>{subject.course}</td>
+                                                    <td>{subject.code}</td>
+                                                    <td>{subject.description}</td>
+                                                    <td>{`${subject.year}-${subject.sem}`} </td>
+                                                    <td>
+                                                        <button className={`btn-primary mx-1 p-1 rounded text-white ${auth.user.id == subject.user_id ? "bg-red-700 hover:bg-red-500" : "bg-green-700 hover:bg-green-500"}`}>
+                                                            {auth.user.id == subject.user_id ? "Drop" : "Assign"}
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        }
+                                    </tbody>
 
-                            }
-                            active={selectedSubject.id == Subject.id}
-                            selectAction={() => {
-                                if (editing && (Subject.id != selectedSubject.id)) {
-                                    setSelectedSubject(Subject);
-                                    setData(Subject);
-                                } else if (!editing && selectedSubject.id == '') {
-                                    setEditing(true);
-                                    setSelectedSubject(Subject);
-                                    setData(Subject);
-                                } else if (editing && Subject.id == selectedSubject.id) {
-                                    setEditing(false);
-                                    setSelectedSubject(empty);
-                                    setData(empty);
-                                }
-                                if (warning) {
-                                    setWarning(false);
-                                }
-                            }}
-                            actions={
-                                <>
-                                    <div className={`rounded-[50%] h-10 w-10 bg-sky-500 flex place-content-center items-center mx-1 hover:!bg-sky-700  ${selectedSubject.id == Subject.id ? "!bg-sky-700 " : ""}`}
-                                        onClick={() => {
-                                            if (editing && (Subject.id != selectedSubject.id)) {
-                                                setSelectedSubject(Subject);
-                                                setData(Subject);
-                                            } else if (!editing && selectedSubject.id == '') {
-                                                setEditing(true);
-                                                setSelectedSubject(Subject);
-                                                setData(Subject);
-                                            } else if (editing && Subject.id == selectedSubject.id) {
-                                                setEditing(false);
-                                                setSelectedSubject(empty);
-                                                setData(empty);
-                                            }
-                                            if (warning) {
-                                                setWarning(false);
-                                            }
-                                        }} >
-                                        <PencilIcon className={`h-5 w-5 !text-white hover:!text-white ${selectedSubject.id == Subject.id ? " !text-gray-600" : ""}`} />
+                                </table>
+                                <div className='w-full flex flex-row justify-between'>
+                                    <div>
+                                        <p>Current page: {paginated.current_page}</p>
                                     </div>
-                                    <div className='rounded-[50%] h-10 w-10 bg-red-500 flex place-content-center items-center mx-1 hover:!bg-red-700' 
-                                    onClick={
-                                        () => {
-                                            if (Subject.id == selectedSubject.id) {
-                                                setWarning(!warning);
-                                            } else if (!editing && selectedSubject.id == '') {
-                                                setEditing(true);
-                                                setSelectedSubject(Subject);
-                                                setData(Subject);
-                                                setWarning(!warning);
-                                            }
-                                        }   
-                                    }>
-                                        <TrashIcon className="h-5 w-5  text-white" />
+                                    <div className='flex flex-row'>
+                                        {
+                                            paginated.links.map(link =>
+                                                <Link className={`flex flex-row p-2 h-8 rounded-[50%] items-center place-content-center ${link.active ? "bg-[#e0e5ec] bg-opacity-50" : ""}`} href={link.url} as='button' preserveScroll={true}>
+                                                    <p className='!m-0' dangerouslySetInnerHTML={{ __html: link.label }} />
+                                                </Link>
+                                            )
+                                        }
                                     </div>
+                                </div>
+                            </>
 
-                                </>
-                            }
-                        />
-                    )
+                        }
+                    />
                 }
                 stickyNavHeader="Subject Details"
                 stickyNavBody={
@@ -181,7 +157,7 @@ export default function Subjects({ auth, subjects }) {
                             {
                                 hasErrors && (
                                     <div className="alert alert-danger !py-2 !pt-3 !my-0 ml-2 !text-[12px]" role="alert">
-                                        {errors.subject}
+                                        {errors.code}
                                     </div>
                                 )
                             }

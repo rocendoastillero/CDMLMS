@@ -20,7 +20,7 @@ class SubjectController extends Controller
         // return Subject::where('user_id', Auth::user()->id)
         // ->pluck('subject','id');
         return Inertia::render('Faculty/Subjects', [
-            'subjects' => Subject::where('user_id', Auth::user()->id)->latest()->get()
+            'paginated' => Subject::where('course', Auth::user()->course)->paginate(8)
         ]);
     }
 
@@ -52,8 +52,20 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        //
+        // return Inertia::render('Faculty/Subjects', [
+        //     'paginated' => Subject::where('code', 'LIKE', "%{$subject}%") ->get()
+        // ]);
+        return $subject;
     }
+
+    public function search($search) : Response
+    {
+        return Inertia::render('Faculty/Subjects', [
+            'paginated' => Subject::where('code', 'LIKE', "%{$search}%")->paginate(8)
+        ]);
+        // return Subject::where('code', 'LIKE', "%{$search}%")->paginate(8);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

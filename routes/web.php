@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
             return Inertia::render('Faculty/Dashboard');
         })->name('dashboard');
 
+        Route::get('subjects/{search}', [SubjectController::class, 'search'])->name('subjects.search');
         Route::resource('subjects', SubjectController::class)
             ->only(['index', 'store', 'update', 'destroy']);
 

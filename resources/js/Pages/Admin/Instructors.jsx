@@ -13,7 +13,7 @@ export default function Instructors({ auth, instructors }) {
             headerTitle="Instructors"
             headerSubtitle="View Instructors"
         >
-            <Head title='Instructors'/>
+            <Head title='Instructors' />
             <CardsWithSticky
                 cards={
                     <SingleCardWithHeader
@@ -32,10 +32,18 @@ export default function Instructors({ auth, instructors }) {
                                     {
                                         instructors.map(instructor =>
                                             <tr key={instructor.id} className='text-center'>
-                                                <td><Link>{instructor.lastname + ", " + instructor.firstname}</Link></td>
+                                                <td><Link as='button'>{instructor.lastname + ", " + instructor.firstname}</Link></td>
                                                 <td className='flex place-content-center'>{instructor.verified ? <CheckCircleIcon className='w-7 h-7 text-green-600' /> : <XCircleIcon className='w-7 h-7 text-red-600' />}</td>
                                                 <td>{instructor.course}</td>
-                                                <td><Link className={`font-semibold ${instructor.verified ? "text-red-700":"text-green-700"}`} href={route('admin.verify')} method='patch' as='button' data={{id:instructor.id, verify: (instructor.verified ? 0:1)}}> {instructor.verified ? "Unverify":"Verify"}</Link></td>
+                                                <td>
+                                                    <Link
+                                                        className={`font-semibold ${instructor.verified ? "text-red-700" : "text-green-700"}`}
+                                                        href={route('admin.verify')} method='patch' as='button'
+                                                        data={{ id: instructor.id, verify: (instructor.verified ? 0 : 1) }}
+                                                    >
+                                                        {instructor.verified ? "Unverify" : "Verify"}
+                                                    </Link>
+                                                </td>
                                             </tr>
                                         )
                                     }
