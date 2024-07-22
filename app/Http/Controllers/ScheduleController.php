@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class ScheduleController extends Controller
@@ -19,6 +20,7 @@ class ScheduleController extends Controller
     {
         
         return Inertia::render('Faculty/Schedules', [
+            'admin' => Auth::user()->type ==='admin',
             'subjects' => Subject::where('user_id', Auth::user()->id)->latest()->get(),
             'schedules' => Schedule::where('user_id', Auth::user()->id)->latest()->get()
         ]

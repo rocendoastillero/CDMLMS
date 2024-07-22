@@ -11,9 +11,10 @@ import { TrophyIcon } from '@heroicons/react/24/outline'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function OnlineClass({ auth }) {
+export default function OnlineClass({ admin = false, auth }) {
     return (
         <Layout 
+        admin={admin}
         user={auth.user} 
         icon={<TrophyIcon className='w-9 h-9 text-gray-500' />} 
         headerTitle='Online Class' 

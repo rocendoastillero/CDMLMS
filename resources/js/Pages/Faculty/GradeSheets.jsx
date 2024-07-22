@@ -12,9 +12,10 @@ import { DocumentIcon } from '@heroicons/react/24/outline'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function GradeSheets({ auth }) {
+export default function GradeSheets({ admin = false, auth }) {
     return (
         <Layout 
+        admin={admin}
         user={auth.user} 
         icon={<DocumentIcon className='w-9 h-9 text-gray-500' />} 
         headerTitle="Grade Sheets" 

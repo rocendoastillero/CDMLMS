@@ -6,6 +6,8 @@ use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -13,25 +15,34 @@ class AdminController extends Controller
 {
     public function dashboard(): Response
     {
-        return Inertia::render('Admin/Dashboard');
+        return Inertia::render('Admin/Dashboard',['admin' => Auth::user()->type ==='admin',]);
     }
+
+    /**
+     * Instructors
+     */
 
     public function instructors(): Response
     {
-        //TODO change prop to paginated
         return Inertia::render('Admin/Instructors', [
-            'instructors' => User::where('type', 'user')
+            'admin' => Auth::user()->type ==='admin',
+            'paginated' => User::where('type', 'user')
                 ->latest()
                 ->orderBy('verified')
                 ->get()
                 ->makeHidden(['email', 'email_verified_at', 'created_at', 'updated_at', 'phone'])
+                ->paginate(8),
+            'searched' => '',
+            
+
         ]);
     }
 
     public function searchInstructor($search)
     {
         return Inertia::render('Admin/Instructors', [
-            'instructors' => User::where('type', 'user')
+            'admin' => Auth::user()->type ==='admin',
+            'paginated' => User::where('type', 'user')
                 ->orWhere('firstname', 'LIKE', "%{$search}%")
                 ->orWhere('lastname', 'LIKE', "%{$search}%")
                 ->orderBy('verified')
@@ -39,6 +50,7 @@ class AdminController extends Controller
                 ->makeHidden(['email', 'email_verified_at', 'created_at', 'updated_at', 'phone'])
                 ->paginate(8),
             'searched' => $search,
+            
         ]);
     }
 
@@ -53,9 +65,20 @@ class AdminController extends Controller
         return redirect(route('admin.instructors'));
     }
 
+    public function viewInstructor(User $user)
+    {
+        
+    }
+
+
+    /**
+     * Subjects
+     */
+
     public function subjects(): Response
     {
         return Inertia::render('Admin/Subjects', [
+            'admin' => Auth::user()->type ==='admin',
             'paginated' => Subject::orderby('year')->orderBy('sem')->paginate(8)
         ]);
         // return Subject::orderby('year')->orderBy('sem')->paginate(8);
@@ -64,6 +87,7 @@ class AdminController extends Controller
     public function searchSubject($search)
     {
         return Inertia::render('Admin/Subjects', [
+            'admin' => Auth::user()->type ==='admin',
             'paginated' => Subject::where('code', 'LIKE', "%{$search}%")
                 ->orWhere('description', 'LIKE', "%{$search}%")
                 ->orWhere('year', 'LIKE', "%{$search}%")

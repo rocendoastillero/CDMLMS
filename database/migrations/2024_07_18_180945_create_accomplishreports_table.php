@@ -15,9 +15,12 @@ return new class extends Migration
         Schema::create('accomplishreports', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->cascadeOnDelete();
-            $table->string('title');
-            $table->string('subtitle')->nullable();
-            $table->longText('body');
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->string('activity');
+            $table->string('venue');
+            $table->string('designation');
+            $table->string('report');
             $table->timestamps();
         });
     }

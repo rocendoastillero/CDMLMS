@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -23,6 +25,7 @@ class SubjectController extends Controller
 
         $all = $mySubjects->concat($otherSubjects);
         return Inertia::render('Faculty/Subjects', [
+            'admin' => Auth::user()->type ==='admin',
             'paginated' => $all->paginate(8)
         ]);
 
@@ -65,6 +68,7 @@ class SubjectController extends Controller
     public function search($search): Response
     {
         return Inertia::render('Faculty/Subjects', [
+            'admin' => Auth::user()->type ==='admin',
             'paginated' => Subject::where('code', 'LIKE', "%{$search}%")
             ->orWhere('description', 'LIKE', "%{$search}%")
             ->orWhere('year', 'LIKE', "%{$search}%")
@@ -100,7 +104,7 @@ class SubjectController extends Controller
         return redirect(route('subjects.index'));
     }
 
-    public function assign(Request $request)
+    public function assign(Request $request) : RedirectResponse
     {
         $subject = Subject::where('id', $request->id)->first();
 
@@ -112,7 +116,7 @@ class SubjectController extends Controller
 
         $subject->save();
 
-        return $subject;
+        return redirect(route('subjects.index'));
     }
 
     /**

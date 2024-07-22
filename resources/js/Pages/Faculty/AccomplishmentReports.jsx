@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
-import { PencilIcon, TrashIcon, ArchiveBoxXMarkIcon, CheckIcon, XMarkIcon, TrophyIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon, ArchiveBoxXMarkIcon, CheckIcon, XMarkIcon, TrophyIcon, PlusIcon } from "@heroicons/react/24/outline";
 import Layout from '@/Layouts/Layout'
 import { Head, Link, useForm } from '@inertiajs/react'
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
 import AlertCard from '@/Components/CDMLMS/AlertCard';
+import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 
-//TODO test new model,controller Accomplishreport
+
 /**
  * @function Page Page of the Accomplishment Reports
  * 
@@ -14,7 +15,7 @@ import AlertCard from '@/Components/CDMLMS/AlertCard';
  * @param reports Accomplishment Reports 
  * @returns Page
  */
-export default function AccomplishmentReports({ auth, reports }) {
+export default function AccomplishmentReports({ admin = false, auth, reports }) {
 
     const [view, setView] = useState(1);
 
@@ -24,23 +25,35 @@ export default function AccomplishmentReports({ auth, reports }) {
 
     const empty = {
         id: '',
-        title: '',
-        subtitle: '',
-        body: '',
+        date: '',
+        start: '',
+        end: '',
+        activity: '',
+        venue: '',
+        designation: '',
+        report: '',
     };
 
     const [selectedReport, setSelectedReport] = useState({
         id: '',
-        title: '',
-        subtitle: '',
-        body: '',
+        date: '',
+        start: '',
+        end: '',
+        activity: '',
+        venue: '',
+        designation: '',
+        report: '',
     });
 
     const { data, setData, post, patch, errors, hasErrors, processing, reset, recentlySuccessful } = useForm({
         id: '',
-        title: '',
-        subtitle: '',
-        body: '',
+        date: '',
+        start: '',
+        end: '',
+        activity: '',
+        venue: '',
+        designation: '',
+        report: '',
     });
 
     const submit = (e) => {
@@ -57,8 +70,13 @@ export default function AccomplishmentReports({ auth, reports }) {
         }
     }
 
+    useEffect((()=>{
+        console.log(reports);
+    }),[]);
+
     return (
         <Layout
+            admin={admin}
             user={auth.user}
             icon={<TrophyIcon className='w-9 h-9 text-gray-500' />}
             headerTitle='Accomplishment Reports'
@@ -83,73 +101,48 @@ export default function AccomplishmentReports({ auth, reports }) {
                                     );
                                 } else {
                                     return (
-                                        reports.map(report =>
-                                            <SingleCardWithHeader
-                                                key={report.id}
-                                                header={
-                                                    <div className='text-[1.2rem] font-semibold'>
-                                                        {report.title}
-                                                    </div>
-                                                }
-                                                subtitle={report.subtitle}
-                                                body={
-                                                    <>
-                                                        <div className='truncate w-3/4'>
-                                                            {report.body}
-                                                        </div>
-                                                        {((warning && (selectedReport.id == report.id)) && (
-                                                            <AlertCard
-                                                                type="alert-warning"
-                                                                title={`Delete ${report.title}?`}
-                                                                message="The subject will be deleted forever and any related data to it"
-                                                                actions={
-                                                                    <>
-                                                                        <Link as='button' method='delete'
-                                                                            href={route('accomplishmentreports.destroy', report.id)}
-                                                                        >
-                                                                            <CheckIcon className="h-6 w-6 mx-1 hover:text-[#8b0d00]" />
-                                                                        </Link>
+                                        <SingleCardCenter
+                                            table={
+                                                <>
+                                                    <table className='datatable-table mt-3 text-center'>
+                                                        <thead>
+                                                            <tr>
+                                                                <th >Date</th>
+                                                                <th >Start</th>
+                                                                <th >End</th>
+                                                                <th >Activity</th>
+                                                                <th >Designation</th>
+                                                                <th >Venue</th>
+                                                                <th >Time Spent</th>
+                                                                <th >Report</th>
+                                                                <th >Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {
+                                                                reports.map(report =>
+                                                                    <tr key={report.user_id}>
+                                                                        <td>{report.date}</td>
+                                                                        <td>{report.start}</td>
+                                                                        <td>{report.end}</td>
+                                                                        <td>{report.activity}</td>
+                                                                        <td>{report.designation}</td>
+                                                                        <td>{report.venue}</td>
+                                                                        <td>{report.timespent}</td>
+                                                                        <td>{report.report}</td>
+                                                                        <td>
+                                                                            
+                                                                        </td>
+                                                                    </tr>
 
-                                                                        <XMarkIcon className="h-6 w-6 mx-1 hover:cursor-pointer" onClick={() => { setWarning(false) }} />
-                                                                    </>
-                                                                }
-                                                            />
-                                                        ))}
-                                                    </>
-                                                }
-                                                button={
-                                                    <div className='flex flex-row'>
-                                                        <button className={`rounded-[50%] h-10 w-10 bg-sky-500 flex place-content-center items-center mx-1 hover:!bg-sky-700  `}
-                                                            onClick={
-                                                                () => {
-                                                                    setEditing(true);
-                                                                    setSelectedReport(report);
-                                                                    setData(report);
-                                                                    setView(2);
-                                                                }
+                                                                )
                                                             }
-                                                        >
-                                                            <PencilIcon className={`h-5 w-5 !text-white hover:!text-white `} />
-                                                        </button>
-                                                        <button className='rounded-[50%] h-10 w-10 bg-red-500 flex place-content-center items-center mx-1 hover:!bg-red-700'
-                                                            onClick={() => {
-                                                                if (report.id == selectedReport.id) {
-                                                                    setWarning(true);
-                                                                } else {
-                                                                    setWarning(true);
-                                                                    setSelectedReport(report);
-                                                                    setData(report);
-                                                                }
-                                                            }}
-                                                        >
-                                                            <TrashIcon className="h-5 w-5  text-white" />
-                                                        </button>
+                                                        </tbody>
+                                                    </table>
+                                                </>
+                                            }
+                                        />
 
-                                                    </div>
-                                                }
-                                                alert={(warning && (selectedReport.id == report.id))}
-                                            />
-                                        )
                                     );
                                 }
                             } else if (view == 0 || view == 2) {
@@ -163,52 +156,62 @@ export default function AccomplishmentReports({ auth, reports }) {
                                                 "Create Report"
                                             )
                                         }
-                                        buttton={
+                                        button={
                                             <div className='flex flex-row'>
-                                                <div className={`rounded-[50%] h-10 w-10  flex place-content-center items-center mx-1 !bg-sky-700  `}
+                                                <div className={`rounded-[50%] h-10 w-10  flex place-content-center items-center mx-3 !bg-sky-700  `}
                                                 >
-                                                    <PencilIcon className={`h-5 w-5  !text-white `} />
+                                                    {
+                                                        editing ? (
+                                                            <PencilIcon className={`h-5 w-5  !text-white `} />
+                                                        ) : (
+                                                            <PlusIcon className='h-7 w-7 !text-white' />
+                                                        )
+                                                    }
                                                 </div>
                                             </div>
                                         }
                                         body={
                                             <form className='p-3' onSubmit={submit}>
-                                                <div className="mb-4">
-                                                    <input className="form-control !rounded-none !border-0 !border-b-2 !text-lg focus:!border-black focus:!ring-0 !w-2/3" type="text" placeholder="Title" value={data.title} onChange={(e) => { setData('title', e.target.value) }} />
-                                                    {
-                                                        hasErrors && (
-                                                            <div className="alert alert-danger !py-2 !pt-3 !my-2 !w-2/3" role="alert">
-                                                                {errors.title}
-                                                            </div>
-
-                                                        )
-                                                    }
-                                                </div>
-                                                <div className="mb-4">
-                                                    <input className="form-control !rounded-none !border-0 !border-b-2 !text-lg focus:!border-black focus:!ring-0 !w-1/3" type="text" placeholder="Subtitle" value={data.subtitle} onChange={(e) => { setData('subtitle', e.target.value) }} />
-                                                    {
-                                                        hasErrors && (
-                                                            <div className="alert alert-danger !py-2 !pt-3 !my-2 !w-1/3" role="alert">
-                                                                {errors.subtitle}
-
-                                                            </div>
-
-                                                        )
-                                                    }
-
-                                                </div>
-                                                <div className='my-8'>
-                                                    <textarea className='form-control !h-[22rem] !rounded-[4px] !border-1  focus:!border-black focus:!ring-0 !text-lg !leading-[150%]' placeholder='Body' value={data.body} onChange={(e) => { setData('body', e.target.value) }} />
-                                                    {
-                                                        hasErrors && (
-                                                            <div className="alert alert-danger !py-2 !pt-3 !my-2 !w-2/3" role="alert">
-                                                                {errors.body}
-
-                                                            </div>
-
-                                                        )
-                                                    }
-
+                                                <div className='flex flex-row gap-6'>
+                                                    <div className='w-1/3 flex flex-col gap-4'>
+                                                        <div>
+                                                            <label htmlFor="Date">Date</label>
+                                                            <input className='form-control' type="date" value={data.date} onChange={(e) => { setData('date', e.target.value) }} />
+                                                            
+                                                        </div>
+                                                        <div>
+                                                            <label htmlFor="Start">Start</label>
+                                                            <input className='form-control' type="time" value={data.start} onChange={(e) => { setData('start', e.target.value) }} />
+                                                            {errors.start}
+                                                        </div>
+                                                        <div>
+                                                            <label htmlFor="End">End</label>
+                                                            <input className='form-control' type="time" value={data.end} onChange={(e) => { setData('end', e.target.value) }} />
+                                                            {errors.end}
+                                                        </div>
+                                                    </div>
+                                                    <div className='w-2/3 flex flex-col gap-4'>
+                                                        <div>
+                                                            <label htmlFor="Activity">Activity</label>
+                                                            <input className='form-control' type="text" value={data.activity} onChange={(e) => { setData('activity', e.target.value) }}/>
+                                                            {errors.activity}
+                                                        </div>
+                                                        <div>
+                                                            <label htmlFor="Venue">Venue</label>
+                                                            <input className='form-control' type="text" value={data.venue} onChange={(e) => { setData('venue', e.target.value) }}/>
+                                                            {errors.venue}
+                                                        </div>
+                                                        <div>
+                                                            <label htmlFor="Designation">Designation</label>
+                                                            <input className='form-control' type="text" value={data.designation} onChange={(e) => { setData('designation', e.target.value) }}/>
+                                                            {errors.designation}
+                                                        </div>
+                                                        <div>
+                                                            <label htmlFor="Report">Report</label>
+                                                            <input className='form-control' type="text"value={data.report} onChange={(e) => { setData('report', e.target.value) }} />
+                                                            {errors.report}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <button className="btn btn-primary" type="submit" disabled={processing}>
                                                     {

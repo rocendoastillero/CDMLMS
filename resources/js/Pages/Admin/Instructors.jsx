@@ -1,16 +1,21 @@
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter'
-import Admin from '@/Layouts/Admin'
+import Layout from '@/Layouts/Layout'
 import { CheckCircleIcon, MagnifyingGlassIcon, UsersIcon, XCircleIcon } from '@heroicons/react/24/outline'
 import { Head, Link, router } from '@inertiajs/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-//TODO change instructors to paginated and the mapping add pager
-export default function Instructors({ auth, instructors, searched }) {
+
+export default function Instructors({ admin, auth, paginated, searched }) {
 
     const [search, setSearch] = useState(searched);
 
+    useEffect((() => {
+        console.log(paginated);
+    }), []);
+
     return (
-        <Admin
+        <Layout
+            admin={admin}
             user={auth.user}
             icon={<UsersIcon className='w-5 h-5 text-gray-500' />}
             headerTitle="Instructors"
@@ -36,24 +41,22 @@ export default function Instructors({ auth, instructors, searched }) {
                                 search == '' ? (
                                     <MagnifyingGlassIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 text-gray-600' />
                                 ) : (
-                                    <Link className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  ' href={route('admin.subjects')} as='button'>
-                                        <XCircleIcon className='w-8 h-8 text-gray-600' />
-                                    </Link>
+                                    <XCircleIcon onClick={() => { router(route('admin.subjects')) }} className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3 w-8 h-8 cursor-pointer text-gray-600' />
                                 )
                             }
                         </div>
                         <table className='datatable-table mt-3'>
                             <thead >
                                 <tr >
-                                    <th className='!text-center'>Instructor</th>
-                                    <th className='!text-center'>Verified</th>
-                                    <th className='!text-center'>Course</th>
-                                    <th className='!text-center'>Verify</th>
+                                    <th >Instructor</th>
+                                    <th >Verified</th>
+                                    <th >Course</th>
+                                    <th >Verify</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    instructors.map(instructor =>
+                                    paginated.data.map(instructor =>
                                         <tr key={instructor.id} className='text-center'>
                                             <td><Link as='button'>{instructor.lastname + ", " + instructor.firstname}</Link></td>
                                             <td className='flex place-content-center'>{instructor.verified ? <CheckCircleIcon className='w-7 h-7 text-green-600' /> : <XCircleIcon className='w-7 h-7 text-red-600' />}</td>
@@ -72,9 +75,28 @@ export default function Instructors({ auth, instructors, searched }) {
                                 }
                             </tbody>
                         </table>
+                        <div className='w-full flex flex-row justify-between'>
+                            <div>
+                                <p>Current page: {paginated.current_page}</p>
+                            </div>
+                            <div className='flex flex-row'>
+                                {
+                                    paginated.links.map(link =>
+                                        <Link
+                                            dangerouslySetInnerHTML={{ __html: link.label }}
+                                            className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                            href={link.url}
+                                            as='button'
+                                            preserveScroll={true}
+                                        />
+
+                                    )
+                                }
+                            </div>
+                        </div>
                     </>
                 }
             />
-        </Admin>
+        </Layout>
     )
 }

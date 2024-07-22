@@ -2,7 +2,7 @@ import Dropdown from '@/Components/Dropdown';
 import { useState } from 'react'
 import PageHeader from '@/Components/CDMLMS/PageHeader';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
-import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { Link } from '@inertiajs/react';
 
 /**
@@ -20,12 +20,14 @@ import { Link } from '@inertiajs/react';
  */
 export default function Layout(
     {
+        admin = false,
         user,
         icon,
         headerTitle,
         headerSubtitle,
         children,
-        openDropdown = false
+        openDropdown = false,
+
     }
 ) {
     const [isOpen, setIsOpen] = useState(true)
@@ -88,10 +90,41 @@ export default function Layout(
                     <nav className="sidenav shadow-right sidenav-light">
                         <div className="sidenav-menu">
                             <div className="nav accordion transition-transform duration-900 ease-in-out" id="accordionSidenav">
-                                <Link href={route('dashboard')} className="nav-link mt-4 hover:cursor-pointer" >
+                                <Link href={admin ? route('admin.dashboard') : route('dashboard')} className="nav-link mt-4 hover:cursor-pointer" >
                                     <div className="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity text-gray-500"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
                                     Dashboard
                                 </Link>
+                                {
+                                    admin && (
+                                        <>
+                                            <div className="sidenav-menu-heading text-gray-500">Admin</div>
+                                            <Link className='nav-link hover:cursor-pointer !py-[10px]' href={route('admin.instructors')}>
+                                                <div className='nav-link-icon'>
+                                                    <UsersIcon className='w-5 h-5 text-gray-500' />
+                                                </div>
+                                                Instructors
+                                            </Link>
+                                            <Link className="nav-link hover:cursor-pointer" href={route('admin.subjects')}>
+                                                <div className='nav-link-icon'>
+                                                    <BookOpenIcon className='w-5 h-5 text-gray-500' />
+                                                </div>
+                                                Subjects
+                                            </Link>
+                                            <Link className="nav-link hover:cursor-pointer">
+                                                <div className='nav-link-icon'>
+                                                    <CalendarDaysIcon className='w-5 h-5 text-gray-500' />
+                                                </div>
+                                                Schedule
+                                            </Link>
+                                            <Link className="nav-link hover:cursor-pointer">
+                                                <div className='nav-link-icon'>
+                                                    <MegaphoneIcon className='w-5 h-5 text-gray-500' />
+                                                </div>
+                                                Anouncements
+                                            </Link>
+                                        </>
+                                    )
+                                }
                                 <div className="sidenav-menu-heading text-gray-500">Faculty</div>
                                 <Link href={route('accomplishmentreports.index')} className='nav-link hover:cursor-pointer !py-[10px]'  >
                                     <div className='nav-link-icon'>
@@ -99,12 +132,16 @@ export default function Layout(
                                     </div>
                                     Accomplishment Reports
                                 </Link>
-                                <Link href={route('anouncements')} className='nav-link hover:cursor-pointer !py-[10px]'  >
-                                    <div className='nav-link-icon'>
-                                        <MegaphoneIcon className='w-5 h-5 text-gray-500' />
-                                    </div>
-                                    Anouncements
-                                </Link>
+                                {
+                                    !admin && (
+                                        <Link href={route('anouncements')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                            <div className='nav-link-icon'>
+                                                <MegaphoneIcon className='w-5 h-5 text-gray-500' />
+                                            </div>
+                                            Anouncements
+                                        </Link>
+                                    )
+                                }
                                 <Link href={route('attendance')} className='nav-link hover:cursor-pointer !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <HandRaisedIcon className='w-5 h-5 text-gray-500' />
@@ -113,19 +150,17 @@ export default function Layout(
                                 </Link>
                                 <div>
                                     <Disclosure defaultOpen={openDropdown}>
-                                        <DisclosureButton className="nav-link hover:cursor-pointer !py-[10px] w-full justify-between flex flex-row" onClick={() => { setDropDown(!dropdown) }}>
-                                            <div>
-                                                <div className='nav-link-icon'>
-                                                    <DocumentIcon className='w-5 h-5 text-gray-500' />
-                                                </div>
-                                                Files
+                                        <DisclosureButton className="nav-link hover:cursor-pointer !py-[10px] w-full flex flex-row !text-start relative" onClick={() => { setDropDown(!dropdown) }}>
+                                            <div className='nav-link-icon'>
+                                                <DocumentIcon className='w-5 h-5 text-gray-500' />
                                             </div>
+                                            Files
                                             {
                                                 (dropdown) ? (
-                                                    <ChevronDownIcon className="h-5 w-5 text-gray-500" />
+                                                    <ChevronDownIcon className="h-5 w-5 absolute text-gray-500 right-4" />
 
                                                 ) : (
-                                                    <ChevronRightIcon className="h-5 w-5 text-gray-500" />
+                                                    <ChevronRightIcon className="h-5 w-5 absolute text-gray-500 right-4" />
                                                 )
                                             }
                                         </DisclosureButton>

@@ -1,24 +1,15 @@
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 import { UserIcon } from "@heroicons/react/24/outline";
-import { useForm } from '@inertiajs/react';
+import UpdatePasswordForm from './Partials/UpdatePasswordForm';
+import DeleteUserForm from './Partials/DeleteUserForm';
+import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 
 
 
-export default function Sample({auth, mustVerifyEmail , status}) {
+export default function Sample({ admin = false, auth, mustVerifyEmail, status }) {
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
-        firstname: auth.user.firstname,
-        lastname: auth.user.lastname,
-        phone: auth.user.phone,
-        email: auth.user.email,
-    });
-
-    const submit = (e) => {
-        e.preventDefault();
-
-        patch(route('profile.update'));
-    };
+    
 
 
     return (
@@ -35,49 +26,20 @@ export default function Sample({auth, mustVerifyEmail , status}) {
                 </div>
                 <div className="col-xl-8">
                     <div className="card mb-4">
-                        <div className="card-header">Account Details</div>
-                        <div className="card-body">
-                            <form>
-                                <div className="mb-3">
-                                    <label className="small mb-1" for="inputUsername">Email (how your name will appear to other users on the site)</label>
-                                    <input className="form-control" id="inputUsername" type="text"  value={data.email} disabled={true}/>
-                                </div>
-                                <div className="row gx-3 mb-3">
-                                    <div className="col-md-6">
-                                        <label className="small mb-1" for="inputFirstName">First name</label>
-                                        <input className="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value={data.firstname}  />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <label className="small mb-1" for="inputLastName">Last name</label>
-                                        <input className="form-control" id="inputLastName" type="text" placeholder="Enter your last name"  value={data.lastname}/>
-                                    </div>
-                                </div>
-                                <div className="row gx-3 mb-3">
-                                    <div className="col-md-6">
-                                        <label className="small mb-1" for="inputOrgName">Organization name</label>
-                                        <input className="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name"  />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <label className="small mb-1" for="inputLocation">Address</label>
-                                        <input className="form-control" id="inputLocation" type="text" placeholder="Enter your Address"  value=""/>
-                                    </div>
-                                </div>
-                                <div className="mb-3">
-                                    <label className="small mb-1" for="inputEmailAddress">Email address</label>
-                                    <input className="form-control" id="inputEmailAddress" type="email" placeholder="Enter your Email" value={data.email} />
-                                </div>
-                                <div className="row gx-3 mb-3">
-                                    <div className="col-md-6">
-                                        <label className="small mb-1" for="inputPhone">Phone number</label>
-                                        <input className="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number"  value={data.phone} />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <label className="small mb-1" for="inputBirthday">Birthday</label>
-                                        <input className="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Enter your birthday"  />
-                                    </div>
-                                </div>
-                                <button className="btn btn-primary" type="button">Save changes</button>
-                            </form>
+                        <h2 className="card-header">Profile Information</h2>
+                        <div className="card-body !mt-0 !pt-2">
+                            <UpdateProfileInformationForm
+                                mustVerifyEmail={mustVerifyEmail}
+                                status={status}
+                                
+                            />
+                        </div>
+                    </div>
+
+                    <div className='card mb-4'>
+                        <h2 className="card-header">Update Password</h2>
+                        <div className="card-body !mt-0 !pt-2">
+                            <UpdatePasswordForm  />
                         </div>
                     </div>
                 </div>

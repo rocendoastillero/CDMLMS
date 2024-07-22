@@ -14,12 +14,13 @@ import { useState } from "react";
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function Dashboard({ auth }) {
+export default function Dashboard({ admin = false, auth }) {
 
     const [dropdown, setDropDown] = useState(false);
 
     return (
         <Layout
+            admin={admin}
             user={auth.user}
             icon={<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity text-gray-500"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>}
             headerTitle='Dashboard'
@@ -39,50 +40,36 @@ export default function Dashboard({ auth }) {
                 }
                 card2={
                     <CardsWithHeader
-                        header="Disclosure"
+                        header="Anouncements"
                         body={
-                            <Disclosure>
-                                <DisclosureButton className="w-full justify-between py-2 flex flex-row" onClick={() => { setDropDown(!dropdown) }}>
-                                    IMPORTANT
-                                    {
-                                        dropdown ? (
-                                            <ChevronDownIcon className="h-6 w-6 text-gray-500" />
-
-                                        ) : (
-                                            <ChevronRightIcon className="h-6 w-6 text-gray-500" />
-                                        )
-                                    }
-                                </DisclosureButton>
-                                <DisclosurePanel className="text-gray-500">
-                                    {`return Chirp::where('user_id', Auth::user()->id)->latest()->get();`}
-                                </DisclosurePanel>
-                            </Disclosure>
+                            <div>
+                            </div>
                         }
                     />
                 }
 
             />
             <CardsRow
-                card1=
-                <CardsWithHeader
-                    header="noun"
-                    body={
-                        <p>1.<br />
-                            the panel facing the driver of a vehicle or the pilot of an aircraft, containing instruments and controls.<br />
-                            "Scott looked at the clock on the dashboard"
+                card1={
+                    <CardsWithHeader
+                        header="Schedule"
+                        body={
+                            <div>
 
-                        </p>
-                    }
-                />
-                card2=
-                <CardsWithHeader
-                    header="Historical"
-                    body={
-                        <p>2.<br />
-                            a board of wood or leather in front of a carriage, to keep out mud.</p>
-                    }
-                />
+                            </div>
+                        }
+                    />
+                }
+                card2={
+                    <CardsWithHeader
+                        header="Historical"
+                        body={
+                            <div>
 
+                            </div>
+                        }
+                    />
+                }
             />
         </Layout>
     );

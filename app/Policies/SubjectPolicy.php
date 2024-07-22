@@ -38,7 +38,7 @@ class SubjectPolicy
      */
     public function update(User $user, Subject $subject): bool
     {
-        return $subject->user()->is($user);
+        return $user->type === 'admin';
     }
 
     /**
@@ -46,7 +46,7 @@ class SubjectPolicy
      */
     public function delete(User $user, Subject $subject): bool
     {
-        return $this->update($user,$subject);
+        return $user->type === 'admin';
     }
 
     /**
@@ -54,7 +54,7 @@ class SubjectPolicy
      */
     public function restore(User $user, Subject $subject): bool
     {
-        return $subject->user()->is($user);
+        return $user->type === 'admin';
     }
 
     /**
@@ -62,6 +62,6 @@ class SubjectPolicy
      */
     public function forceDelete(User $user, Subject $subject): bool
     {
-        return $subject->user()->is($user);
+        return $user->type === 'admin';
     }
 }

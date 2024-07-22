@@ -384,7 +384,7 @@ caption {
 }
 
 th {
-  text-align: inherit;
+  text-align: center !important;
   text-align: -webkit-match-parent;
 }
 

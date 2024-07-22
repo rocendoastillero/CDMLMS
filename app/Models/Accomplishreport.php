@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,9 +12,12 @@ class Accomplishreport extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'subtitle',
-        'body'
+        'start',
+        'end',
+        'activity',
+        'venue',
+        'designation',
+        'report',
     ];
     
     protected $hidden = [
@@ -22,7 +26,11 @@ class Accomplishreport extends Model
 
     protected $appends = [
         'instructor',
+        'date',
+        'timespent',
+        
     ];
+
 
     /**
      * Get the user that owns the Subject
@@ -34,7 +42,40 @@ class Accomplishreport extends Model
         return $this->belongsTo(User::class);
     }
 
+    protected function casts(): array
+{
+    return [
+        'start' => 'datetime:H:i',
+        'end' => 'datetime:H:i',
+    ];
+}
+
     public function getInstructorAttribute() : String {
         return $this->user->lastname . ", " . $this->user->firstname; 
+    }
+    
+    public function getTimespentAttribute() : String {
+
+        $start = Carbon::parse($this->start);
+        $end = Carbon::parse($this->end);
+        
+        return $start->diff($end)->format('%H:%I');
+    }
+
+    public function getDateAttribute() : String {
+
+        $weekMap = [
+            0 => 'S',
+            1 => 'M',
+            2 => 'T',
+            3 => 'W',
+            4 => 'TH',
+            5 => 'F',
+            6 => 'Sat',
+        ];
+
+        $date = Carbon::parse($this->start);
+        
+        return $date->format('m/d').", ".$weekMap[$date->dayOfWeek()];
     }
 }

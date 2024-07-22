@@ -9,7 +9,7 @@ import { Select } from '@headlessui/react';
 import { ChevronDownIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import Dropdown from '@/Components/Dropdown';
 
-//TODO add required fields for new columns
+
 export default function Register() {
 
     const [show, setShow] = useState(0);
@@ -118,7 +118,7 @@ export default function Register() {
                                         <ChevronDownIcon className='absolute -translate-y-2/4 top-2/4 right-3 w-5 h-5'/>
                                     </button>
                                 </Dropdown.Trigger>
-                                <Dropdown.Content margin='!mt-0'>
+                                <Dropdown.Content margin='mt-0' width='w-full'>
                                     <div onClick={()=>{setData('course','CPE')}} className='cursor-pointer py-1 hover:bg-green-100'>CPE</div>
                                     <div onClick={()=>{setData('course','IT')}} className='cursor-pointer py-1 hover:bg-green-100'>IT</div>
                                 </Dropdown.Content>

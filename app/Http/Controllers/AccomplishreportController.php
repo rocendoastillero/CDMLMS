@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accomplishreport;
+use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class AccomplishreportController extends Controller
@@ -16,7 +19,8 @@ class AccomplishreportController extends Controller
     public function index()
     {
         return Inertia::render('Faculty/AccomplishmentReports', [
-            'reports' => AccomplishReport::where('user_id', Auth::user()->id)->latest()->get()
+            'admin' => Auth::user()->type ==='admin',
+            'reports' => AccomplishReport::where('user_id', Auth::user()->id)->latest()->get()->makeHidden('instructor')
         ]);
     }
 
@@ -31,13 +35,29 @@ class AccomplishreportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
-        $validated = $request->validate([
-            'title' => 'required|unique:accomplishreports|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'body' => 'required|string',
+        $start = Carbon::parse($request->date . " " . $request->start);
+        $end = Carbon::parse($request->date . " " . $request->end);
+
+        $request->request->remove('date');
+        $request->request->remove('id');
+
+        $request->merge([
+            'start' => $start,
+            'end' => $end,
         ]);
+
+        $validated = $request->validate([
+            'start' => 'required',
+            'end' => 'required|after:start',
+            'venue' => 'required|string|max:255',
+            'activity' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'report' => 'required|string|max:255',
+        ]);
+
+
 
         $request->user()->accomplishmentreports()->create($validated);
 
@@ -63,14 +83,19 @@ class AccomplishreportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Accomplishreport $accomplishreport)
+    public function update(Request $request, Accomplishreport $accomplishreport) : RedirectResponse
     {
         Gate::authorize('update', $accomplishreport);
+
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'subtitle' => 'required|string|max:255',
-            'body' => 'required|string',
+            'start' => 'required|date_format:H:i',
+            'end' => 'required|date_format:H:i|after:start',
+            'venue' => 'required|string|max:255',
+            'activity' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
+            'report' => 'required|string|max:255',
         ]);
+
         $accomplishreport->update($validated);
 
         return redirect(route('accomplishmentreports.index'));
@@ -79,7 +104,7 @@ class AccomplishreportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Accomplishreport $accomplishreport)
+    public function destroy(Accomplishreport $accomplishreport) : RedirectResponse
     {
         Gate::authorize('delete', $accomplishreport);
 

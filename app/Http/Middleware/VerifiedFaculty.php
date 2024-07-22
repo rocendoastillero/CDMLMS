@@ -22,8 +22,6 @@ class VerifiedFaculty
 
             if (!Auth::user()->verified) {
                 return redirect(route('unverified faculty'));
-            } else if (Auth::user()->type == 'admin') {
-                return redirect(route('admin.dashboard'));
             }
             return $next($request);
         }

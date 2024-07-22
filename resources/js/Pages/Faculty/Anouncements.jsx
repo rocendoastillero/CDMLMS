@@ -14,9 +14,10 @@ import { Link } from '@inertiajs/react';
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function Anouncements({ auth }) {
+export default function Anouncements({ admin = false, auth }) {
     return (
         <Layout 
+        admin={admin}
         user={auth.user} 
         icon={<MegaphoneIcon className='w-9 h-9 text-gray-500' />} 
         headerTitle='Anouncements' 

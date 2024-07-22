@@ -7,19 +7,20 @@ import CardsWithHeader from '@/Components/CDMLMS/CardsWithHeader';
 
 
 
-//TODO change to instructors choosing their subjects form all of the subjects
+
 /**
  * @function Page
  * 
  * @param auth The Authentication 
  * @returns Page
  */
-export default function Subjects({ auth, paginated, searched = '' }) {
+export default function Subjects({ admin = false, auth, paginated, searched = '' }) {
 
     const [search, setSearch] = useState(searched);
 
     return (
         <Layout
+            admin={admin}
             user={auth.user}
             icon={<BookOpenIcon className='w-9 h-9 text-gray-500' />}
             headerTitle='Subjects'
@@ -41,22 +42,22 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                             />
                             {
                                 search == '' ? (
-                                    <MagnifyingGlassIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8' />
+                                    <MagnifyingGlassIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 text-gray-600' />
                                 ) : (
-                                    <XCircleIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8' />
+                                    <XCircleIcon onClick={() => {router.visit(route('subjects.index'))}} className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 cursor-pointer' />
                                 )
                             }
                         </div>
-                        <table className='datatable-table text-center'>
+                        <table className='datatable-table !text-center'>
                             <thead>
                                 <tr>
 
-                                    <th className='text-center'>Instructor</th>
-                                    <th className='text-center'>Course</th>
-                                    <th className='text-center'>Code</th>
-                                    <th className='text-center'>Description</th>
-                                    <th className='text-center'>Year/Sem</th>
-                                    <th className='text-center'>Actions</th>
+                                    <th >Instructor</th>
+                                    <th >Course</th>
+                                    <th >Code</th>
+                                    <th >Description</th>
+                                    <th >Year/Sem</th>
+                                    <th >Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,7 +71,7 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                             <td>{`${subject.year}-${subject.sem}`} </td>
                                             <td>
                                                 <Link className={`btn-primary mx-1 p-1 rounded text-white ${auth.user.id == subject.user_id ? "bg-red-700 hover:bg-red-500" : "bg-green-700 hover:bg-green-500"}`}
-                                                    href={route('subjects.assign')} as='button' method='patch'
+                                                    href={route('subjects.assign')} as='button' method='patch' preserveScroll={true}
                                                     data={{ id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) }}
                                                 >
                                                     {auth.user.id == subject.user_id ? "Drop" : "Assign"}
@@ -89,9 +90,14 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                             <div className='flex flex-row'>
                                 {
                                     paginated.links.map(link =>
-                                        <Link className={`flex flex-row p-2 h-8 rounded-[50%] items-center place-content-center ${link.active ? "bg-[#e0e5ec] bg-opacity-50" : ""}`} href={link.url} as='button' preserveScroll={true}>
-                                            <p className='!m-0' dangerouslySetInnerHTML={{ __html: link.label }} />
-                                        </Link>
+                                        <Link
+                                            dangerouslySetInnerHTML={{ __html: link.label }}
+                                            className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                            href={link.url}
+                                            as='button'
+                                            preserveScroll={true}
+                                        />
+
                                     )
                                 }
                             </div>

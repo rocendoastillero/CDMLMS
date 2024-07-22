@@ -26,6 +26,8 @@ class User extends Authenticatable
         'password',
     ];
 
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -34,8 +36,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'type'
+        'type',
+        // 'subjects',
+        'accomplishmentreports',
+        'schedules'
     ];
+
 
     /**
      * Get the attributes that should be cast.
@@ -49,6 +55,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected $appends = [
+        'subjects',
+    ];
 
     /**
      * Get all of the subjects for the User
@@ -78,5 +88,10 @@ class User extends Authenticatable
     public function schedules(): HasMany
     {
         return $this->hasMany(Schedule::class);
+    }
+
+    public function getSubjectsAttribute()
+    {
+        return $this->subjects();
     }
 }

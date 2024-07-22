@@ -11,9 +11,10 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function OnlineExam({ auth }) {
+export default function OnlineExam({ admin = false, auth }) {
     return (
         <Layout 
+        admin={admin}
         user={auth.user} 
         icon={<PencilSquareIcon className='w-9 h-9 text-gray-500' />} 
         headerTitle='Online Exam' 

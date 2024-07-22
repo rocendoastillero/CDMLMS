@@ -1,20 +1,37 @@
+/**
+  * TODO
+  */
+
+anouncement 
+  markdown 
+
+
+
+
+
+
+
+
+
+
+
 Admin perm
-anouncement crud
-people crud
-schedule crud
-subjects crud - Actual 'subjects'
+anouncement crud /
+instructor rud /
+schedule crud 
+subjects crud - Actual 'subjects' /
 files r
 
-Admin middleware
-    controllers functions for admin
+Admin middleware /
+    controllers functions for admin /
 
 
 prof perm
-anouncement r
-people r
-schedule r
-subject cu- choose which 'Subjects' with availabilty sched for it
-acc crud & archive
+anouncement r /
+people r /
+schedule r /
+subject cu- choose which 'Subjects' with availabilty sched for it /
+acc crud & archive 
 attendance API
 files crud
 
@@ -23,10 +40,10 @@ repository to archive
 
 file ecrypter tab bottom
 
-change 
-Subjects.jsx form to comboBox
-    table for Actual Subjects
+change  /
+Subjects.jsx form to comboBox /
+    table for Actual Subjects /
 
-Change
-Sample.jsx
-Dummy Model Controller Migration
+Change /
+Sample.jsx /
+Dummy Model Controller Migration /

@@ -13,15 +13,15 @@ import React from 'react'
  */
 export default function AlertCard({ icon, title, message, type= '', actions }) {
     return (
-        <div className={`alert ${type} alert-icon !absolute !-translate-x-2/4 !-translate-y-2/4 !m-0 !left-2/4 !top-2/4 !max-w-[40%]`}>
-            <div className='flex flex-row absolute top-0 right-0  mt-[9px] mr-2 '>
+        <div className={`alert ${type} alert-icon !absolute !-translate-x-2/4 !-translate-y-2/4 !m-0 !left-2/4 !top-2/4 !max-w-[40%] z-50`}>
+            <div className='flex flex-row absolute top-0 right-0  mt-[9px] mr-2 border-none'>
                 {actions}
             </div>
             <div className="alert-icon-aside">
                 {icon}
             </div>
             <div className="alert-icon-content">
-                <h6 className="alert-heading">
+                <h6 className="alert-heading border-none">
                     {title}
                 </h6>
                 {message}

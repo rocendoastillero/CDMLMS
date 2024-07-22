@@ -1,12 +1,13 @@
+import AlertCard from '@/Components/CDMLMS/AlertCard';
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import Dropdown from '@/Components/Dropdown';
-import Admin from '@/Layouts/Admin'
-import { BookOpenIcon, ChevronDownIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import Layout from '@/Layouts/Layout';
+import { BookOpenIcon, CheckIcon, ChevronDownIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react'
 
-export default function Subjects({ auth, paginated, searched = '' }) {
+export default function Subjects({ admin, auth, paginated, searched = '' }) {
 
   /**
     * Empty Instance of Subjects
@@ -62,7 +63,8 @@ export default function Subjects({ auth, paginated, searched = '' }) {
   }), []);
 
   return (
-    <Admin
+    <Layout
+      admin={admin}
       user={auth.user}
       icon={<BookOpenIcon className='w-5 h-5 text-gray-500' />}
       headerTitle="Subjects"
@@ -90,13 +92,33 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                     search == '' ? (
                       <MagnifyingGlassIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 text-gray-600' />
                     ) : (
-                      <Link className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  ' href={route('admin.subjects')} as='button'>
-                        <XCircleIcon className='w-8 h-8 text-gray-600' />
-                      </Link>
+                      <XCircleIcon onClick={() => { router.visit(route('admin.subjects')) }} className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 cursor-pointer' />
                     )
                   }
                 </div>
-                <table className='datatable-table text-center'>
+                <table className='datatable-table text-center relative'>
+                  {(warning && (
+                    <>
+                      <div className='absolute w-full h-full bg-black opacity-80 z-[8]'>
+
+                      </div>
+                      <AlertCard
+                        type="alert-warning"
+                        title={`Delete ${selectedSubject.code}?`}
+                        message="The subject will be deleted forever and any data related to it"
+                        actions={
+                          <>
+                            <Link className='border-none' as='button' href={route('subjects.destroy', selectedSubject.id)} method='delete'>
+                              <CheckIcon className="h-6 w-6 hover:text-[#8b0d00]" />
+                            </Link>
+                            <Link className='border-none' onClick={() => { setWarning(false) }} preserveScroll={true}>
+                              <XMarkIcon className="h-6 w-6 text-[#926100] hover:text-[#8b0d00]" />
+                            </Link>
+                          </>
+                        }
+                      />
+                    </>
+                  ))}
                   <thead>
                     <tr>
                       <th>Instructor</th>
@@ -110,17 +132,46 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                   <tbody>
                     {
                       paginated.data.map(subject =>
-                        <tr key={subject.id} className={`${subject.user_id == null ? "bg-red-100" : ""}`}>
+                        <tr key={subject.id} className={`${subject.user_id == null ? "bg-red-100" : ""} ${subject.id == selectedSubject.id ? "bg-green-100" : ""}`}>
                           <td key={subject.user_id}>{subject.instructor}</td>
                           <td>{subject.course}</td>
                           <td>{subject.code}</td>
                           <td>{subject.description}</td>
                           <td>{`${subject.year}-${subject.sem}`} </td>
                           <td>
-                            <button className='btn-primary mx-1 rounded-[50%] bg-blue-500 hover:bg-blue-700'>
+                            <button className='btn-primary mx-1 rounded-[50%] bg-blue-500 hover:bg-blue-700'
+                              onClick={() => {
+                                if (editing && (subject.id != selectedSubject.id)) {
+                                  setSelectedSubject(subject);
+                                  setData(subject);
+                                } else if (!editing && selectedSubject.id == '') {
+                                  setEditing(true);
+                                  setSelectedSubject(subject);
+                                  setData(subject);
+                                } else if (editing && subject.id == selectedSubject.id) {
+                                  setEditing(false);
+                                  setSelectedSubject(empty);
+                                  setData(empty);
+                                }
+                                if (warning) {
+                                  setWarning(false);
+                                }
+                              }}
+                            >
                               <PencilIcon className='w-5 h-5 m-1 text-white' />
                             </button>
-                            <button className='btn-primary mx-1 rounded-[50%] bg-red-500 hover:bg-red-700'>
+                            <button className='btn-primary mx-1 rounded-[50%] bg-red-500 hover:bg-red-700'
+                              onClick={() => {
+                                if (subject.id == selectedSubject.id) {
+                                  setWarning(!warning);
+                                } else if (!editing && selectedSubject.id == '') {
+                                  setEditing(true);
+                                  setSelectedSubject(subject);
+                                  setData(subject);
+                                  setWarning(!warning);
+                                }
+                              }}
+                            >
                               <TrashIcon className='w-5 h-5 m-1 text-white' />
                             </button>
                           </td>
@@ -134,11 +185,16 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                   <div>
                     <p>Current page: {paginated.current_page}</p>
                   </div>
-                  <div className='flex flex-row border border-gray-400 rounded text-[#044721]'>
+                  <div className='flex flex-row'>
                     {
                       paginated.links.map(link =>
-                        <Link dangerouslySetInnerHTML={{ __html: link.label }} className={`flex flex-row p-2 h-11 border-r-2 border-gray-400 ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`} href={link.url} as='button' disabled={link.url == null} preserveScroll={true} />
-
+                        <Link
+                          dangerouslySetInnerHTML={{ __html: link.label }}
+                          className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                          href={link.url}
+                          as='button'
+                          preserveScroll={true}
+                        />
 
                       )
                     }
@@ -171,7 +227,7 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                       <ChevronDownIcon className='absolute -translate-y-2/4 top-2/4 right-3 w-5 h-5' />
                     </button>
                   </Dropdown.Trigger>
-                  <Dropdown.Content>
+                  <Dropdown.Content margin='mt-0' width='w-full'>
                     <div onClick={() => { setData('year', '1st') }} className='cursor-pointer py-2 hover:bg-green-100'>1st</div>
                     <div onClick={() => { setData('year', '2nd') }} className='cursor-pointer py-2 hover:bg-green-100'>2nd</div>
                     <div onClick={() => { setData('year', '3rd') }} className='cursor-pointer py-2 hover:bg-green-100'>3rd</div>
@@ -188,9 +244,10 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                       <ChevronDownIcon className='absolute -translate-y-2/4 top-2/4 right-3 w-5 h-5' />
                     </button>
                   </Dropdown.Trigger>
-                  <Dropdown.Content>
+                  <Dropdown.Content margin='mt-0' width='w-full'>
                     <div onClick={() => { setData('sem', '1st') }} className='cursor-pointer py-2 hover:bg-green-100'>1st</div>
                     <div onClick={() => { setData('sem', '2nd') }} className='cursor-pointer py-2 hover:bg-green-100'>2nd</div>
+                    <div onClick={() => { setData('sem', 'intersem') }} className='cursor-pointer py-2 hover:bg-green-100'>intersem</div>
                   </Dropdown.Content>
                 </Dropdown>
               </div>
@@ -229,6 +286,6 @@ export default function Subjects({ auth, paginated, searched = '' }) {
           </form>
         }
       />
-    </Admin>
+    </Layout>
   )
 }

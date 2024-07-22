@@ -11,7 +11,7 @@ import { ArchiveBoxXMarkIcon, CalendarDaysIcon } from '@heroicons/react/24/outli
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function Schedules({ auth, subjects, schedules }) {
+export default function Schedules({ admin = false, auth, subjects, schedules }) {
 
     const [tab, setTab] = useState({
         index: 0,
@@ -24,6 +24,7 @@ export default function Schedules({ auth, subjects, schedules }) {
 
     return (
         <Layout 
+        admin={admin}
         user={auth.user} 
         icon={<CalendarDaysIcon className='w-9 h-9 text-gray-500' />} 
         headerTitle='Schedule' 
