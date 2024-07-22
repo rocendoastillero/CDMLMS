@@ -21,10 +21,7 @@ export default function Unverified() {
             <Head title='Unverified'/>
             <div className='px-3 my-4 text-lg font-semibold text-center'>
                 Kindly contact the Dean for the verification of your account,<br /><br />Thank you for your cooperation.
-
             </div>
-
-
         </Guest>
     )
 }
