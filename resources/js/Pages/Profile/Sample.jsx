@@ -7,7 +7,7 @@ import UpdateProfileInformationForm from './Partials/UpdateProfileInformationFor
 
 
 
-export default function Sample({ admin = false, auth, mustVerifyEmail, status }) {
+export default function Sample({  auth, mustVerifyEmail, status }) {
 
     
 

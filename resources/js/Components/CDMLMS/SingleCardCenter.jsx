@@ -7,10 +7,13 @@ import React from 'react'
  * @param body Card Body
  * @returns HTML
  */
-function SingleCardCenter({ title, body, table }) {
+function SingleCardCenter({ title, body, table, button }) {
     return (
-        <div className={`card mb-4`}>
-            <div className={`card-body p-5`}>
+        <div className='card mb-4 relative'>
+            <div className='absolute top-0 right-0'>
+                {button}
+            </div>
+            <div className='card-body p-5'>
                 <div className="col-xl-8 col-xxl-12">
                     <div className="text-center text-xl-start text-xxl-center mb-4 mb-xl-0 mb-xxl-4 ">
                         <h1 className="text-primary">{title}</h1>

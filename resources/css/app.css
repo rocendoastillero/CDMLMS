@@ -22563,3 +22563,11 @@ pre[class*=language-] {
 .token.variable {
   color: #ff6666;
 }
+
+.custom-tooltip-parent .custom-tooltip-child {
+  visibility: hidden;
+ }
+
+.custom-tooltip-parent:hover .custom-tooltip-child {
+ visibility: visible;
+}

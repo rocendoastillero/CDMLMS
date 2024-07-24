@@ -12,10 +12,10 @@ import { DocumentIcon } from '@heroicons/react/24/outline'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function Syllabus({ admin = false, auth }) {
+export default function Syllabus({  auth }) {
     return (
         <Layout 
-        admin={admin}
+        isAdmin={auth.isAdmin}
         user={auth.user} 
         icon={<DocumentIcon className='w-9 h-9 text-gray-500' />} 
         headerTitle="Syllabus" 

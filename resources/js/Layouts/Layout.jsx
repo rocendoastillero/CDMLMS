@@ -4,7 +4,7 @@ import PageHeader from '@/Components/CDMLMS/PageHeader';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { Link } from '@inertiajs/react';
-
+//TODO responsiveness
 /**
  * @function Component Main Layout for the app
  * 
@@ -20,7 +20,7 @@ import { Link } from '@inertiajs/react';
  */
 export default function Layout(
     {
-        admin = false,
+        isAdmin,
         user,
         icon,
         headerTitle,
@@ -36,12 +36,12 @@ export default function Layout(
 
     return (
         <div className="nav-fixed">
-            <nav className="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white"
+            <nav className="topnav navbar shadow sm:!gap-0 max-sm: max-md:!justify-between  navbar-light bg-white"
                 id="sidenavAccordion">
-                <button onClick={() => { setIsOpen(!isOpen) }} className="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0" id="sidebarToggle">
+                <button onClick={() => { setIsOpen(!isOpen) }} className="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0 " id="sidebarToggle">
                     <Bars3Icon className="h-5 w-5 text-gray-600" />
                 </button>
-                <Link className="navbar-brand pe-3 ps-4 ps-lg-2" href={route('dashboard')}>
+                <Link className="navbar-brand pe-3 ps-4 ps-lg-2 max-sm:!w-32" href={route('dashboard')}>
                     CDM LMS
                 </Link>
                 <form className="form-inline me-auto d-none d-lg-block">
@@ -86,29 +86,29 @@ export default function Layout(
                 </div>
             </nav>
             <div id="layoutSidenav">
-                <div id="layoutSidenav_nav" style={{ width: isOpen ? "240px" : "0px" }}>
+                <div id="layoutSidenav_nav" className={`${isOpen ? "!w-[240px] !translate-x-0" : "!w-[0px]"}`}>
                     <nav className="sidenav shadow-right sidenav-light">
                         <div className="sidenav-menu">
                             <div className="nav accordion transition-transform duration-900 ease-in-out" id="accordionSidenav">
-                                <Link href={admin ? route('admin.dashboard') : route('dashboard')} className="nav-link mt-4 hover:cursor-pointer" >
+                                <Link href={isAdmin ? route('admin.dashboard') : route('dashboard')} className="nav-link mt-4 hover:cursor-pointer" >
                                     <div className="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity text-gray-500"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
                                     Dashboard
                                 </Link>
                                 {
-                                    admin && (
+                                    isAdmin && (
                                         <>
                                             <div className="sidenav-menu-heading text-gray-500">Admin</div>
+                                            <Link className="nav-link hover:cursor-pointer" href={route('anouncements.index')}>
+                                                <div className='nav-link-icon'>
+                                                    <MegaphoneIcon className='w-5 h-5 text-gray-500' />
+                                                </div>
+                                                Anouncements
+                                            </Link>
                                             <Link className='nav-link hover:cursor-pointer !py-[10px]' href={route('admin.instructors')}>
                                                 <div className='nav-link-icon'>
                                                     <UsersIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
                                                 Instructors
-                                            </Link>
-                                            <Link className="nav-link hover:cursor-pointer" href={route('admin.subjects')}>
-                                                <div className='nav-link-icon'>
-                                                    <BookOpenIcon className='w-5 h-5 text-gray-500' />
-                                                </div>
-                                                Subjects
                                             </Link>
                                             <Link className="nav-link hover:cursor-pointer">
                                                 <div className='nav-link-icon'>
@@ -116,11 +116,11 @@ export default function Layout(
                                                 </div>
                                                 Schedule
                                             </Link>
-                                            <Link className="nav-link hover:cursor-pointer">
+                                            <Link className="nav-link hover:cursor-pointer" href={route('admin.subjects')}>
                                                 <div className='nav-link-icon'>
-                                                    <MegaphoneIcon className='w-5 h-5 text-gray-500' />
+                                                    <BookOpenIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
-                                                Anouncements
+                                                Subjects
                                             </Link>
                                         </>
                                     )
@@ -133,7 +133,7 @@ export default function Layout(
                                     Accomplishment Reports
                                 </Link>
                                 {
-                                    !admin && (
+                                    !isAdmin && (
                                         <Link href={route('anouncements')} className='nav-link hover:cursor-pointer !py-[10px]'  >
                                             <div className='nav-link-icon'>
                                                 <MegaphoneIcon className='w-5 h-5 text-gray-500' />
@@ -223,7 +223,11 @@ export default function Layout(
                         </div>
                     </nav>
                 </div>
-                <div id="layoutSidenav_content" style={{ "marginLeft": isOpen ? "0rem" : "-15rem" }}>
+                <div
+                    id={`layoutSidenav_content`}
+                    className={`${isOpen ? "lg:!ml-[0rem] md:!ml-[-15rem] sm:!ml-[-15rem]" : "!ml-[-15rem]"}`}
+                // style={{ "marginLeft": isOpen ? "0rem" : "-15rem" }}
+                >
                     <main >
                         <PageHeader
                             icon={icon}

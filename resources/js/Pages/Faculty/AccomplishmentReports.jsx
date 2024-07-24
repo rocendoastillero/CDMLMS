@@ -15,7 +15,7 @@ import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
  * @param reports Accomplishment Reports 
  * @returns Page
  */
-export default function AccomplishmentReports({ admin = false, auth, reports }) {
+export default function AccomplishmentReports({ auth, reports }) {
 
     const [view, setView] = useState(1);
 
@@ -70,164 +70,166 @@ export default function AccomplishmentReports({ admin = false, auth, reports }) 
         }
     }
 
-    useEffect((()=>{
+    useEffect((() => {
         console.log(reports);
-    }),[]);
+    }), []);
 
     return (
         <Layout
-            admin={admin}
+            isAdmin={auth.isAdmin}
             user={auth.user}
             icon={<TrophyIcon className='w-9 h-9 text-gray-500' />}
             headerTitle='Accomplishment Reports'
             headerSubtitle='View Accomplishment Reports' >
             <Head title='Accomplishment Reports' />
             <CardsWithSticky
-                contentSize='!w-10/12'
-                stickySize='!w-2/12'
+                    contentSize='!w-10/12'
+                    stickySize='!w-2/12'
                 cards={
                     <>
-                        {(() => {
+                        {(
+                            () => {
 
-                            if (view == 1) {
-                                if (reports == '') {
-                                    return (
-                                        <AlertCard
-                                            type='alert-info'
-                                            icon={<ArchiveBoxXMarkIcon className="h-6 w-6 " />}
-                                            title="Empty!"
-                                            message="Reports are empty, Create a report"
-                                        />
-                                    );
-                                } else {
-                                    return (
-                                        <SingleCardCenter
-                                            table={
-                                                <>
-                                                    <table className='datatable-table mt-3 text-center'>
-                                                        <thead>
-                                                            <tr>
-                                                                <th >Date</th>
-                                                                <th >Start</th>
-                                                                <th >End</th>
-                                                                <th >Activity</th>
-                                                                <th >Designation</th>
-                                                                <th >Venue</th>
-                                                                <th >Time Spent</th>
-                                                                <th >Report</th>
-                                                                <th >Actions</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {
-                                                                reports.map(report =>
-                                                                    <tr key={report.user_id}>
-                                                                        <td>{report.date}</td>
-                                                                        <td>{report.start}</td>
-                                                                        <td>{report.end}</td>
-                                                                        <td>{report.activity}</td>
-                                                                        <td>{report.designation}</td>
-                                                                        <td>{report.venue}</td>
-                                                                        <td>{report.timespent}</td>
-                                                                        <td>{report.report}</td>
-                                                                        <td>
-                                                                            
-                                                                        </td>
-                                                                    </tr>
+                                if (view == 1) {
+                                    if (reports == '') {
+                                        return (
+                                            <AlertCard
+                                                type='alert-info'
+                                                icon={<ArchiveBoxXMarkIcon className="h-6 w-6 " />}
+                                                title="Empty!"
+                                                message="Reports are empty, Create a report"
+                                            />
+                                        );
+                                    } else {
+                                        return (
+                                            <SingleCardCenter
+                                                table={
+                                                    <>
+                                                        <table className='datatable-table mt-3 text-center'>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th >Date</th>
+                                                                    <th >Start</th>
+                                                                    <th >End</th>
+                                                                    <th >Activity</th>
+                                                                    <th >Designation</th>
+                                                                    <th >Venue</th>
+                                                                    <th >Time Spent</th>
+                                                                    <th >Report</th>
+                                                                    <th >Actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {
+                                                                    reports.map(report =>
+                                                                        <tr key={report.user_id}>
+                                                                            <td>{report.date}</td>
+                                                                            <td>{report.start}</td>
+                                                                            <td>{report.end}</td>
+                                                                            <td>{report.activity}</td>
+                                                                            <td>{report.designation}</td>
+                                                                            <td>{report.venue}</td>
+                                                                            <td>{report.timespent}</td>
+                                                                            <td>{report.report}</td>
+                                                                            <td>
 
-                                                                )
-                                                            }
-                                                        </tbody>
-                                                    </table>
-                                                </>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                    )
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </>
+                                                }
+                                            />
+
+                                        );
+                                    }
+                                } else if (view == 0 || view == 2) {
+                                    return (
+                                        <SingleCardWithHeader
+                                            header=
+                                            {
+                                                editing ? (
+                                                    "Edit Report"
+                                                ) : (
+                                                    "Create Report"
+                                                )
+                                            }
+                                            button={
+                                                <div className='flex flex-row'>
+                                                    <div className={`rounded-[50%] h-10 w-10  flex place-content-center items-center mx-3 !bg-sky-700  `}
+                                                    >
+                                                        {
+                                                            editing ? (
+                                                                <PencilIcon className={`h-5 w-5  !text-white `} />
+                                                            ) : (
+                                                                <PlusIcon className='h-7 w-7 !text-white' />
+                                                            )
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                            body={
+                                                <form className='p-3' onSubmit={submit}>
+                                                    <div className='flex flex-row gap-6'>
+                                                        <div className='w-1/3 flex flex-col gap-4'>
+                                                            <div>
+                                                                <label htmlFor="Date">Date</label>
+                                                                <input className='form-control' type="date" value={data.date} onChange={(e) => { setData('date', e.target.value) }} />
+
+                                                            </div>
+                                                            <div>
+                                                                <label htmlFor="Start">Start</label>
+                                                                <input className='form-control' type="time" value={data.start} onChange={(e) => { setData('start', e.target.value) }} />
+                                                                {errors.start}
+                                                            </div>
+                                                            <div>
+                                                                <label htmlFor="End">End</label>
+                                                                <input className='form-control' type="time" value={data.end} onChange={(e) => { setData('end', e.target.value) }} />
+                                                                {errors.end}
+                                                            </div>
+                                                        </div>
+                                                        <div className='w-2/3 flex flex-col gap-4'>
+                                                            <div>
+                                                                <label htmlFor="Activity">Activity</label>
+                                                                <input className='form-control' type="text" value={data.activity} onChange={(e) => { setData('activity', e.target.value) }} />
+                                                                {errors.activity}
+                                                            </div>
+                                                            <div>
+                                                                <label htmlFor="Venue">Venue</label>
+                                                                <input className='form-control' type="text" value={data.venue} onChange={(e) => { setData('venue', e.target.value) }} />
+                                                                {errors.venue}
+                                                            </div>
+                                                            <div>
+                                                                <label htmlFor="Designation">Designation</label>
+                                                                <input className='form-control' type="text" value={data.designation} onChange={(e) => { setData('designation', e.target.value) }} />
+                                                                {errors.designation}
+                                                            </div>
+                                                            <div>
+                                                                <label htmlFor="Report">Report</label>
+                                                                <input className='form-control' type="text" value={data.report} onChange={(e) => { setData('report', e.target.value) }} />
+                                                                {errors.report}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button className="btn btn-primary" type="submit" disabled={processing}>
+                                                        {
+                                                            editing ? (
+                                                                "Edit"
+                                                            ) : (
+                                                                "Add"
+                                                            )
+                                                        }
+                                                    </button>
+                                                </form>
                                             }
                                         />
-
                                     );
                                 }
-                            } else if (view == 0 || view == 2) {
-                                return (
-                                    <SingleCardWithHeader
-                                        header=
-                                        {
-                                            editing ? (
-                                                "Edit Report"
-                                            ) : (
-                                                "Create Report"
-                                            )
-                                        }
-                                        button={
-                                            <div className='flex flex-row'>
-                                                <div className={`rounded-[50%] h-10 w-10  flex place-content-center items-center mx-3 !bg-sky-700  `}
-                                                >
-                                                    {
-                                                        editing ? (
-                                                            <PencilIcon className={`h-5 w-5  !text-white `} />
-                                                        ) : (
-                                                            <PlusIcon className='h-7 w-7 !text-white' />
-                                                        )
-                                                    }
-                                                </div>
-                                            </div>
-                                        }
-                                        body={
-                                            <form className='p-3' onSubmit={submit}>
-                                                <div className='flex flex-row gap-6'>
-                                                    <div className='w-1/3 flex flex-col gap-4'>
-                                                        <div>
-                                                            <label htmlFor="Date">Date</label>
-                                                            <input className='form-control' type="date" value={data.date} onChange={(e) => { setData('date', e.target.value) }} />
-                                                            
-                                                        </div>
-                                                        <div>
-                                                            <label htmlFor="Start">Start</label>
-                                                            <input className='form-control' type="time" value={data.start} onChange={(e) => { setData('start', e.target.value) }} />
-                                                            {errors.start}
-                                                        </div>
-                                                        <div>
-                                                            <label htmlFor="End">End</label>
-                                                            <input className='form-control' type="time" value={data.end} onChange={(e) => { setData('end', e.target.value) }} />
-                                                            {errors.end}
-                                                        </div>
-                                                    </div>
-                                                    <div className='w-2/3 flex flex-col gap-4'>
-                                                        <div>
-                                                            <label htmlFor="Activity">Activity</label>
-                                                            <input className='form-control' type="text" value={data.activity} onChange={(e) => { setData('activity', e.target.value) }}/>
-                                                            {errors.activity}
-                                                        </div>
-                                                        <div>
-                                                            <label htmlFor="Venue">Venue</label>
-                                                            <input className='form-control' type="text" value={data.venue} onChange={(e) => { setData('venue', e.target.value) }}/>
-                                                            {errors.venue}
-                                                        </div>
-                                                        <div>
-                                                            <label htmlFor="Designation">Designation</label>
-                                                            <input className='form-control' type="text" value={data.designation} onChange={(e) => { setData('designation', e.target.value) }}/>
-                                                            {errors.designation}
-                                                        </div>
-                                                        <div>
-                                                            <label htmlFor="Report">Report</label>
-                                                            <input className='form-control' type="text"value={data.report} onChange={(e) => { setData('report', e.target.value) }} />
-                                                            {errors.report}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button className="btn btn-primary" type="submit" disabled={processing}>
-                                                    {
-                                                        editing ? (
-                                                            "Edit"
-                                                        ) : (
-                                                            "Add"
-                                                        )
-                                                    }
-                                                </button>
-                                            </form>
-                                        }
-                                    />
-                                );
                             }
-                        })()}
+                        )()}
                     </>
                 }
                 withCard={false}

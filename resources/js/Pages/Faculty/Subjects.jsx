@@ -14,13 +14,13 @@ import CardsWithHeader from '@/Components/CDMLMS/CardsWithHeader';
  * @param auth The Authentication 
  * @returns Page
  */
-export default function Subjects({ admin = false, auth, paginated, searched = '' }) {
+export default function Subjects({  auth, paginated, searched = '' }) {
 
     const [search, setSearch] = useState(searched);
 
     return (
         <Layout
-            admin={admin}
+            isAdmin={auth.isAdmin}
             user={auth.user}
             icon={<BookOpenIcon className='w-9 h-9 text-gray-500' />}
             headerTitle='Subjects'

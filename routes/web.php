@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccomplishreportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnouncementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubjectController;
@@ -36,39 +37,37 @@ Route::middleware('faculty')->group(function () {
     Route::resource('accomplishmentreports', AccomplishreportController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
-    Route::get('/anouncements', function () {
-        return Inertia::render('Faculty/Anouncements',['admin' => Auth::user()->type ==='admin',]);
-    })->name('anouncements');
+    Route::get('/anouncements', [AnouncementController::class, 'view'])->name('anouncements');
 
     Route::resource('schedules', ScheduleController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
     Route::get('/attendance', function () {
-        return Inertia::render('Faculty/Attendance',['admin' => Auth::user()->type ==='admin',]);
+        return Inertia::render('Faculty/Attendance',[]);
     })->name('attendance');
 
     Route::get('/syllabus', function () {
-        return Inertia::render('Faculty/Syllabus',['admin' => Auth::user()->type ==='admin',]);
+        return Inertia::render('Faculty/Syllabus',[]);
     })->name('syllabus');
 
     Route::get('/classrecord', function () {
-        return Inertia::render('Faculty/ClassRecord',['admin' => Auth::user()->type ==='admin',]);
+        return Inertia::render('Faculty/ClassRecord',[]);
     })->name('classrecord');
 
     Route::get('/gradesheets', function () {
-        return Inertia::render('Faculty/GradeSheets',['admin' => Auth::user()->type ==='admin',]);
+        return Inertia::render('Faculty/GradeSheets',[]);
     })->name('gradesheets');
 
     Route::get('/repositoryoffiles', function () {
-        return Inertia::render('Faculty/RepositoryOfFiles',['admin' => Auth::user()->type ==='admin',]);
+        return Inertia::render('Faculty/RepositoryOfFiles',[]);
     })->name('repositoryoffiles');
 
     Route::get('/onlineexam', function () {
-        return Inertia::render('Faculty/OnlineExam',['admin' => Auth::user()->type ==='admin',]);
+        return Inertia::render('Faculty/OnlineExam',[]);
     })->name('onlineexam');
 
     Route::get('/onlineclass', function () {
-        return Inertia::render('Faculty/OnlineClass',['admin' => Auth::user()->type ==='admin',]);
+        return Inertia::render('Faculty/OnlineClass',[]);
     })->name('onlineclass');
 
 
@@ -86,6 +85,9 @@ Route::middleware('faculty')->group(function () {
 
         Route::get('/admin/subjects', [AdminController::class, 'subjects'])->name('admin.subjects');
         Route::get('/admin/subjects/{search}', [AdminController::class, 'searchSubject'])->name('admin.subjects.search');
+
+        Route::resource('/admin/anouncements', AnouncementController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
     });
 });
 

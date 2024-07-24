@@ -3,9 +3,11 @@ import Layout from "@/Layouts/Layout";
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader';
 import { Head } from '@inertiajs/react';
 import IconCard from '@/Components/CDMLMS/IconCard';
-import { ExclamationCircleIcon, MegaphoneIcon } from "@heroicons/react/24/outline";
+import { ExclamationCircleIcon, MegaphoneIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import { Link } from '@inertiajs/react';
+import IconParse from '@/Components/CDMLMS/IconParse';
+import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 
 
 /**
@@ -14,84 +16,80 @@ import { Link } from '@inertiajs/react';
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function Anouncements({ admin = false, auth }) {
+export default function Anouncements({ auth, paginated }) {
     return (
-        <Layout 
-        admin={admin}
-        user={auth.user} 
-        icon={<MegaphoneIcon className='w-9 h-9 text-gray-500' />} 
-        headerTitle='Anouncements' 
-        headerSubtitle='View Anouncements'>
+        <Layout
+            isAdmin={auth.isAdmin}
+            user={auth.user}
+            icon={<MegaphoneIcon className='w-9 h-9 text-gray-500' />}
+            headerTitle='Anouncements'
+            headerSubtitle='View Anouncements'>
             <Head title='Anouncements' />
             <CardsWithSticky
                 contentSize='!w-10/12'
                 stickySize='!w-2/12'
                 cards={
                     <>
-                        <IconCard
-                            icon={
-                                <ExclamationCircleIcon className="h-6 w-6 text-white" />
-                            }
-                            title="Anouncement 1"
-                            body="This is an anouncement that is being anounced!"
-                            className='bg-orange-800'
-                        />
-                        <SingleCardWithHeader
-                            header='Anouncements'
-                            body={
-                                <>
-                                    <p>
-                                        a public and typically formal statement about a fact, occurrence, or intention.
-                                        <br />"the spokesperson was about to make an announcement"
-                                    </p>
-                                    <div className="dropdown">
-                                        <button className="btn btn-primary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown Button</button>
-                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" href="#!">Action</a>
-                                            <a className="dropdown-item" href="#!">Another action</a>
-                                            <a className="dropdown-item" href="#!">Something else here</a>
-                                        </div>
-                                    </div>
-                                </>
-                            }
+                        {
+                            paginated.data.map(
+                                anouncement => {
+                                    if (anouncement.cardtype == 'center') {
+                                        return (
+                                            <SingleCardCenter
+                                                title={anouncement.title}
+                                                body={anouncement.content}
 
-                        /><IconCard
-                            icon={
-                                <ExclamationCircleIcon className="h-6 w-6 text-gray-500" />
-                            }
-                            title="Anouncement 2"
-                            body="This is an anouncement that is being anounced!"
-                        />
+                                            />
 
-                        <IconCard
-                            icon={
-                                <ExclamationCircleIcon className="h-6 w-6 text-gray-500" />
-                            }
-                            title="Anouncement 3"
-                            body="This is an anouncement that is being anounced!"
-                        />
-                        <div id="cardWithHeader">
-                            <SingleCardWithHeader
-                                header='Anouncements'
-                                body={<p>
+                                        )
+                                    } else if (anouncement.cardtype == 'icon') {
+                                        return (
+                                            <IconCard
+                                                icon={<IconParse icon={anouncement.icon} color='text-white' />}
+                                                title={anouncement.title}
+                                                body={anouncement.content}
+                                                iconColor={`bg-[${anouncement.color}]`}
 
-                                    a public and typically formal statement about a fact, occurrence, or intention. <br />"the spokesperson was about to make an announcement"</p>
+                                            />
+
+                                        )
+                                    } else if (anouncement.cardtype == 'header') {
+                                        return (
+                                            <SingleCardWithHeader
+                                                header={anouncement.title}
+                                                body={
+                                                    <div className='mt-2'>
+                                                        {anouncement.content}
+                                                    </div>
+                                                }
+
+                                            />
+                                        );
+                                    }
                                 }
-
-                            />
+                            )
+                        }
+                    </>
+                }
+                stickyNavHeader={`Page: ${paginated.current_page}`}
+                stickyNavBody={
+                    <>
+                        <div className='absolute bottom-0 w-full flex flex-row items-center place-content-center'>
+                            {
+                                paginated.links.map(link =>
+                                    <Link
+                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                        href={link.url}
+                                        as='button'
+                                        preserveScroll={true}
+                                    />
+                                )
+                            }
                         </div>
                     </>
                 }
-                stickyNavBody={
-                    <li className="nav-item">
-                        <Link className="nav-link" href="#cardWithHeader">
-                            Sticky Navigation
-                        </Link>
-                    </li>
-                }
             />
-
-
         </Layout>
     )
 }

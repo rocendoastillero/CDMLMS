@@ -26,7 +26,7 @@ function CardsWithSticky({ cards,stickyNavHeader, stickyNavBody, withCard = true
                                 <div className="card-header">
                                     {stickyNavHeader}
                                 </div>
-                                <div className="card-body">
+                                <div className="card-body relative">
                                     {stickyNavBody}
                                 </div>
                             </div>

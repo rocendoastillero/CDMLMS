@@ -20,11 +20,12 @@ function SingleCardWithHeader({ header, subtitle = '', body, button, alert }) {
           </div>
         )
       }
-      <div className='absolute top-0 right-0 mt-2 mr-2'>
-        {button}
-      </div>
-      <div className="card-header">
+
+      <div className="card-header relative">
         {header}
+        <div className='absolute -translate-y-2/4 top-2/4 right-0 flex flex-row place-content-center'>
+          {button}
+        </div>
       </div>
       <div className="card-body px-4 pt-0 !pb-4 flex flex-col">
         {

@@ -5,7 +5,7 @@ import { Head, Link, router } from '@inertiajs/react'
 import React, { useEffect, useState } from 'react'
 
 
-export default function Instructors({ admin, auth, paginated, searched }) {
+export default function Instructors({  auth, paginated, searched }) {
 
     const [search, setSearch] = useState(searched);
 
@@ -15,13 +15,13 @@ export default function Instructors({ admin, auth, paginated, searched }) {
 
     return (
         <Layout
-            admin={admin}
+            isAdmin={auth.isAdmin}
             user={auth.user}
-            icon={<UsersIcon className='w-5 h-5 text-gray-500' />}
+            icon={<UsersIcon className='w-9 h-9 text-gray-500' />}
             headerTitle="Instructors"
-            headerSubtitle="View Instructors"
+            headerSubtitle="Admin Instructors"
         >
-            <Head title='Instructors' />
+            <Head title='Admin Instructors' />
             <SingleCardCenter
                 table={
                     <>

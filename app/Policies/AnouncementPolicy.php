@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Accomplishreport;
+use App\Models\Anouncement;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class AccomplishreportPolicy
+class AnouncementPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class AccomplishreportPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Accomplishreport $accomplishreport): bool
+    public function view(User $user, Anouncement $anouncement): bool
     {
         //
     }
@@ -29,29 +29,29 @@ class AccomplishreportPolicy
      */
     public function create(User $user): bool
     {
-        return $user->verified;
+        return $user->type === 'admin';
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Accomplishreport $accomplishreport): bool
+    public function update(User $user, Anouncement $anouncement): bool
     {
-        return $accomplishreport->user()->is($user);
+        return $user->type === 'admin';
     }
-    
+
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Accomplishreport $accomplishreport): bool
+    public function delete(User $user, Anouncement $anouncement): bool
     {
-        return $accomplishreport->user()->is($user);
+        return $user->type === 'admin';
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Accomplishreport $accomplishreport): bool
+    public function restore(User $user, Anouncement $anouncement): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class AccomplishreportPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Accomplishreport $accomplishreport): bool
+    public function forceDelete(User $user, Anouncement $anouncement): bool
     {
         //
     }

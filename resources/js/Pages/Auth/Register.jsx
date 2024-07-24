@@ -102,15 +102,6 @@ export default function Register() {
                         </div>
                         <div className='w-1/3 ml-2'>
                             <InputLabel htmlFor="course" value="Course" />
-                            {/* <Select
-                                name='course'
-                                aria-label='Course'
-                                className="form-control"
-                                onChange={(e) => { setData('course', e.target.value) }}
-                            >
-                                <option value="CPE">CPE</option>
-                                <option value="IT">IT</option>
-                            </Select> */}
                             <Dropdown>
                                 <Dropdown.Trigger>
                                     <button className='form-control relative text-start' type='button'>

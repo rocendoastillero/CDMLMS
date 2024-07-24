@@ -20,7 +20,7 @@ class ScheduleController extends Controller
     {
         
         return Inertia::render('Faculty/Schedules', [
-            'admin' => Auth::user()->type ==='admin',
+            
             'subjects' => Subject::where('user_id', Auth::user()->id)->latest()->get(),
             'schedules' => Schedule::where('user_id', Auth::user()->id)->latest()->get()
         ]
@@ -40,9 +40,12 @@ class ScheduleController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        Gate::authorize('create');
+
         $validated = $request->validate([
-            'schedule' => 'required|datetime',
-            'description' => 'string|max:255'
+            'schedule' => 'required',
+            'room' => 'string|max:255',
+            'type' => 'string|max:255'
         ]);
 
         $request->user()->schedules()->create($validated);
@@ -74,8 +77,9 @@ class ScheduleController extends Controller
         Gate::authorize('update', $schedule);
 
         $validated = $request->validate([
-            'schedule' => 'required|datetime',
-            'description' => 'string|max:255'
+            'schedule' => 'required',
+            'room' => 'string|max:255',
+            'type' => 'string|max:255'
         ]);
 
         $schedule->update($validated);

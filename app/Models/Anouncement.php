@@ -17,7 +17,10 @@ class Anouncement extends Model
     protected $fillable = [
         'title',
         'content',
-        'title',
-        'title',
+        'cardtype',
+        'icon',
+        'color',
     ];
+
+
 }

@@ -13,13 +13,13 @@ import React from 'react'
  * 
  * @returns HTML
  */
-function IconCard({ icon = null, title, body, iconColor = 'bg-sky-800', actions, active, selectAction, setWarning}) {
+function IconCard({ icon = null, title, body, iconColor = 'bg-sky-800', button, active, selectAction, setWarning}) {
 
     
     return (
         <div className={`card card-icon mb-4 lift !border-0 relative ${active ? "!translate-y-[-0.4444444rem] !shadow-[0_1.5rem_3rem_0_rgba(33,40,50,1)]" : ""}`} >
-            <div className='absolute top-0 right-0 mr-3 mt-2 flex flex-row pt-2 pr-1'>
-                {actions}
+            <div className='absolute top-0 right-0'>
+                {button}
             </div>
             <div className="row g-0 ">
                 <div className={`col-auto card-icon-aside ` + iconColor} >

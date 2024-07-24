@@ -3,7 +3,7 @@ import Layout from '@/Layouts/Layout';
 import { useForm } from '@inertiajs/react';
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader';
 
-export default function Tests({ admin = false, auth }) {
+export default function Tests({  auth }) {
 
     const [editing, setEditing] = useState(false);
 

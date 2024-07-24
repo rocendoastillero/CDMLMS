@@ -11,10 +11,10 @@ import { CloudArrowUpIcon } from '@heroicons/react/24/outline'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function RepositoryOfFiles({ admin = false, auth }) {
+export default function RepositoryOfFiles({  auth }) {
     return (
         <Layout
-            admin={admin}
+            isAdmin={auth.isAdmin}
             user={auth.user}
             icon={<CloudArrowUpIcon className='w-9 h-9 text-gray-500' />}
             headerTitle='Repository of Files'
