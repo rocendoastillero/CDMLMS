@@ -40,7 +40,7 @@ export default function Dashboard({  auth }) {
                 }
                 card2={
                     <CardsWithHeader
-                        header="Anouncements"
+                        header="Announcements"
                         body={
                             <div>
                             </div>

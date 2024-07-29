@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anouncement;
+use App\Models\Announcement;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;

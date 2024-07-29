@@ -98,11 +98,11 @@ export default function Layout(
                                     isAdmin && (
                                         <>
                                             <div className="sidenav-menu-heading text-gray-500">Admin</div>
-                                            <Link className="nav-link hover:cursor-pointer" href={route('anouncements.index')}>
+                                            <Link className="nav-link hover:cursor-pointer" href={route('announcements.index')}>
                                                 <div className='nav-link-icon'>
                                                     <MegaphoneIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
-                                                Anouncements
+                                                Announcements
                                             </Link>
                                             <Link className='nav-link hover:cursor-pointer !py-[10px]' href={route('admin.instructors')}>
                                                 <div className='nav-link-icon'>
@@ -134,11 +134,11 @@ export default function Layout(
                                 </Link>
                                 {
                                     !isAdmin && (
-                                        <Link href={route('anouncements')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                        <Link href={route('announcements')} className='nav-link hover:cursor-pointer !py-[10px]'  >
                                             <div className='nav-link-icon'>
                                                 <MegaphoneIcon className='w-5 h-5 text-gray-500' />
                                             </div>
-                                            Anouncements
+                                            Announcements
                                         </Link>
                                     )
                                 }

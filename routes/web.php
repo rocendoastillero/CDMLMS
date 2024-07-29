@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AccomplishreportController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AnouncementController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubjectController;
@@ -37,7 +37,7 @@ Route::middleware('faculty')->group(function () {
     Route::resource('accomplishmentreports', AccomplishreportController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
-    Route::get('/anouncements', [AnouncementController::class, 'view'])->name('anouncements');
+    Route::get('/announcements', [AnnouncementController::class, 'view'])->name('announcements');
 
     Route::resource('schedules', ScheduleController::class)
         ->only(['index', 'store', 'update', 'destroy']);
@@ -86,7 +86,7 @@ Route::middleware('faculty')->group(function () {
         Route::get('/admin/subjects', [AdminController::class, 'subjects'])->name('admin.subjects');
         Route::get('/admin/subjects/{search}', [AdminController::class, 'searchSubject'])->name('admin.subjects.search');
 
-        Route::resource('/admin/anouncements', AnouncementController::class)
+        Route::resource('/admin/announcements', AnnouncementController::class)
         ->only(['index', 'store', 'update', 'destroy']);
     });
 });

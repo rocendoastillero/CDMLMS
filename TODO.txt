@@ -2,7 +2,7 @@
   * TODO
   */
 
-anouncement 
+announcement 
   markdown 
 
 Layout responsiveness
@@ -16,7 +16,7 @@ Layout responsiveness
 
 
 Admin perm
-anouncement crud /
+announcement crud /
 instructor rud /
 schedule crud 
 subjects crud - Actual 'subjects' /
@@ -27,7 +27,7 @@ Admin middleware /
 
 
 prof perm
-anouncement r /
+announcement r /
 people r /
 schedule r /
 subject cu- choose which 'Subjects' with availabilty sched for it /

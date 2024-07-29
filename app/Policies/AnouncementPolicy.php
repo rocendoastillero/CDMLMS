@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Anouncement;
+use App\Models\Announcement;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class AnouncementPolicy
+class AnnouncementPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,7 +19,7 @@ class AnouncementPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Anouncement $anouncement): bool
+    public function view(User $user, Announcement $announcement): bool
     {
         //
     }
@@ -35,7 +35,7 @@ class AnouncementPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Anouncement $anouncement): bool
+    public function update(User $user, Announcement $announcement): bool
     {
         return $user->type === 'admin';
     }
@@ -43,7 +43,7 @@ class AnouncementPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Anouncement $anouncement): bool
+    public function delete(User $user, Announcement $announcement): bool
     {
         return $user->type === 'admin';
     }
@@ -51,7 +51,7 @@ class AnouncementPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Anouncement $anouncement): bool
+    public function restore(User $user, Announcement $announcement): bool
     {
         //
     }
@@ -59,7 +59,7 @@ class AnouncementPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Anouncement $anouncement): bool
+    public function forceDelete(User $user, Announcement $announcement): bool
     {
         //
     }

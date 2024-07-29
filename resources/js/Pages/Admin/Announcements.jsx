@@ -32,15 +32,15 @@ const App = props => {
 }
 
 
-export default function Anouncements({ auth, paginated }) {
+export default function Announcements({ auth, paginated }) {
 
     // const { refs, floatingStyles, context } = useFlo
 
     const [editing, setEditing] = useState(false);
 
-    const [tab, setTab] = useState(2);
+    const [tab, setTab] = useState(1);
 
-    const [selectedAnouncement, setSelectedAnouncement] = useState({
+    const [selectedAnnouncement, setSelectedAnnouncement] = useState({
         id: '',
         title: '',
         content: '',
@@ -61,9 +61,9 @@ export default function Anouncements({ auth, paginated }) {
     const submit = (e) => {
         e.preventDefault();
         if (editing) {
-            patch(route('anouncements.update'), data.id);
+            patch(route('announcements.update'), data.id);
         } else {
-            post(route('anouncements.store'), { onSuccess: () => { reset(); setTab(1) } });
+            post(route('announcements.store'), { onSuccess: () => { reset(); setTab(1) } });
             console.log(errors)
         }
     }
@@ -77,18 +77,18 @@ export default function Anouncements({ auth, paginated }) {
             isAdmin={auth.isAdmin}
             user={auth.user}
             icon={<MegaphoneIcon className='w-9 h-9 text-gray-500' />}
-            headerTitle="Anouncements"
-            headerSubtitle="Admin Anouncements"
+            headerTitle="Announcements"
+            headerSubtitle="Admin Announcements"
         >
-            <Head title='Admin Anouncements' />
+            <Head title='Admin Announcements' />
             <>
-                <div className='relative text-white '>
+                <div className='relative text-gray-400 '>
                     <div className='absolute bottom-[110%] w-full flex flex-row gap-2'>
-                        <button onClick={() => { setTab(1) }} className=''>
-                            tab1
+                        <button onClick={() => { setTab(1) }} className={`${tab == 1 ? "border-b-2 !text-white" : ""} md:p-1 md:mb-1 lg:p-2 lg:mb-2`} >
+                            View
                         </button>
-                        <button onClick={() => { setTab(2) }} className=''>
-                            tab2
+                        <button onClick={() => { setTab(2) }} className={`${tab == 2 ? "border-b-2 !text-white" : ""} md:p-1 md:mb-1 lg:p-2 lg:mb-2`} >
+                            Create
                         </button>
                     </div>
                 </div>
@@ -98,31 +98,31 @@ export default function Anouncements({ auth, paginated }) {
                             if (tab == 1) {
                                 return (
                                     <CardsWithSticky
-                                        contentSize='!w-10/12'
-                                        stickySize='!w-2/12'
+                                        contentSize='!w-9/12 max-lg:!w-10/12'
+                                        stickySize='!w-3/12 max-lg:!w-2/12'
                                         cards={
                                             <>
                                                 {
                                                     paginated.data.map(
-                                                        anouncement => {
-                                                            if (anouncement.cardtype == 'center') {
+                                                        announcement => {
+                                                            if (announcement.cardtype == 'center') {
                                                                 return (
                                                                     <SingleCardCenter
-                                                                        title={anouncement.title}
-                                                                        body={anouncement.content}
+                                                                        title={announcement.title}
+                                                                        body={announcement.content}
                                                                         button={
                                                                             <div className='m-2 flex flex-row gap-2'>
                                                                                 <Link
                                                                                     className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
-                                                                                    href={route('anouncements.destroy', anouncement.id)}
+                                                                                    href={route('announcements.destroy', announcement.id)}
                                                                                     as='button'
                                                                                 >
                                                                                     <PencilIcon className='m-2 w-5 h-5 text-white' />
                                                                                 </Link>
                                                                                 <Link
                                                                                     className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
-                                                                                    href={route('anouncements.destroy', anouncement.id)}
-                                                                                    as='button'
+                                                                                    href={route('announcements.destroy', announcement.id)}
+                                                                                    as='button' method='delete'
                                                                                 >
                                                                                     <TrashIcon className='m-2 w-5 h-5 text-white' />
                                                                                 </Link>
@@ -131,27 +131,27 @@ export default function Anouncements({ auth, paginated }) {
                                                                     />
 
                                                                 )
-                                                            } else if (anouncement.cardtype == 'icon') {
+                                                            } else if (announcement.cardtype == 'icon') {
                                                                 return (
                                                                     <IconCard
-                                                                        icon={<IconParse icon={anouncement.icon} color='text-white' />}
-                                                                        title={anouncement.title}
-                                                                        body={anouncement.content}
-                                                                        iconColor={`bg-[${anouncement.color}]`}
+                                                                        icon={<IconParse icon={announcement.icon} color='text-white' />}
+                                                                        title={announcement.title}
+                                                                        body={announcement.content}
+                                                                        iconColor={`bg-[${announcement.color}]`}
                                                                         button={
                                                                             <>
                                                                                 <div className='m-2 flex flex-row gap-2'>
                                                                                     <Link
                                                                                         className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
-                                                                                        href={route('anouncements.destroy', anouncement.id)}
+                                                                                        href={route('announcements.destroy', announcement.id)}
                                                                                         as='button'
                                                                                     >
                                                                                         <PencilIcon className='m-2 w-5 h-5 text-white' />
                                                                                     </Link>
                                                                                     <Link
                                                                                         className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
-                                                                                        href={route('anouncements.destroy', anouncement.id)}
-                                                                                        as='button'
+                                                                                        href={route('announcements.destroy', announcement.id)}
+                                                                                        as='button' method='delete'
                                                                                     >
                                                                                         <TrashIcon className='m-2 w-5 h-5 text-white' />
                                                                                     </Link>
@@ -161,13 +161,13 @@ export default function Anouncements({ auth, paginated }) {
                                                                     />
 
                                                                 )
-                                                            } else if (anouncement.cardtype == 'header') {
+                                                            } else if (announcement.cardtype == 'header') {
                                                                 return (
                                                                     <SingleCardWithHeader
-                                                                        header={anouncement.title}
+                                                                        header={announcement.title}
                                                                         body={
                                                                             <div className='mt-2'>
-                                                                                {anouncement.content}
+                                                                                {announcement.content}
                                                                             </div>
                                                                         }
                                                                         button={
@@ -175,15 +175,15 @@ export default function Anouncements({ auth, paginated }) {
                                                                                 <div className='m-2 flex flex-row gap-2'>
                                                                                     <Link
                                                                                         className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
-                                                                                        href={route('anouncements.destroy', anouncement.id)}
+                                                                                        href={route('announcements.destroy', announcement.id)}
                                                                                         as='button'
                                                                                     >
                                                                                         <PencilIcon className='m-2 w-5 h-5 text-white' />
                                                                                     </Link>
                                                                                     <Link
                                                                                         className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
-                                                                                        href={route('anouncements.destroy', anouncement.id)}
-                                                                                        as='button'
+                                                                                        href={route('announcements.destroy', announcement.id)}
+                                                                                        as='button' method='delete'
                                                                                     >
                                                                                         <TrashIcon className='m-2 w-5 h-5 text-white' />
                                                                                     </Link>
@@ -203,10 +203,10 @@ export default function Anouncements({ auth, paginated }) {
                             } else if (tab == 2) {
                                 return (
                                     <SingleCardWithHeader
-                                        header='Create Anouncement'
+                                        header='Create Announcement'
                                         button={
-                                            <button onClick={submit} className='flex items-center place-content-center w-10 h-10 rounded-[50%] bg-green-950 mr-6'>
-                                                <PlusIcon className='w-8 h-8 text-white' />
+                                            <button onClick={submit} className='flex items-center place-content-center mr-6 p-2 rounded bg-green-950 text-white'>
+                                                Create
                                             </button>
                                         }
                                         body={
@@ -220,7 +220,7 @@ export default function Anouncements({ auth, paginated }) {
                                                                 type="text"
                                                                 name="title"
                                                                 value={data.title}
-                                                                placeholder="Anouncement Title"
+                                                                placeholder="Announcement Title"
                                                                 autoComplete="title"
                                                                 isFocused={true}
                                                                 onChange={(e) => setData('title', e.target.value)}
@@ -322,6 +322,7 @@ export default function Anouncements({ auth, paginated }) {
                                                                                 <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#996600') }}><div className='bg-[#996600]  max-w-5 max-h-5 lg:w-8 lg:h-8' /></div>
                                                                                 <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#009933') }}><div className='bg-[#009933]  max-w-5 max-h-5 lg:w-8 lg:h-8' /></div>
                                                                                 <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#cc3300') }}><div className='bg-[#cc3300]  max-w-5 max-h-5 lg:w-8 lg:h-8' /></div>
+                                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#cc0000') }}><div className='bg-[#cc0000]  max-w-5 max-h-5 lg:w-8 lg:h-8' /></div>
                                                                                 <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#9900ff') }}><div className='bg-[#9900ff]  max-w-5 max-h-5 lg:w-8 lg:h-8' /></div>
                                                                             </Dropdown.Content>
                                                                         </Dropdown>
@@ -383,7 +384,7 @@ export default function Anouncements({ auth, paginated }) {
                                                             type="text"
                                                             name="content"
                                                             value={data.content}
-                                                            placeholder="Anouncement Content"
+                                                            placeholder="Announcement Content"
                                                             autoComplete="content"
                                                             onChange={(e) => setData('content', e.target.value)}
                                                             className='form-control sm:!h-[6rem] md:!h-[12rem] md:!text-md lg:!h-[22rem] lg:!rounded-[4px]  lg:!text-lg lg:!leading-[150%]'

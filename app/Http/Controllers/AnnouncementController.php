@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anouncement;
+use App\Models\Announcement;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class AnouncementController extends Controller
+class AnnouncementController extends Controller
 {
-    public function view() 
+    public function view() : Response
     {
-        return Inertia::render('Faculty/Anouncements',[
-            'paginated' => Anouncement::latest()->get()->paginate(8)
+        return Inertia::render('Faculty/Announcements',[
+            'paginated' => Announcement::latest()->get()->paginate(8)
         ]);
     }
 
@@ -22,8 +23,8 @@ class AnouncementController extends Controller
      */
     public function index() : Response
     {
-        return Inertia::render('Admin/Anouncements',[
-            'paginated' => Anouncement::latest()->get()->paginate(8)
+        return Inertia::render('Admin/Announcements',[
+            'paginated' => Announcement::latest()->get()->paginate(8)
         ]);
     }
 
@@ -38,7 +39,7 @@ class AnouncementController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) : RedirectResponse
     {
 
         $validated = $request->validate([
@@ -49,17 +50,17 @@ class AnouncementController extends Controller
             'color' => '',
         ]);
 
-        $anouncement = new Anouncement($validated);
-        $anouncement->save();
+        $announcement = new Announcement($validated);
+        $announcement->save();
 
-        return redirect(route('anouncements.index'));
+        return redirect(route('announcements.index'));
         
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Anouncement $anouncement)
+    public function show(Announcement $announcement)
     {
         //
     }
@@ -67,7 +68,7 @@ class AnouncementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Anouncement $anouncement)
+    public function edit(Announcement $announcement)
     {
         //
     }
@@ -75,7 +76,7 @@ class AnouncementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Anouncement $anouncement)
+    public function update(Request $request, Announcement $announcement)
     {
         //
     }
@@ -83,8 +84,10 @@ class AnouncementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Anouncement $anouncement)
+    public function destroy(Announcement $announcement) : RedirectResponse
     {
-        //
+        $announcement->delete();
+
+        return redirect(route('announcements.index'));
     }
 }
