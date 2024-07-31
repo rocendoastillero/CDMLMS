@@ -14,7 +14,7 @@ class SubjectPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->verified;
+        return true;
     }
 
     /**

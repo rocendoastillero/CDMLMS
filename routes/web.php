@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccomplishreportController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubjectController;
@@ -42,32 +43,30 @@ Route::middleware('faculty')->group(function () {
     Route::resource('schedules', ScheduleController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 
+    Route::get('/classrecord', [FileController::class, 'classRecord'])->name('classrecord');
+
+    Route::get('/gradesheet', [FileController::class, 'gradeSheet'])->name('gradesheet');
+
+    Route::get('/syllabus', [FileController::class, 'syllabus'])->name('syllabus');
+
+    Route::resource('file', FileController::class)
+    ->only(['store', 'update', 'destroy']);
+
+
     Route::get('/attendance', function () {
-        return Inertia::render('Faculty/Attendance',[]);
+        return Inertia::render('Faculty/Attendance', []);
     })->name('attendance');
 
-    Route::get('/syllabus', function () {
-        return Inertia::render('Faculty/Syllabus',[]);
-    })->name('syllabus');
-
-    Route::get('/classrecord', function () {
-        return Inertia::render('Faculty/ClassRecord',[]);
-    })->name('classrecord');
-
-    Route::get('/gradesheets', function () {
-        return Inertia::render('Faculty/GradeSheets',[]);
-    })->name('gradesheets');
-
     Route::get('/repositoryoffiles', function () {
-        return Inertia::render('Faculty/RepositoryOfFiles',[]);
+        return Inertia::render('Faculty/RepositoryOfFiles', []);
     })->name('repositoryoffiles');
 
     Route::get('/onlineexam', function () {
-        return Inertia::render('Faculty/OnlineExam',[]);
+        return Inertia::render('Faculty/OnlineExam', []);
     })->name('onlineexam');
 
     Route::get('/onlineclass', function () {
-        return Inertia::render('Faculty/OnlineClass',[]);
+        return Inertia::render('Faculty/OnlineClass', []);
     })->name('onlineclass');
 
 
@@ -87,7 +86,7 @@ Route::middleware('faculty')->group(function () {
         Route::get('/admin/subjects/{search}', [AdminController::class, 'searchSubject'])->name('admin.subjects.search');
 
         Route::resource('/admin/announcements', AnnouncementController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
+            ->only(['index', 'store', 'update', 'destroy']);
     });
 });
 

@@ -18,6 +18,7 @@ class AccomplishreportController extends Controller
      */
     public function index()
     {
+        
         return Inertia::render('Faculty/AccomplishmentReports', [
             'paginated' => AccomplishReport::where('user_id', Auth::user()->id)
             ->latest()

@@ -19,9 +19,10 @@ class SubjectController extends Controller
      */
     public function index() : Response
     {
+        
         $mySubjects = Subject::where('user_id', Auth::user()->id)->get();
         $otherSubjects = Subject::where('user_id','!=', Auth::user()->id)->orWhereNull('user_id')->get();
-
+        
         $all = $mySubjects->concat($otherSubjects);
         return Inertia::render('Faculty/Subjects', [
             'paginated' => $all->paginate(8)
@@ -89,6 +90,7 @@ class SubjectController extends Controller
     public function update(Request $request, Subject $subject): RedirectResponse
     {
         Gate::authorize('update', $subject);
+
         $validated = $request->validate([
             'subject' => 'required|string|max:255',
             'description' => 'required|string|max:255'

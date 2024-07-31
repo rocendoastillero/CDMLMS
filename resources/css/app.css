@@ -3142,7 +3142,7 @@ textarea.form-control-lg {
 
 .input-group .btn {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 .input-group .btn:focus {
@@ -3352,7 +3352,7 @@ textarea.is-valid.datatable-input {
 .input-group>.datatable-selector:not(:focus).is-valid,
 .was-validated .input-group>.form-floating:not(:focus-within):valid,
 .input-group>.form-floating:not(:focus-within).is-valid {
-  z-index: 3;
+  z-index: 4;
 }
 
 .invalid-feedback {
@@ -3480,7 +3480,7 @@ textarea.is-invalid.datatable-input {
 .input-group>.datatable-selector:not(:focus).is-invalid,
 .was-validated .input-group>.form-floating:not(:focus-within):invalid,
 .input-group>.form-floating:not(:focus-within).is-invalid {
-  z-index: 4;
+  z-index: 5;
 }
 
 .btn {
@@ -3587,9 +3587,9 @@ fieldset:disabled .btn {
   --bs-btn-hover-bg: var(--bs-secondary);
   --bs-btn-hover-border-color: var(--bs-secondary);
   --bs-btn-focus-shadow-rgb: 38, 121, 244;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #00ffbf;
-  --bs-btn-active-border-color: #0049b6;
+  --bs-btn-active-color: #000000;
+  --bs-btn-active-bg: var(--bs-secondary);
+  --bs-btn-active-border-color: var(--bs-secondary);
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #00771B;
@@ -5272,7 +5272,7 @@ fieldset:disabled .btn {
 .btn-group-vertical>.btn:focus,
 .btn-group-vertical>.btn:active,
 .btn-group-vertical>.btn.active {
-  z-index: 1;
+  z-index: 2;
 }
 
 .btn-toolbar {
@@ -6272,11 +6272,11 @@ fieldset:disabled .btn {
 }
 
 .accordion-button:hover {
-  z-index: 2;
+  z-index: 3;
 }
 
 .accordion-button:focus {
-  z-index: 3;
+  z-index: 4;
   border-color: var(--bs-accordion-btn-focus-border-color);
   outline: 0;
   box-shadow: var(--bs-accordion-btn-focus-box-shadow);
@@ -6433,7 +6433,7 @@ fieldset:disabled .btn {
 
 .page-link:hover,
 .datatable-pagination a:hover {
-  z-index: 2;
+  z-index: 3;
   color: var(--bs-pagination-hover-color);
   text-decoration: none;
   background-color: var(--bs-pagination-hover-bg);
@@ -6442,7 +6442,7 @@ fieldset:disabled .btn {
 
 .page-link:focus,
 .datatable-pagination a:focus {
-  z-index: 3;
+  z-index: 4;
   color: var(--bs-pagination-focus-color);
   background-color: var(--bs-pagination-focus-bg);
   outline: 0;
@@ -6453,7 +6453,7 @@ fieldset:disabled .btn {
 .datatable-pagination a.active,
 .active>.page-link,
 .datatable-pagination .active>a {
-  z-index: 3;
+  z-index: 4;
   color: var(--bs-pagination-active-color);
   background-color: var(--bs-pagination-active-bg);
   border-color: var(--bs-pagination-active-border-color);
@@ -6571,7 +6571,7 @@ fieldset:disabled .btn {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 2;
+  z-index: 3;
   padding: 1.5625rem 1rem;
 }
 
@@ -7034,7 +7034,7 @@ fieldset:disabled .btn {
 
 .list-group-item-action:hover,
 .list-group-item-action:focus {
-  z-index: 1;
+  z-index: 2;
   color: var(--bs-list-group-action-hover-color);
   text-decoration: none;
   background-color: var(--bs-list-group-action-hover-bg);
@@ -7072,7 +7072,7 @@ fieldset:disabled .btn {
 }
 
 .list-group-item.active {
-  z-index: 2;
+  z-index: 3;
   color: var(--bs-list-group-active-color);
   background-color: var(--bs-list-group-active-bg);
   border-color: var(--bs-list-group-active-border-color);
@@ -8707,7 +8707,7 @@ fieldset:disabled .btn {
 .carousel-fade .carousel-item.active,
 .carousel-fade .carousel-item-next.carousel-item-start,
 .carousel-fade .carousel-item-prev.carousel-item-end {
-  z-index: 1;
+  z-index: 2;
   opacity: 1;
 }
 
@@ -8731,7 +8731,7 @@ fieldset:disabled .btn {
   position: absolute;
   top: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8802,7 +8802,7 @@ fieldset:disabled .btn {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -10180,7 +10180,7 @@ fieldset:disabled .btn {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 2;
+  z-index: 3;
 }
 
 .fixed-bottom {
@@ -10195,7 +10195,7 @@ fieldset:disabled .btn {
 .nav-sticky {
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
 }
 
 .sticky-bottom {
@@ -10307,7 +10307,7 @@ fieldset:disabled .btn {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   content: "";
 }
 
@@ -18927,12 +18927,12 @@ body {
 }
 
 .z-1 {
-  z-index: 1 !important;
+  z-index: 2 !important;
   position: relative !important;
 }
 
 .z-2 {
-  z-index: 2 !important;
+  z-index: 3 !important;
   position: relative !important;
 }
 
@@ -20097,7 +20097,7 @@ body {
   padding-left: 1rem;
   padding-right: 1rem;
   text-decoration: none;
-  z-index: 1;
+  z-index: 2;
 }
 
 .step .step-item .step-item-link::before {
@@ -20112,7 +20112,7 @@ body {
   position: absolute;
   top: 0;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 2;
 }
 
 .step .step-item .step-item-link.disabled {
@@ -20862,13 +20862,13 @@ body {
 }
 
 .nav-fixed .topnav {
-  z-index: 2;
+  z-index: 3;
 }
 
 .nav-fixed #layoutSidenav #layoutSidenav_nav {
   width: 15rem;
   height: 100vh;
-  z-index: 1;
+  z-index: 2;
 }
 
 .nav-fixed #layoutSidenav #layoutSidenav_nav .sidenav {

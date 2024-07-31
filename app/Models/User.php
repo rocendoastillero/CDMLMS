@@ -37,9 +37,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'type',
-        // 'subjects',
-        'accomplishmentreports',
-        'schedules'
     ];
 
 
@@ -53,12 +50,12 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'created_at' => 'datetime:d/m/Y H:i',
+            'updated_at' => 'datetime:d/m/Y H:i',
         ];
     }
 
-    protected $appends = [
-        'subjects',
-    ];
+
 
     /**
      * Get all of the subjects for the User
@@ -90,8 +87,13 @@ class User extends Authenticatable
         return $this->hasMany(Schedule::class);
     }
 
-    public function getSubjectsAttribute()
+    /**
+     * Get all of the files for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function files(): HasMany
     {
-        return $this->subjects();
+        return $this->hasMany(File::class);
     }
 }

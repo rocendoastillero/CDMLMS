@@ -26,9 +26,23 @@ class Accomplishreport extends Model
 
     protected $appends = [
         'date',
-        'timespent',
+        'timespent'
     ];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'start' => 'datetime:H:i',
+            'end' => 'datetime:H:i',
+            'created_at' => 'datetime:d/m/Y H:i',
+            'updated_at' => 'datetime:d/m/Y H:i',
+        ];
+    }
 
     /**
      * Get the user that owns the Subject
@@ -40,14 +54,10 @@ class Accomplishreport extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected function casts(): array
+    public function getInstructorAttribute(): String
     {
-        return [
-            'start' => 'datetime:H:i',
-            'end' => 'datetime:H:i',
-        ];
+        return $this->user->lastname . ", " . $this->user->firstname;
     }
-
 
     public function getTimespentAttribute(): String
     {

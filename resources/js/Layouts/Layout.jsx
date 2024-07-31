@@ -90,7 +90,7 @@ export default function Layout(
                     <nav className="sidenav shadow-right sidenav-light">
                         <div className="sidenav-menu">
                             <div className="nav accordion transition-transform duration-900 ease-in-out" id="accordionSidenav">
-                                <Link href={isAdmin ? route('admin.dashboard') : route('dashboard')} className="nav-link mt-4 hover:cursor-pointer" >
+                                <Link href={isAdmin ? route('admin.dashboard') : route('dashboard')} className="nav-link mt-4" >
                                     <div className="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity text-gray-500"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
                                     Dashboard
                                 </Link>
@@ -98,25 +98,25 @@ export default function Layout(
                                     isAdmin && (
                                         <>
                                             <div className="sidenav-menu-heading text-gray-500">Admin</div>
-                                            <Link className="nav-link hover:cursor-pointer" href={route('announcements.index')}>
+                                            <Link className="nav-link" href={route('announcements.index')}>
                                                 <div className='nav-link-icon'>
                                                     <MegaphoneIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
                                                 Announcements
                                             </Link>
-                                            <Link className='nav-link hover:cursor-pointer !py-[10px]' href={route('admin.instructors')}>
+                                            <Link className='nav-link !py-[10px]' href={route('admin.instructors')}>
                                                 <div className='nav-link-icon'>
                                                     <UsersIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
                                                 Instructors
                                             </Link>
-                                            <Link className="nav-link hover:cursor-pointer">
+                                            <Link className="nav-link">
                                                 <div className='nav-link-icon'>
                                                     <CalendarDaysIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
                                                 Schedule
                                             </Link>
-                                            <Link className="nav-link hover:cursor-pointer" href={route('admin.subjects')}>
+                                            <Link className="nav-link" href={route('admin.subjects')}>
                                                 <div className='nav-link-icon'>
                                                     <BookOpenIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
@@ -126,7 +126,7 @@ export default function Layout(
                                     )
                                 }
                                 <div className="sidenav-menu-heading text-gray-500">Faculty</div>
-                                <Link href={route('accomplishmentreports.index')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                <Link href={route('accomplishmentreports.index')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <TrophyIcon className='w-5 h-5 text-gray-500' />
                                     </div>
@@ -134,7 +134,7 @@ export default function Layout(
                                 </Link>
                                 {
                                     !isAdmin && (
-                                        <Link href={route('announcements')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                        <Link href={route('announcements')} className='nav-link !py-[10px]'  >
                                             <div className='nav-link-icon'>
                                                 <MegaphoneIcon className='w-5 h-5 text-gray-500' />
                                             </div>
@@ -142,7 +142,7 @@ export default function Layout(
                                         </Link>
                                     )
                                 }
-                                <Link href={route('attendance')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                <Link href={route('attendance')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <HandRaisedIcon className='w-5 h-5 text-gray-500' />
                                     </div>
@@ -150,7 +150,7 @@ export default function Layout(
                                 </Link>
                                 <div>
                                     <Disclosure defaultOpen={openDropdown}>
-                                        <DisclosureButton className="nav-link hover:cursor-pointer !py-[10px] w-full flex flex-row !text-start relative" onClick={() => { setDropDown(!dropdown) }}>
+                                        <DisclosureButton className="nav-link !py-[10px] w-full flex flex-row !text-start relative" onClick={() => { setDropDown(!dropdown) }}>
                                             <div className='nav-link-icon'>
                                                 <DocumentIcon className='w-5 h-5 text-gray-500' />
                                             </div>
@@ -164,50 +164,50 @@ export default function Layout(
                                                 )
                                             }
                                         </DisclosureButton>
-                                        <DisclosurePanel transition className={`origin-top transition duration-50 ease-in-out pl-[14px] ml-[26px] border-l-[1px] border-gray-500 ${(route().current('syllabus') || route().current('classrecord') || route().current('gradesheets')) ? "" : "data-[closed]:-translate-y-6 data-[closed]:opacity-0"}`}>
-                                            <Link href="classrecord" className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                        <DisclosurePanel transition className={`origin-top transition duration-50 ease-in-out pl-[14px] ml-[26px] border-l-[1px] border-gray-500 ${(route().current('syllabus') || route().current('classrecord') || route().current('gradesheet')) ? "" : "data-[closed]:-translate-y-6 data-[closed]:opacity-0"}`}>
+                                            <Link href={route('classrecord')} className='nav-link !py-[10px]'  >
                                                 Class Record
                                             </Link>
-                                            <Link href="gradesheets" className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                            <Link href={route('gradesheet')} className='nav-link !py-[10px]'  >
                                                 Grade Sheets
                                             </Link>
-                                            <Link href="syllabus" className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                            <Link href={route('syllabus')} className='nav-link !py-[10px]'  >
                                                 Syllabus
                                             </Link>
                                         </DisclosurePanel>
                                     </Disclosure>
                                 </div>
-                                <Link className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                <Link className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <LockClosedIcon className='w-5 h-5 text-gray-500' />
                                     </div>
                                     File Encrypter
                                 </Link>
-                                <Link href={route('onlineclass')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                <Link href={route('onlineclass')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <TrophyIcon className='w-5 h-5 text-gray-500' />
                                     </div>
                                     Online Class
                                 </Link>
-                                <Link href={route('onlineexam')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                <Link href={route('onlineexam')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <PencilSquareIcon className='w-5 h-5 text-gray-500' />
                                     </div>
                                     Online Exam
                                 </Link>
-                                <Link href={route('repositoryoffiles')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                <Link href={route('repositoryoffiles')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <CloudArrowUpIcon className='w-5 h-5 text-gray-500' />
                                     </div>
                                     Repository of Files
                                 </Link>
-                                <Link href={route('schedules.index')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                <Link href={route('schedules.index')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <CalendarDaysIcon className='w-5 h-5 text-gray-500' />
                                     </div>
                                     Schedule
                                 </Link>
-                                <Link href={route('subjects.index')} className='nav-link hover:cursor-pointer !py-[10px]'  >
+                                <Link href={route('subjects.index')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <BookOpenIcon className='w-5 h-5 text-gray-500' />
                                     </div>
