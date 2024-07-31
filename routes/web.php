@@ -50,7 +50,7 @@ Route::middleware('faculty')->group(function () {
     Route::get('/syllabus', [FileController::class, 'syllabus'])->name('syllabus');
 
     Route::resource('file', FileController::class)
-    ->only(['store', 'update', 'destroy']);
+        ->only(['store', 'update', 'destroy']);
 
 
     Route::get('/attendance', function () {
@@ -87,6 +87,9 @@ Route::middleware('faculty')->group(function () {
 
         Route::resource('/admin/announcements', AnnouncementController::class)
             ->only(['index', 'store', 'update', 'destroy']);
+
+
+        Route::get('/admin/download/{file}', [FileController::class, 'download'])->name('admin.download');
     });
 });
 

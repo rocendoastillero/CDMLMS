@@ -6,6 +6,7 @@ use App\Models\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class FileController extends Controller
@@ -18,11 +19,11 @@ class FileController extends Controller
     {
         return Inertia::render('Faculty/ClassRecord', [
             'paginated' => File::where('user_id', Auth::user()->id)
-            ->where('type', 'classrecord')
-            ->latest()
-            ->get()
-            ->makeHidden('instructor')
-            ->paginate(8)
+                ->where('type', 'classrecord')
+                ->latest()
+                ->get()
+                ->makeHidden('instructor')
+                ->paginate(8)
         ]);
     }
 
@@ -33,11 +34,11 @@ class FileController extends Controller
     {
         return Inertia::render('Faculty/GradeSheet', [
             'paginated' => File::where('user_id', Auth::user()->id)
-            ->where('type', 'gradesheet')
-            ->latest()
-            ->get()
-            ->makeHidden('instructor')
-            ->paginate(8)
+                ->where('type', 'gradesheet')
+                ->latest()
+                ->get()
+                ->makeHidden('instructor')
+                ->paginate(8)
         ]);
     }
 
@@ -48,11 +49,11 @@ class FileController extends Controller
     {
         return Inertia::render('Faculty/Syllabus', [
             'paginated' => File::where('user_id', Auth::user()->id)
-            ->where('type', 'syllabus')
-            ->latest()
-            ->get()
-            ->makeHidden('instructor')
-            ->paginate(8)
+                ->where('type', 'syllabus')
+                ->latest()
+                ->get()
+                ->makeHidden('instructor')
+                ->paginate(8)
         ]);
     }
 
@@ -100,11 +101,11 @@ class FileController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Download the specified file.
      */
-    public function show(File $file)
+    public function download(File $file)
     {
-        //
+        return Storage::download($file->path, $file->name);
     }
 
     /**
