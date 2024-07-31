@@ -19,16 +19,14 @@ class Accomplishreport extends Model
         'designation',
         'report',
     ];
-    
+
     protected $hidden = [
         'user',
     ];
 
     protected $appends = [
-        'instructor',
         'date',
         'timespent',
-        
     ];
 
 
@@ -43,26 +41,25 @@ class Accomplishreport extends Model
     }
 
     protected function casts(): array
-{
-    return [
-        'start' => 'datetime:H:i',
-        'end' => 'datetime:H:i',
-    ];
-}
-
-    public function getInstructorAttribute() : String {
-        return $this->user->lastname . ", " . $this->user->firstname; 
+    {
+        return [
+            'start' => 'datetime:H:i',
+            'end' => 'datetime:H:i',
+        ];
     }
-    
-    public function getTimespentAttribute() : String {
+
+
+    public function getTimespentAttribute(): String
+    {
 
         $start = Carbon::parse($this->start);
         $end = Carbon::parse($this->end);
-        
+
         return $start->diff($end)->format('%H:%I');
     }
 
-    public function getDateAttribute() : String {
+    public function getDateAttribute(): String
+    {
 
         $weekMap = [
             0 => 'S',
@@ -75,7 +72,7 @@ class Accomplishreport extends Model
         ];
 
         $date = Carbon::parse($this->start);
-        
-        return $date->format('m/d').", ".$weekMap[$date->dayOfWeek()];
+
+        return $date->format('m/d') . ", " . $weekMap[$date->dayOfWeek()];
     }
 }

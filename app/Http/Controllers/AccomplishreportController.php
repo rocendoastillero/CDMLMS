@@ -18,11 +18,11 @@ class AccomplishreportController extends Controller
      */
     public function index()
     {
-        Gate::authorize('viewAny');
-        
         return Inertia::render('Faculty/AccomplishmentReports', [
-            
-            'reports' => AccomplishReport::where('user_id', Auth::user()->id)->latest()->get()->makeHidden('instructor')
+            'paginated' => AccomplishReport::where('user_id', Auth::user()->id)
+            ->latest()
+            ->get()
+            ->paginate(8)
         ]);
     }
 
@@ -39,7 +39,6 @@ class AccomplishreportController extends Controller
      */
     public function store(Request $request) : RedirectResponse
     {
-        Gate::authorize('create');
 
         $start = Carbon::parse($request->date . " " . $request->start);
         $end = Carbon::parse($request->date . " " . $request->end);
@@ -60,8 +59,6 @@ class AccomplishreportController extends Controller
             'designation' => 'required|string|max:255',
             'report' => 'required|string|max:255',
         ]);
-
-
 
         $request->user()->accomplishmentreports()->create($validated);
 

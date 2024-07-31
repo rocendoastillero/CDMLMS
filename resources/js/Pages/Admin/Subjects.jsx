@@ -120,7 +120,7 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                     </>
                   ))}
                   <thead>
-                    <tr>
+                    <tr className='card-header'>
                       <th>Instructor</th>
                       <th>Course</th>
                       <th>Code</th>

@@ -12,10 +12,10 @@ import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
  * @function Page Page of the Accomplishment Reports
  * 
  * @param auth The Authentication 
- * @param reports Accomplishment Reports 
+ * @param paginated Accomplishment Reports 
  * @returns Page
  */
-export default function AccomplishmentReports({ auth, reports }) {
+export default function AccomplishmentReports({ auth, paginated }) {
 
     const [view, setView] = useState(1);
 
@@ -71,7 +71,7 @@ export default function AccomplishmentReports({ auth, reports }) {
     }
 
     useEffect((() => {
-        console.log(reports);
+        console.log(paginated);
     }), []);
 
     return (
@@ -83,31 +83,29 @@ export default function AccomplishmentReports({ auth, reports }) {
             headerSubtitle='View Accomplishment Reports' >
             <Head title='Accomplishment Reports' />
             <CardsWithSticky
-                    contentSize='!w-10/12'
-                    stickySize='!w-2/12'
+                contentSize='!w-10/12'
+                stickySize='!w-2/12'
                 cards={
                     <>
                         {(
                             () => {
 
                                 if (view == 1) {
-                                    if (reports == '') {
-                                        return (
+                                    return (
+                                        paginated.data.length == 0 ? (
                                             <AlertCard
                                                 type='alert-info'
                                                 icon={<ArchiveBoxXMarkIcon className="h-6 w-6 " />}
                                                 title="Empty!"
                                                 message="Reports are empty, Create a report"
                                             />
-                                        );
-                                    } else {
-                                        return (
+                                        ) : (
                                             <SingleCardCenter
                                                 table={
                                                     <>
                                                         <table className='datatable-table mt-3 text-center'>
                                                             <thead>
-                                                                <tr>
+                                                                <tr className='card-header'>
                                                                     <th >Date</th>
                                                                     <th >Start</th>
                                                                     <th >End</th>
@@ -121,7 +119,7 @@ export default function AccomplishmentReports({ auth, reports }) {
                                                             </thead>
                                                             <tbody>
                                                                 {
-                                                                    reports.map(report =>
+                                                                    paginated.data.map(report =>
                                                                         <tr key={report.user_id}>
                                                                             <td>{report.date}</td>
                                                                             <td>{report.start}</td>
@@ -143,9 +141,8 @@ export default function AccomplishmentReports({ auth, reports }) {
                                                     </>
                                                 }
                                             />
-
-                                        );
-                                    }
+                                        )
+                                    )
                                 } else if (view == 0 || view == 2) {
                                     return (
                                         <SingleCardWithHeader

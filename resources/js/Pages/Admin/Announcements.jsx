@@ -1,3 +1,4 @@
+import AlertCard from '@/Components/CDMLMS/AlertCard';
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import IconCard from '@/Components/CDMLMS/IconCard';
 import IconParse from '@/Components/CDMLMS/IconParse';
@@ -8,7 +9,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import Layout from '@/Layouts/Layout'
-import { ChevronDownIcon, MegaphoneIcon, PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { ChevronDownIcon, ExclamationTriangleIcon, MegaphoneIcon, PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { Head, Link, useForm } from '@inertiajs/react'
 import React, { useEffect, useState } from 'react'
 
@@ -103,43 +104,15 @@ export default function Announcements({ auth, paginated }) {
                                         cards={
                                             <>
                                                 {
-                                                    paginated.data.map(
-                                                        announcement => {
-                                                            if (announcement.cardtype == 'center') {
-                                                                return (
-                                                                    <SingleCardCenter
-                                                                        title={announcement.title}
-                                                                        body={announcement.content}
-                                                                        button={
-                                                                            <div className='m-2 flex flex-row gap-2'>
-                                                                                <Link
-                                                                                    className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
-                                                                                    href={route('announcements.destroy', announcement.id)}
-                                                                                    as='button'
-                                                                                >
-                                                                                    <PencilIcon className='m-2 w-5 h-5 text-white' />
-                                                                                </Link>
-                                                                                <Link
-                                                                                    className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
-                                                                                    href={route('announcements.destroy', announcement.id)}
-                                                                                    as='button' method='delete'
-                                                                                >
-                                                                                    <TrashIcon className='m-2 w-5 h-5 text-white' />
-                                                                                </Link>
-                                                                            </div>
-                                                                        }
-                                                                    />
-
-                                                                )
-                                                            } else if (announcement.cardtype == 'icon') {
-                                                                return (
-                                                                    <IconCard
-                                                                        icon={<IconParse icon={announcement.icon} color='text-white' />}
-                                                                        title={announcement.title}
-                                                                        body={announcement.content}
-                                                                        iconColor={`bg-[${announcement.color}]`}
-                                                                        button={
-                                                                            <>
+                                                    paginated.data.length != 0 ? (
+                                                        paginated.data.map(
+                                                            announcement => {
+                                                                if (announcement.cardtype == 'center') {
+                                                                    return (
+                                                                        <SingleCardCenter
+                                                                            title={announcement.title}
+                                                                            body={announcement.content}
+                                                                            button={
                                                                                 <div className='m-2 flex flex-row gap-2'>
                                                                                     <Link
                                                                                         className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
@@ -156,44 +129,85 @@ export default function Announcements({ auth, paginated }) {
                                                                                         <TrashIcon className='m-2 w-5 h-5 text-white' />
                                                                                     </Link>
                                                                                 </div>
-                                                                            </>
-                                                                        }
-                                                                    />
+                                                                            }
+                                                                        />
 
-                                                                )
-                                                            } else if (announcement.cardtype == 'header') {
-                                                                return (
-                                                                    <SingleCardWithHeader
-                                                                        header={announcement.title}
-                                                                        body={
-                                                                            <div className='mt-2'>
-                                                                                {announcement.content}
-                                                                            </div>
-                                                                        }
-                                                                        button={
-                                                                            <>
-                                                                                <div className='m-2 flex flex-row gap-2'>
-                                                                                    <Link
-                                                                                        className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
-                                                                                        href={route('announcements.destroy', announcement.id)}
-                                                                                        as='button'
-                                                                                    >
-                                                                                        <PencilIcon className='m-2 w-5 h-5 text-white' />
-                                                                                    </Link>
-                                                                                    <Link
-                                                                                        className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
-                                                                                        href={route('announcements.destroy', announcement.id)}
-                                                                                        as='button' method='delete'
-                                                                                    >
-                                                                                        <TrashIcon className='m-2 w-5 h-5 text-white' />
-                                                                                    </Link>
+                                                                    )
+                                                                } else if (announcement.cardtype == 'icon') {
+                                                                    return (
+                                                                        <IconCard
+                                                                            icon={<IconParse icon={announcement.icon} color='text-white' />}
+                                                                            title={announcement.title}
+                                                                            body={announcement.content}
+                                                                            iconColor={`bg-[${announcement.color}]`}
+                                                                            button={
+                                                                                <>
+                                                                                    <div className='m-2 flex flex-row gap-2'>
+                                                                                        <Link
+                                                                                            className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
+                                                                                            href={route('announcements.destroy', announcement.id)}
+                                                                                            as='button'
+                                                                                        >
+                                                                                            <PencilIcon className='m-2 w-5 h-5 text-white' />
+                                                                                        </Link>
+                                                                                        <Link
+                                                                                            className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
+                                                                                            href={route('announcements.destroy', announcement.id)}
+                                                                                            as='button' method='delete'
+                                                                                        >
+                                                                                            <TrashIcon className='m-2 w-5 h-5 text-white' />
+                                                                                        </Link>
+                                                                                    </div>
+                                                                                </>
+                                                                            }
+                                                                        />
+
+                                                                    )
+                                                                } else if (announcement.cardtype == 'header') {
+                                                                    return (
+                                                                        <SingleCardWithHeader
+                                                                            header={announcement.title}
+                                                                            body={
+                                                                                <div className='mt-2'>
+                                                                                    {announcement.content}
                                                                                 </div>
-                                                                            </>
-                                                                        }
-                                                                    />
-                                                                );
+                                                                            }
+                                                                            button={
+                                                                                <>
+                                                                                    <div className='m-2 flex flex-row gap-2'>
+                                                                                        <Link
+                                                                                            className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
+                                                                                            href={route('announcements.destroy', announcement.id)}
+                                                                                            as='button'
+                                                                                        >
+                                                                                            <PencilIcon className='m-2 w-5 h-5 text-white' />
+                                                                                        </Link>
+                                                                                        <Link
+                                                                                            className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
+                                                                                            href={route('announcements.destroy', announcement.id)}
+                                                                                            as='button' method='delete'
+                                                                                        >
+                                                                                            <TrashIcon className='m-2 w-5 h-5 text-white' />
+                                                                                        </Link>
+                                                                                    </div>
+                                                                                </>
+                                                                            }
+                                                                        />
+                                                                    );
+                                                                }
                                                             }
-                                                        }
+                                                        )
+                                                    ) : (
+                                                        <AlertCard
+                                                            type='alert-info'
+                                                            icon={<ExclamationTriangleIcon className="h-6 w-6" />}
+                                                            title="Empty!"
+                                                            message={
+                                                                <div className='flex flex-row'>
+                                                                    No Announements
+                                                                </div>
+                                                            }
+                                                        />
                                                     )
                                                 }
                                             </>

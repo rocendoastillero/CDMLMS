@@ -50,7 +50,7 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                         </div>
                         <table className='datatable-table !text-center'>
                             <thead>
-                                <tr>
+                                <tr className='card-header'>
 
                                     <th >Instructor</th>
                                     <th >Course</th>
