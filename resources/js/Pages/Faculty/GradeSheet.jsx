@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
+import React from 'react'
 import Layout from '@/Layouts/Layout'
 import { Head, useForm } from '@inertiajs/react'
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
+import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import { DocumentIcon } from '@heroicons/react/24/outline'
-import TextInput from '@/Components/TextInput'
 import InputError from '@/Components/InputError'
+import TextInput from '@/Components/TextInput'
 import PrimaryButton from '@/Components/PrimaryButton'
 
 
@@ -15,31 +15,26 @@ import PrimaryButton from '@/Components/PrimaryButton'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function ClassRecord({ auth, paginated }) {
+export default function GradeSheet({ auth, paginated }) {
 
-    const { data, setData, post, errors, reset } = useForm({
-        type: 'classrecord',
+    const { data, setData, post, errors } = useForm({
+        type: 'gradesheet',
         file: null
     });
 
     const submit = (e) => {
         e.preventDefault();
-        if (data.file != null){
+        if (data.file != null) {
             post(route('file.store'), { onSuccess: () => reset() });
         }
-        
     }
-
-    useEffect((() => {
-        console.log(paginated);
-    }), [])
 
     return (
         <Layout
             isAdmin={auth.isAdmin}
             user={auth.user}
             icon={<DocumentIcon className='w-9 h-9 text-gray-500' />}
-            headerTitle="Class Record"
+            headerTitle="Grade Sheets"
             headerSubtitle='Files'
             openDropdown={true}>
             <Head title='Files' />
@@ -48,7 +43,7 @@ export default function ClassRecord({ auth, paginated }) {
                 stickySize='!w-4/12'
                 cards={
                     <SingleCardWithHeader
-                        header="Class Record"
+                        header="Grade Sheets"
                         body={
                             <>
                                 <table className='datatable-table text-center mt-3'>
@@ -84,9 +79,9 @@ export default function ClassRecord({ auth, paginated }) {
                             <div className='mb-3'>
 
                                 <TextInput
-                                    id="classrecord"
+                                    id="gradesheet"
                                     type="file"
-                                    name="classrecord"
+                                    name="gradesheet"
                                     onChange={(e) => setData('file', e.target.files[0])}
                                 />
 
@@ -99,6 +94,7 @@ export default function ClassRecord({ auth, paginated }) {
                     </div>
                 }
             />
-        </Layout >
+
+        </Layout>
     )
 }

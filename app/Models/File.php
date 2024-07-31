@@ -6,22 +6,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Subject extends Model
+class File extends Model
 {
-
     use HasFactory;
 
     protected $fillable = [
-        'subject',
-        'description'
+        'name',
+        'type',
+        'path',
+        'size',
+        'mime',
+        'archived',
     ];
 
     protected $hidden = [
-        'user',
+        'path',
+        'type',
     ];
 
     protected $appends = [
-        'instructor',
+        'instructor'
     ];
 
     /**
@@ -38,7 +42,7 @@ class Subject extends Model
     }
 
     /**
-     * Get the user that owns the Subject
+     * Get the user that owns the File
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -49,9 +53,6 @@ class Subject extends Model
 
     public function getInstructorAttribute(): String
     {
-        if ($this->user == null) {
-            return "Vacant";
-        }
-        return $this->user->lastname . ", " . $this->user->firstname;
+        return $this->user->lastname . ", " . substr($this->user->firstname, 0, 1);
     }
 }

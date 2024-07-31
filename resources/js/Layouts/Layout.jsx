@@ -164,11 +164,11 @@ export default function Layout(
                                                 )
                                             }
                                         </DisclosureButton>
-                                        <DisclosurePanel transition className={`origin-top transition duration-50 ease-in-out pl-[14px] ml-[26px] border-l-[1px] border-gray-500 ${(route().current('syllabus') || route().current('classrecord') || route().current('gradesheets')) ? "" : "data-[closed]:-translate-y-6 data-[closed]:opacity-0"}`}>
+                                        <DisclosurePanel transition className={`origin-top transition duration-50 ease-in-out pl-[14px] ml-[26px] border-l-[1px] border-gray-500 ${(route().current('syllabus') || route().current('classrecord') || route().current('gradesheet')) ? "" : "data-[closed]:-translate-y-6 data-[closed]:opacity-0"}`}>
                                             <Link href={route('classrecord')} className='nav-link !py-[10px]'  >
                                                 Class Record
                                             </Link>
-                                            <Link href={route('gradesheets')} className='nav-link !py-[10px]'  >
+                                            <Link href={route('gradesheet')} className='nav-link !py-[10px]'  >
                                                 Grade Sheets
                                             </Link>
                                             <Link href={route('syllabus')} className='nav-link !py-[10px]'  >

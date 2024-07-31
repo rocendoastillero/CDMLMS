@@ -6,6 +6,7 @@ import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
 import { DocumentIcon } from '@heroicons/react/24/outline'
 import TextInput from '@/Components/TextInput'
 import InputError from '@/Components/InputError'
+import PrimaryButton from '@/Components/PrimaryButton'
 
 
 /**
@@ -14,17 +15,19 @@ import InputError from '@/Components/InputError'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function Syllabus({ auth }) {
+export default function Syllabus({ auth, paginated }) {
 
     const { data, setData, post, errors } = useForm({
-        syllabus: ''
+        type: 'syllabus',
+        file: null
     });
 
-    const submit = () => {
-        // post(route('syllabus.store'));
-        console.log(data)
+    const submit = (e) => {
+        e.preventDefault();
+        if (data.file != null) {
+            post(route('file.store'), { onSuccess: () => reset() });
+        }
     }
-
 
     return (
         <Layout
@@ -42,34 +45,53 @@ export default function Syllabus({ auth }) {
                     <SingleCardWithHeader
                         header="Syllabus"
                         body={
-                            <div className='h-96'>
-                            </div>
+                            <>
+                                <table className='datatable-table text-center mt-3'>
+                                    <thead>
+                                        <tr className='card-header'>
+                                            <th>Name</th>
+                                            <th>Size</th>
+                                            <th>Mime</th>
+                                            <th>Uploaded</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            paginated.data.map(file =>
+                                                <tr key={file.id}>
+                                                    <td>{file.name}</td>
+                                                    <td>{file.size}</td>
+                                                    <td>{file.mime}</td>
+                                                    <td>{file.created_at}</td>
+                                                </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </table>
+                            </>
                         }
                     />
                 }
                 stickyNavHeader="Upload a File"
                 stickyNavBody={
                     <div className='h-36 relative '>
-                        <form
-                        // onSubmit={submit}
-                        >
+                        <form onSubmit={submit}>
                             <div className='mb-3'>
 
                                 <TextInput
                                     id="syllabus"
                                     type="file"
                                     name="syllabus"
-                                    value={data.syllabus}
-                                    placeholder="upload syllabus"
-                                    autoComplete="syllabus"
-                                    onChange={(e) => setData('syllabus', e.target.value)}
+                                    onChange={(e) => setData('file', e.target.files[0])}
                                 />
 
-                                <InputError message={errors.syllabus} className="mt-2" />
+                                <InputError message={errors.file} className="mt-2" />
                             </div>
-
-                            <button className="btn btn-primary !absolute !-translate-x-2/4 !left-2/4 bottom-0" type="button" onClick={submit}>Upload</button>
-                        </form>                    </div>
+                            <PrimaryButton className='!absolute !-translate-x-2/4 !left-2/4 bottom-0'>
+                                Upload
+                            </PrimaryButton>
+                        </form>
+                    </div>
                 }
             />
 

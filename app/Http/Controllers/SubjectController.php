@@ -22,7 +22,7 @@ class SubjectController extends Controller
         
         $mySubjects = Subject::where('user_id', Auth::user()->id)->get();
         $otherSubjects = Subject::where('user_id','!=', Auth::user()->id)->orWhereNull('user_id')->get();
-
+        
         $all = $mySubjects->concat($otherSubjects);
         return Inertia::render('Faculty/Subjects', [
             'paginated' => $all->paginate(8)

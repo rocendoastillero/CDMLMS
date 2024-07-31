@@ -19,7 +19,7 @@ class Accomplishreport extends Model
         'designation',
         'report',
     ];
-    
+
     protected $hidden = [
         'user',
     ];
@@ -28,9 +28,23 @@ class Accomplishreport extends Model
         'instructor',
         'date',
         'timespent',
-        
+
     ];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'start' => 'datetime:H:i',
+            'end' => 'datetime:H:i',
+            'created_at' => 'datetime:d/m/Y H:i',
+            'updated_at' => 'datetime:d/m/Y H:i',
+        ];
+    }
 
     /**
      * Get the user that owns the Subject
@@ -42,27 +56,22 @@ class Accomplishreport extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected function casts(): array
-{
-    return [
-        'start' => 'datetime:H:i',
-        'end' => 'datetime:H:i',
-    ];
-}
-
-    public function getInstructorAttribute() : String {
-        return $this->user->lastname . ", " . $this->user->firstname; 
+    public function getInstructorAttribute(): String
+    {
+        return $this->user->lastname . ", " . $this->user->firstname;
     }
-    
-    public function getTimespentAttribute() : String {
+
+    public function getTimespentAttribute(): String
+    {
 
         $start = Carbon::parse($this->start);
         $end = Carbon::parse($this->end);
-        
+
         return $start->diff($end)->format('%H:%I');
     }
 
-    public function getDateAttribute() : String {
+    public function getDateAttribute(): String
+    {
 
         $weekMap = [
             0 => 'S',
@@ -75,7 +84,7 @@ class Accomplishreport extends Model
         ];
 
         $date = Carbon::parse($this->start);
-        
-        return $date->format('m/d').", ".$weekMap[$date->dayOfWeek()];
+
+        return $date->format('m/d') . ", " . $weekMap[$date->dayOfWeek()];
     }
 }
