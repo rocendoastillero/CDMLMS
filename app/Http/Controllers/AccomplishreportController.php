@@ -18,7 +18,6 @@ class AccomplishreportController extends Controller
      */
     public function index()
     {
-        Gate::authorize('viewAny');
         
         return Inertia::render('Faculty/AccomplishmentReports', [
             
@@ -39,7 +38,6 @@ class AccomplishreportController extends Controller
      */
     public function store(Request $request) : RedirectResponse
     {
-        Gate::authorize('create');
 
         $start = Carbon::parse($request->date . " " . $request->start);
         $end = Carbon::parse($request->date . " " . $request->end);

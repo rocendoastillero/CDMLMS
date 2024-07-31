@@ -39,6 +39,7 @@ export default function Announcements({ auth, paginated }) {
                                         if (announcement.cardtype == 'center') {
                                             return (
                                                 <SingleCardCenter
+                                                    key={announcement.id}
                                                     title={announcement.title}
                                                     body={announcement.content}
 
@@ -48,6 +49,7 @@ export default function Announcements({ auth, paginated }) {
                                         } else if (announcement.cardtype == 'icon') {
                                             return (
                                                 <IconCard
+                                                    key={announcement.id}
                                                     icon={<IconParse icon={announcement.icon} color='text-white' />}
                                                     title={announcement.title}
                                                     body={announcement.content}
@@ -59,6 +61,7 @@ export default function Announcements({ auth, paginated }) {
                                         } else if (announcement.cardtype == 'header') {
                                             return (
                                                 <SingleCardWithHeader
+                                                    key={announcement.id}
                                                     header={announcement.title}
                                                     body={
                                                         <div className='mt-2'>
@@ -89,6 +92,11 @@ export default function Announcements({ auth, paginated }) {
                 stickyNavHeader={paginated.data.length != 0 && (`Page: ${paginated.current_page}`)}
                 stickyNavBody={
                     <>
+                        {paginated.data.map(announcement =>
+                            <div className='nav-link'>
+                                {announcement.title}
+                            </div>
+                        )}
                         {
                             paginated.data.length != 0 && (
                                 <div className='absolute -translate-x-2/4 left-2/4 bottom-1 w-full flex flex-row items-center place-content-center'>

@@ -6,6 +6,7 @@ import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader';
 import Dropdown from '@/Components/Dropdown';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
+import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import Layout from '@/Layouts/Layout'
 import { ChevronDownIcon, MegaphoneIcon, PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline'
@@ -82,7 +83,7 @@ export default function Announcements({ auth, paginated }) {
         >
             <Head title='Admin Announcements' />
             <>
-                <div className='relative text-gray-400 '>
+                <div className='relative text-gray-400 p-1 my-2'>
                     <div className='absolute bottom-[110%] w-full flex flex-row gap-2'>
                         <button onClick={() => { setTab(1) }} className={`${tab == 1 ? "border-b-2 !text-white" : ""} md:p-1 md:mb-1 lg:p-2 lg:mb-2`} >
                             View
@@ -204,14 +205,9 @@ export default function Announcements({ auth, paginated }) {
                                 return (
                                     <SingleCardWithHeader
                                         header='Create Announcement'
-                                        button={
-                                            <button onClick={submit} className='flex items-center place-content-center mr-6 p-2 rounded bg-green-950 text-white'>
-                                                Create
-                                            </button>
-                                        }
                                         body={
                                             <>
-                                                <form>
+                                                <form onSubmit={submit}>
                                                     <div className='flex flex-row gap-4 my-3'>
                                                         <div>
                                                             <InputLabel htmlFor='title' value='Title' />
@@ -240,7 +236,7 @@ export default function Announcements({ auth, paginated }) {
                                                                 </Dropdown.Trigger>
                                                                 <Dropdown.Content contentClasses='bg-white text-center' margin="!mt-0" width='w-full'>
                                                                     <div className='custom-tooltip-parent cursor-pointer py-1 hover:bg-green-50' onClick={() => { setData('cardtype', 'center') }}>
-                                                                        center
+                                                                        Center
                                                                         <div className='custom-tooltip-child w-max absolute -translate-y-2/4 top-2/4 left-[105%]'>
                                                                             <div className='card'>
                                                                                 <div className='card-body'>
@@ -377,7 +373,7 @@ export default function Announcements({ auth, paginated }) {
                                                             )()
                                                         }
                                                     </div>
-                                                    <div>
+                                                    <div className='mb-3'>
                                                         <InputLabel htmlFor='content' value='Content' />
                                                         <textarea
                                                             id="content"
@@ -391,6 +387,10 @@ export default function Announcements({ auth, paginated }) {
                                                         />
                                                         <InputError message={errors.content} className="mt-2" />
                                                     </div>
+
+                                                    <PrimaryButton disabled={processing}>
+                                                        Create
+                                                    </PrimaryButton>
                                                 </form>
                                             </>
                                         }
