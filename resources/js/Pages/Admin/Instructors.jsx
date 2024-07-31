@@ -28,6 +28,7 @@ export default function Instructors({ auth, paginated, searched }) {
                         <div className='w-1/3 mb-4 relative'>
                             <input className='form-control'
                                 placeholder='Search Instructor'
+                                type='search'
                                 value={search}
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") {

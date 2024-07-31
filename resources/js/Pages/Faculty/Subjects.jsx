@@ -32,6 +32,7 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                         <div className='w-1/3 mb-4 relative'>
                             <input className='form-control'
                                 placeholder='Search Subject'
+                                type='search'
                                 value={search}
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") {
