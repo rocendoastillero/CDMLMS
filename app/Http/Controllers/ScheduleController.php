@@ -19,20 +19,18 @@ class ScheduleController extends Controller
     public function index()
     {
         
-        return Inertia::render('Faculty/Schedules', [
-            
-            'subjects' => Subject::where('user_id', Auth::user()->id)->latest()->get(),
-            'schedules' => Schedule::where('user_id', Auth::user()->id)->latest()->get()
-        ]
-    );
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function mySchedule()
     {
-        //
+        return Inertia::render('Faculty/Schedules', [
+            'subjects' => Auth::user()->subjects,
+            'schedules' => Auth::user()->subjects->first()->schedules,
+            'activesubject' => Auth::user()->subjects->first()->code
+        ]);
     }
 
     /**
@@ -40,11 +38,12 @@ class ScheduleController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        Gate::authorize('create');
 
         $validated = $request->validate([
             'schedule' => 'required',
             'room' => 'string|max:255',
+            'course' => 'string|max:255',
+            'yrsec' => 'string|max:255',
             'type' => 'string|max:255'
         ]);
 
@@ -79,6 +78,8 @@ class ScheduleController extends Controller
         $validated = $request->validate([
             'schedule' => 'required',
             'room' => 'string|max:255',
+            'course' => 'string|max:255',
+            'yrsec' => 'string|max:255',
             'type' => 'string|max:255'
         ]);
 

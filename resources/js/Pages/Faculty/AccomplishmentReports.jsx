@@ -97,7 +97,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
                     () => {
 
                         if (view == 1) {
-                            if (reports == '') {
+                            if (paginated.data.length == 0) {
                                 return (
                                     <AlertCard
                                         type='alert-info'
@@ -127,7 +127,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
                                                     </thead>
                                                     <tbody>
                                                         {
-                                                            reports.map(report =>
+                                                            paginated.data.map(report =>
                                                                 <tr key={report.user_id}>
                                                                     <td>{report.date}</td>
                                                                     <td>{report.start}</td>

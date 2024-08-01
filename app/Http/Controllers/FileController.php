@@ -6,7 +6,9 @@ use App\Models\File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class FileController extends Controller
 {
@@ -14,7 +16,7 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function classRecord()
+    public function classRecord() : Response
     {
         return Inertia::render('Faculty/ClassRecord', [
             'paginated' => File::where('user_id', Auth::user()->id)
@@ -29,7 +31,7 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function gradeSheet()
+    public function gradeSheet() : Response
     {
         return Inertia::render('Faculty/GradeSheet', [
             'paginated' => File::where('user_id', Auth::user()->id)
@@ -44,7 +46,7 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function syllabus()
+    public function syllabus() : Response
     {
         return Inertia::render('Faculty/Syllabus', [
             'paginated' => File::where('user_id', Auth::user()->id)
@@ -75,14 +77,13 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request) : RedirectResponse
     {
         $path = $request->file('file')->store($request->type . 's');
 
         $request->request->add([
             'name' => $request->file('file')->getClientOriginalName(),
             'path' => $path,
-            'mime' => $request->file('file')->getClientOriginalExtension(),
             'size' => strval($request->file('file')->getSize()),
         ]);
 
@@ -90,7 +91,6 @@ class FileController extends Controller
             'name' => 'required|string',
             'type' => 'required|string',
             'path' => 'required|string',
-            'mime' => 'required|string',
             'size' => 'required|string',
         ]);
 
@@ -100,11 +100,11 @@ class FileController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Donwload the specified resource.
      */
-    public function show(File $file)
+    public function download(File $file)
     {
-        //
+        return Storage::download($file->path,$file->name);
     }
 
     /**
@@ -126,8 +126,8 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(File $file)
+    public function destroy(File $file) : RedirectResponse
     {
-        //
+        return redirect(route($file->type));
     }
 }

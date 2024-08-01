@@ -45,7 +45,7 @@ export default function Layout(
                     CDM LMS
                 </Link>
                 <div className="form-inline me-auto d-none d-lg-block">
-                    
+
                 </div>
                 <div className="ms-3 mr-6 relative">
                     <Dropdown>
@@ -107,7 +107,13 @@ export default function Layout(
                                                 </div>
                                                 Instructors
                                             </Link>
-                                            <Link className="nav-link">
+                                            <Link className='nav-link !py-[10px]'  href={route('admin.repositoryoffiles')} >
+                                                <div className='nav-link-icon'>
+                                                    <CloudArrowUpIcon className='w-5 h-5 text-gray-500' />
+                                                </div>
+                                                Repository of Files
+                                            </Link>
+                                            <Link className="nav-link" href={route('schedules.index')}>
                                                 <div className='nav-link-icon'>
                                                     <CalendarDaysIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
@@ -192,13 +198,7 @@ export default function Layout(
                                     </div>
                                     Online Exam
                                 </Link>
-                                <Link href={route('repositoryoffiles')} className='nav-link !py-[10px]'  >
-                                    <div className='nav-link-icon'>
-                                        <CloudArrowUpIcon className='w-5 h-5 text-gray-500' />
-                                    </div>
-                                    Repository of Files
-                                </Link>
-                                <Link href={route('schedules.index')} className='nav-link !py-[10px]'  >
+                                <Link href={route('schedules')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <CalendarDaysIcon className='w-5 h-5 text-gray-500' />
                                     </div>

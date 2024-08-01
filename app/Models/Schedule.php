@@ -10,14 +10,22 @@ class Schedule extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'schedule',
+        'course',
+        'yrsec',
+        'room',
+        'type',
+    ];
+
     /**
      * Get the user that owns the Schedule
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(): BelongsTo
+    public function subject(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Subject::class);
     }
 
     /**

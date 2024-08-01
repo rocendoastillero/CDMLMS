@@ -20,9 +20,8 @@ class AccomplishreportController extends Controller
     {
         
         return Inertia::render('Faculty/AccomplishmentReports', [
-            'paginated' => AccomplishReport::where('user_id', Auth::user()->id)
-            ->latest()
-            ->get()
+            'paginated' => Auth::user()->accomplishmentreports
+            ->orderBy('created_at')
             ->paginate(8)
         ]);
     }

@@ -22,6 +22,7 @@ class File extends Model
     protected $hidden = [
         'path',
         'type',
+        'user'
     ];
 
     protected $appends = [

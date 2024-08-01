@@ -20,7 +20,7 @@ class SubjectController extends Controller
     public function index() : Response
     {
         
-        $mySubjects = Subject::where('user_id', Auth::user()->id)->get();
+        $mySubjects = Auth::user()->subjects;
         $otherSubjects = Subject::where('user_id','!=', Auth::user()->id)->orWhereNull('user_id')->get();
         
         $all = $mySubjects->concat($otherSubjects);

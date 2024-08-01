@@ -78,16 +78,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of the schedules for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function schedules(): HasMany
-    {
-        return $this->hasMany(Schedule::class);
-    }
-
-    /**
      * Get all of the files for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

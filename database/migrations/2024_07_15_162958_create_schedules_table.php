@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->nullable()->cascadeOnDelete();
-            $table->foreignIdFor(Subject::class)->nullable()->cascadeOnDelete();
+            $table->foreignIdFor(Subject::class)->cascadeOnDelete();
             $table->dateTime('schedule');
             $table->string('course');
             $table->string('yrsec');
