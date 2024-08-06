@@ -1,11 +1,14 @@
+import CardsRow from "@/Components/CDMLMS/CardsRow";
+import CardsWithHeader from "@/Components/CDMLMS/CardsWithHeader";
+import Dropdown from "@/Components/Dropdown";
 import Layout from "@/Layouts/Layout";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { Head } from "@inertiajs/react";
-import WeekView from "./WeekView";
 
-export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule' , schedules}) {
 
-    
+export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', schedules }) {
+
+
 
     return (
         <Layout
@@ -22,11 +25,25 @@ export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule' ,
 
                 </div>
             </div>
+            <CardsRow
+                card1={
+                    <CardsWithHeader
+                        header='Pick a Subject'
+                        body={
+                            <Dropdown>
+                                <Dropdown.Trigger>
+                                    <button className="form-control">
+                                        Subject
+                                    </button>
+                                </Dropdown.Trigger>
+                                <Dropdown.Content margin="mt-0" width="w-full">
 
-            <WeekView
-
+                                </Dropdown.Content>
+                            </Dropdown>
+                        }
+                    />
+                }
             />
-            {/*  */}
         </Layout>
     );
 }

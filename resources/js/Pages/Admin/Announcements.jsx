@@ -297,6 +297,7 @@ export default function Announcements({ auth, paginated }) {
 
                                             </>
                                         }
+                                        withCard={paginated.data.length != 0}
                                         stickyNavHeader={paginated.data.length != 0 && (`Page: ${paginated.current_page}`)}
                                         stickyNavBody={
                                             <>
