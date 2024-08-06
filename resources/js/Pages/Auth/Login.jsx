@@ -47,8 +47,7 @@ export default function Login({ status, canResetPassword }) {
                     <div className='mb-3'>
 
                         <InputLabel htmlFor="email" value="Email Address" />
-
-
+                        
                         <TextInput
                             id="email"
                             type="email"

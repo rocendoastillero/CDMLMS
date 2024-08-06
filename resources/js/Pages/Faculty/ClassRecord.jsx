@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Layout from '@/Layouts/Layout'
 import { Head, useForm } from '@inertiajs/react'
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
@@ -7,6 +6,7 @@ import { DocumentIcon } from '@heroicons/react/24/outline'
 import TextInput from '@/Components/TextInput'
 import InputError from '@/Components/InputError'
 import PrimaryButton from '@/Components/PrimaryButton'
+import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter'
 
 
 /**
@@ -47,16 +47,14 @@ export default function ClassRecord({ auth, paginated }) {
                 contentSize='!w-8/12'
                 stickySize='!w-4/12'
                 cards={
-                    <SingleCardWithHeader
-                        header="Class Record"
-                        body={
+                    <SingleCardCenter
+                        table={
                             <>
                                 <table className='datatable-table text-center mt-3'>
                                     <thead>
                                         <tr className='card-header'>
                                             <th>Name</th>
                                             <th>Size</th>
-                                            <th>Mime</th>
                                             <th>Uploaded</th>
                                         </tr>
                                     </thead>
@@ -66,7 +64,6 @@ export default function ClassRecord({ auth, paginated }) {
                                                 <tr key={file.id}>
                                                     <td>{file.name}</td>
                                                     <td>{file.size}</td>
-                                                    <td>{file.mime}</td>
                                                     <td>{file.created_at}</td>
                                                 </tr>
                                             )

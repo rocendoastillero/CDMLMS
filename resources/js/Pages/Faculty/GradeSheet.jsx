@@ -7,6 +7,7 @@ import { DocumentIcon } from '@heroicons/react/24/outline'
 import InputError from '@/Components/InputError'
 import TextInput from '@/Components/TextInput'
 import PrimaryButton from '@/Components/PrimaryButton'
+import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter'
 
 
 /**
@@ -42,16 +43,14 @@ export default function GradeSheet({ auth, paginated }) {
                 contentSize='!w-8/12'
                 stickySize='!w-4/12'
                 cards={
-                    <SingleCardWithHeader
-                        header="Grade Sheets"
-                        body={
+                    <SingleCardCenter
+                        table={
                             <>
                                 <table className='datatable-table text-center mt-3'>
                                     <thead>
                                         <tr className='card-header'>
                                             <th>Name</th>
                                             <th>Size</th>
-                                            <th>Mime</th>
                                             <th>Uploaded</th>
                                         </tr>
                                     </thead>
@@ -61,7 +60,6 @@ export default function GradeSheet({ auth, paginated }) {
                                                 <tr key={file.id}>
                                                     <td>{file.name}</td>
                                                     <td>{file.size}</td>
-                                                    <td>{file.mime}</td>
                                                     <td>{file.created_at}</td>
                                                 </tr>
                                             )

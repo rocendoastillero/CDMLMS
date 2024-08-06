@@ -19,10 +19,16 @@ return new class extends Migration
             $table->string('type');
             $table->string('path');
             $table->string('size');
-            $table->string('mime');
-            $table->boolean('archived')->default(0);
             $table->timestamps();
         });
+
+
+        // Schema::create('exams', function (Blueprint $table){
+        //     $table->id();
+        //     $table->foreignIdFor(User::class);
+        //     $table->foreignIdFor(Subject::class);
+        //     $table->string('name');
+        // });
     }
 
     /**

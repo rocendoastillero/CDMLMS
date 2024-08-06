@@ -5,7 +5,7 @@ import { Head, Link, router } from '@inertiajs/react'
 import React, { useEffect, useState } from 'react'
 
 
-export default function Instructors({  auth, paginated, searched }) {
+export default function Instructors({ auth, paginated, searched }) {
 
     const [search, setSearch] = useState(searched);
 
@@ -28,6 +28,7 @@ export default function Instructors({  auth, paginated, searched }) {
                         <div className='w-1/3 mb-4 relative'>
                             <input className='form-control'
                                 placeholder='Search Instructor'
+                                type='search'
                                 value={search}
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter") {
@@ -47,7 +48,7 @@ export default function Instructors({  auth, paginated, searched }) {
                         </div>
                         <table className='datatable-table mt-3'>
                             <thead >
-                                <tr >
+                                <tr className='card-header'>
                                     <th >Instructor</th>
                                     <th >Verified</th>
                                     <th >Course</th>

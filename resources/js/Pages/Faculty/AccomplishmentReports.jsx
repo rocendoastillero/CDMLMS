@@ -6,16 +6,18 @@ import { Head, Link, useForm } from '@inertiajs/react'
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
 import AlertCard from '@/Components/CDMLMS/AlertCard';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
+import TextInput from '@/Components/TextInput';
+import InputLabel from '@/Components/InputLabel';
 
 
 /**
  * @function Page Page of the Accomplishment Reports
  * 
  * @param auth The Authentication 
- * @param reports Accomplishment Reports 
+ * @param paginated Accomplishment Reports 
  * @returns Page
  */
-export default function AccomplishmentReports({ auth, reports }) {
+export default function AccomplishmentReports({ auth, paginated }) {
 
     const [view, setView] = useState(1);
 
@@ -71,7 +73,7 @@ export default function AccomplishmentReports({ auth, reports }) {
     }
 
     useEffect((() => {
-        console.log(reports);
+        console.log(paginated);
     }), []);
 
     return (
@@ -97,7 +99,7 @@ export default function AccomplishmentReports({ auth, reports }) {
                     () => {
 
                         if (view == 1) {
-                            if (reports == '') {
+                            if (paginated.data.length == 0) {
                                 return (
                                     <AlertCard
                                         type='alert-info'
@@ -113,7 +115,7 @@ export default function AccomplishmentReports({ auth, reports }) {
                                             <>
                                                 <table className='datatable-table mt-3 text-center'>
                                                     <thead>
-                                                        <tr>
+                                                        <tr className='card-header'>
                                                             <th >Date</th>
                                                             <th >Start</th>
                                                             <th >End</th>
@@ -127,7 +129,7 @@ export default function AccomplishmentReports({ auth, reports }) {
                                                     </thead>
                                                     <tbody>
                                                         {
-                                                            reports.map(report =>
+                                                            paginated.data.map(report =>
                                                                 <tr key={report.user_id}>
                                                                     <td>{report.date}</td>
                                                                     <td>{report.start}</td>
@@ -182,40 +184,40 @@ export default function AccomplishmentReports({ auth, reports }) {
                                             <div className='flex flex-row gap-6'>
                                                 <div className='w-1/3 flex flex-col gap-4'>
                                                     <div>
-                                                        <label htmlFor="Date">Date</label>
-                                                        <input className='form-control' type="date" value={data.date} onChange={(e) => { setData('date', e.target.value) }} />
+                                                        <InputLabel htmlFor="Date">Date</InputLabel>
+                                                        <TextInput className='form-control' type="date" value={data.date} onChange={(e) => { setData('date', e.target.value) }} />
 
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="Start">Start</label>
-                                                        <input className='form-control' type="time" value={data.start} onChange={(e) => { setData('start', e.target.value) }} />
+                                                        <InputLabel htmlFor="Start">Start</InputLabel>
+                                                        <TextInput className='form-control' type="time" value={data.start} onChange={(e) => { setData('start', e.target.value) }} />
                                                         {errors.start}
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="End">End</label>
-                                                        <input className='form-control' type="time" value={data.end} onChange={(e) => { setData('end', e.target.value) }} />
+                                                        <InputLabel htmlFor="End">End</InputLabel>
+                                                        <TextInput className='form-control' type="time" value={data.end} onChange={(e) => { setData('end', e.target.value) }} />
                                                         {errors.end}
                                                     </div>
                                                 </div>
                                                 <div className='w-2/3 flex flex-col gap-4'>
                                                     <div>
-                                                        <label htmlFor="Activity">Activity</label>
-                                                        <input className='form-control' type="text" value={data.activity} onChange={(e) => { setData('activity', e.target.value) }} />
+                                                        <InputLabel htmlFor="Activity">Activity</InputLabel>
+                                                        <TextInput className='form-control' type="text" value={data.activity} onChange={(e) => { setData('activity', e.target.value) }} />
                                                         {errors.activity}
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="Venue">Venue</label>
-                                                        <input className='form-control' type="text" value={data.venue} onChange={(e) => { setData('venue', e.target.value) }} />
+                                                        <InputLabel htmlFor="Venue">Venue</InputLabel>
+                                                        <TextInput className='form-control' type="text" value={data.venue} onChange={(e) => { setData('venue', e.target.value) }} />
                                                         {errors.venue}
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="Designation">Designation</label>
-                                                        <input className='form-control' type="text" value={data.designation} onChange={(e) => { setData('designation', e.target.value) }} />
+                                                        <InputLabel htmlFor="Designation">Designation</InputLabel>
+                                                        <TextInput className='form-control' type="text" value={data.designation} onChange={(e) => { setData('designation', e.target.value) }} />
                                                         {errors.designation}
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="Report">Report</label>
-                                                        <input className='form-control' type="text" value={data.report} onChange={(e) => { setData('report', e.target.value) }} />
+                                                        <InputLabel htmlFor="Report">Report</InputLabel>
+                                                        <TextInput className='form-control' type="text" value={data.report} onChange={(e) => { setData('report', e.target.value) }} />
                                                         {errors.report}
                                                     </div>
                                                 </div>

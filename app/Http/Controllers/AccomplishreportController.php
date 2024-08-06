@@ -20,8 +20,8 @@ class AccomplishreportController extends Controller
     {
         
         return Inertia::render('Faculty/AccomplishmentReports', [
-            
-            'reports' => AccomplishReport::where('user_id', Auth::user()->id)->latest()->get()->makeHidden('instructor')
+            'paginated' => Auth::user()->accomplishmentreports
+            ->paginate(8)
         ]);
     }
 
@@ -59,8 +59,6 @@ class AccomplishreportController extends Controller
             'report' => 'required|string|max:255',
         ]);
 
-
-
         $request->user()->accomplishmentreports()->create($validated);
 
         return redirect(route('accomplishmentreports.index'));
@@ -90,8 +88,8 @@ class AccomplishreportController extends Controller
         Gate::authorize('update', $accomplishreport);
 
         $validated = $request->validate([
-            'start' => 'required|date_format:H:i',
-            'end' => 'required|date_format:H:i|after:start',
+            'start' => 'required|date_format:g:i A',
+            'end' => 'required|date_format:g:i A|after:start',
             'venue' => 'required|string|max:255',
             'activity' => 'required|string|max:255',
             'designation' => 'required|string|max:255',

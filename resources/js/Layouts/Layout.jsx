@@ -41,15 +41,12 @@ export default function Layout(
                 <button onClick={() => { setIsOpen(!isOpen) }} className="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0 " id="sidebarToggle">
                     <Bars3Icon className="h-5 w-5 text-gray-600" />
                 </button>
-                <Link className="navbar-brand pe-3 ps-4 ps-lg-2 max-sm:!w-32" href={route('dashboard')}>
+                <Link className="navbar-brand pe-3 ps-4 ps-lg-2 max-sm:!w-32" href={isAdmin ? route('admin.dashboard') : route('dashboard')}>
                     CDM LMS
                 </Link>
-                <form className="form-inline me-auto d-none d-lg-block">
-                    <div className="input-group input-group-joined input-group-solid">
-                        <input className="form-control pe-0" type="search" placeholder="Search" aria-label="Search" />
-                        <div className="input-group-text"><i data-feather="search"></i></div>
-                    </div>
-                </form>
+                <div className="form-inline me-auto d-none d-lg-block">
+
+                </div>
                 <div className="ms-3 mr-6 relative">
                     <Dropdown>
                         <Dropdown.Trigger>
@@ -110,7 +107,13 @@ export default function Layout(
                                                 </div>
                                                 Instructors
                                             </Link>
-                                            <Link className="nav-link">
+                                            <Link className='nav-link !py-[10px]'  href={route('admin.repositoryoffiles')} >
+                                                <div className='nav-link-icon'>
+                                                    <CloudArrowUpIcon className='w-5 h-5 text-gray-500' />
+                                                </div>
+                                                Repository of Files
+                                            </Link>
+                                            <Link className="nav-link" href={route('schedules.index')}>
                                                 <div className='nav-link-icon'>
                                                     <CalendarDaysIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
@@ -195,13 +198,7 @@ export default function Layout(
                                     </div>
                                     Online Exam
                                 </Link>
-                                <Link href={route('repositoryoffiles')} className='nav-link !py-[10px]'  >
-                                    <div className='nav-link-icon'>
-                                        <CloudArrowUpIcon className='w-5 h-5 text-gray-500' />
-                                    </div>
-                                    Repository of Files
-                                </Link>
-                                <Link href={route('schedules.index')} className='nav-link !py-[10px]'  >
+                                <Link href={route('schedules')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <CalendarDaysIcon className='w-5 h-5 text-gray-500' />
                                     </div>

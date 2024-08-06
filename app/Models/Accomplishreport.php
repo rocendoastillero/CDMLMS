@@ -25,10 +25,8 @@ class Accomplishreport extends Model
     ];
 
     protected $appends = [
-        'instructor',
         'date',
-        'timespent',
-
+        'timespent'
     ];
 
     /**
@@ -39,10 +37,10 @@ class Accomplishreport extends Model
     protected function casts(): array
     {
         return [
-            'start' => 'datetime:H:i',
-            'end' => 'datetime:H:i',
-            'created_at' => 'datetime:d/m/Y H:i',
-            'updated_at' => 'datetime:d/m/Y H:i',
+            'start' => 'datetime:g:i A',
+            'end' => 'datetime:g:i A',
+            'created_at' => 'datetime:d/m/Y g:i A',
+            'updated_at' => 'datetime:d/m/Y g:i A',
         ];
     }
 

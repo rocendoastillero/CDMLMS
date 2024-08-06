@@ -16,11 +16,7 @@ Route::redirect('/', '/login', 301);
 
 Route::middleware('auth')->group(function () {
     Route::get('unverified', function () {
-        if (Route::has('Dashboard')) {
-            return Inertia::render('Faculty/Dashboard');
-        } else {
-            return Inertia::render('Unverified');
-        }
+        return Inertia::render('Unverified');
     })->name('unverified faculty');
 });
 
@@ -40,8 +36,7 @@ Route::middleware('faculty')->group(function () {
 
     Route::get('/announcements', [AnnouncementController::class, 'view'])->name('announcements');
 
-    Route::resource('schedules', ScheduleController::class)
-        ->only(['index', 'store', 'update', 'destroy']);
+    Route::get('schedules', [ScheduleController::class, 'mySchedule'])->name('schedules');
 
     Route::get('/classrecord', [FileController::class, 'classRecord'])->name('classrecord');
 
@@ -52,14 +47,9 @@ Route::middleware('faculty')->group(function () {
     Route::resource('file', FileController::class)
         ->only(['store', 'update', 'destroy']);
 
-
     Route::get('/attendance', function () {
         return Inertia::render('Faculty/Attendance', []);
     })->name('attendance');
-
-    Route::get('/repositoryoffiles', function () {
-        return Inertia::render('Faculty/RepositoryOfFiles', []);
-    })->name('repositoryoffiles');
 
     Route::get('/onlineexam', function () {
         return Inertia::render('Faculty/OnlineExam', []);
@@ -88,8 +78,13 @@ Route::middleware('faculty')->group(function () {
         Route::resource('/admin/announcements', AnnouncementController::class)
             ->only(['index', 'store', 'update', 'destroy']);
 
-
+        Route::get('/repositoryoffiles', function () {
+            return Inertia::render('Admin/RepositoryOfFiles', []);
+        })->name('admin.repositoryoffiles');
         Route::get('/admin/download/{file}', [FileController::class, 'download'])->name('admin.download');
+
+        Route::resource('/admin/schedules', ScheduleController::class)
+            ->only(['index', 'store', 'update', 'destroy']);
     });
 });
 

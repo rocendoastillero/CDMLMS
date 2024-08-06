@@ -11,7 +11,7 @@ import { ArchiveBoxXMarkIcon, CalendarDaysIcon } from '@heroicons/react/24/outli
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function Schedules({  auth, subjects, schedules }) {
+export default function Schedules({  auth, subjects, schedules, activesubject = '' }) {
 
     const [tab, setTab] = useState({
         index: 0,
@@ -20,6 +20,7 @@ export default function Schedules({  auth, subjects, schedules }) {
     });
 
     useEffect(() => {
+        console.log(subjects);
     }, []);
 
     return (
@@ -33,7 +34,6 @@ export default function Schedules({  auth, subjects, schedules }) {
             <nav className="nav nav-borders flex justify-between !mb-8">
                 <div className='flex flex-row items-center'>
                     {
-
                         subjects.map((subject, index) =>
                             <div className={`nav-link cursor-pointer ${tab.index == index ? "border-b-4 border-white !text-white" : "!text-gray-300 "}`} key={subject.id} onClick={() => setTab({ index: index, subject_id: subject.id, subject_name: subject.subject })}>
                                 {subject.subject}
@@ -49,7 +49,7 @@ export default function Schedules({  auth, subjects, schedules }) {
             </nav>
             <div className='w-full grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 '>
                 {
-                    schedules != '' ? (
+                    schedules.length != 0 ? (
                         schedules.map(schedule => tab.subject_id == schedule.subject_id && (
                             <div className='flex mx-2 mb-4'>
                                 <a className="card lift lift-sm h-100" href="https://request.pnm.edu.ph">

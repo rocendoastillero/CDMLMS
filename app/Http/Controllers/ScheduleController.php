@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Schedule;
 use App\Models\Subject;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,33 +19,35 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        
-        return Inertia::render('Faculty/Schedules', [
-            
-            'subjects' => Subject::where('user_id', Auth::user()->id)->latest()->get(),
-            'schedules' => Schedule::where('user_id', Auth::user()->id)->latest()->get()
-        ]
-    );
+        return Inertia::render('Admin/Schedules');
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function mySchedule()
     {
-        //
+        return Inertia::render('Faculty/Schedules', [
+            'subjects' => Auth::user()->subjects,
+            'schedules' => Auth::user()->subjects->first()->schedules,
+            'activesubject' => Auth::user()->subjects->first()->code
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
+    // : RedirectResponse
     {
-        Gate::authorize('create');
 
         $validated = $request->validate([
-            'schedule' => 'required',
-            'room' => 'string|max:255',
+            'start' => 'required',
+            'end' => 'required|after:start',
+            'day' => 'required|integer',
+            'room' => 'required|string|max:255',
+            'course' => 'required|string|max:255',
+            'yrsec' => 'required|string|max:255',
             'type' => 'string|max:255'
         ]);
 
@@ -77,8 +80,12 @@ class ScheduleController extends Controller
         Gate::authorize('update', $schedule);
 
         $validated = $request->validate([
-            'schedule' => 'required',
-            'room' => 'string|max:255',
+            'start' => 'required',
+            'end' => 'required|after:start',
+            'day' => 'required|integer',
+            'room' => 'required|string|max:255',
+            'course' => 'required|string|max:255',
+            'yrsec' => 'required|string|max:255',
             'type' => 'string|max:255'
         ]);
 

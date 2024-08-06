@@ -50,8 +50,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'created_at' => 'datetime:d/m/Y H:i',
-            'updated_at' => 'datetime:d/m/Y H:i',
+            'created_at' => 'datetime:d/m/Y g:i A',
+            'updated_at' => 'datetime:d/m/Y g:i A',
         ];
     }
 
@@ -75,16 +75,6 @@ class User extends Authenticatable
     public function accomplishmentreports(): HasMany
     {
         return $this->hasMany(Accomplishreport::class);
-    }
-
-    /**
-     * Get all of the schedules for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function schedules(): HasMany
-    {
-        return $this->hasMany(Schedule::class);
     }
 
     /**
