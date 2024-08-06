@@ -44,7 +44,7 @@ class ScheduleController extends Controller
     {
         return Inertia::render('Admin/Schedules/ViewSched', [
             'schedules' => $subject->schedules->sortBy('start'),
-            'pageHeaderSubtitle' => "View schedules of " . $subject->code,
+            'pageHeaderSubtitle' => "View schedule of " . $subject->code,
             'subject' => $subject->id
         ]);
     }

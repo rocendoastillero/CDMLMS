@@ -11,7 +11,7 @@ import { ArchiveBoxXMarkIcon, CalendarDaysIcon } from '@heroicons/react/24/outli
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function Schedules({  auth, subjects, schedules, activesubject = '' }) {
+export default function Schedules({ auth, subjects, schedules, activesubject = '' }) {
 
     const [tab, setTab] = useState({
         index: 0,
@@ -24,12 +24,12 @@ export default function Schedules({  auth, subjects, schedules, activesubject = 
     }, []);
 
     return (
-        <Layout 
-        isAdmin={auth.isAdmin}
-        user={auth.user} 
-        icon={<CalendarDaysIcon className='w-9 h-9 text-gray-500' />} 
-        headerTitle='Schedule' 
-        headerSubtitle='view Schedule'>
+        <Layout
+            isAdmin={auth.isAdmin}
+            user={auth.user}
+            icon={<CalendarDaysIcon className='w-9 h-9 text-gray-500' />}
+            headerTitle='Schedule'
+            headerSubtitle='view Schedule'>
             <Head title='Schedule' />
             <nav className="nav nav-borders flex justify-between !mb-8">
                 <div className='flex flex-row items-center'>
@@ -74,7 +74,7 @@ export default function Schedules({  auth, subjects, schedules, activesubject = 
                                 <div className='flex flex-row'>
                                     Schedules for
                                     <h6 className='alert-heading mx-1 mt-[.2rem]'>{tab.subject_name}</h6>
-                                     are empty
+                                    are empty
                                 </div>
                             }
                         />

@@ -85,11 +85,16 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                                         >
                                                             {auth.user.id == subject.user_id ? "Drop Subject" : "Assign Subject"}
                                                         </Link>
-                                                        <Link className='hover:hover:bg-green-50' as='button'
-                                                            href={route('schedules.subject', subject.id)}
-                                                        >
-                                                            Schedules
-                                                        </Link>
+                                                        {
+                                                            subject.user_id == auth.user.id && (
+                                                                <Link className='hover:hover:bg-green-50' as='button'
+                                                                // href={route('schedules.subject', subject.id)}
+                                                                >
+                                                                    Schedules
+                                                                </Link>
+                                                            )
+                                                        }
+
                                                     </Dropdown.Content>
                                                 </Dropdown>
                                             </td>

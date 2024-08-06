@@ -19,7 +19,6 @@ return new class extends Migration
             $table->time('start');
             $table->time('end');
             $table->string('day');
-            $table->string('course');
             $table->string('yrsec');
             $table->string('room');
             $table->string('type')->default('Lec');
