@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Subject::class)->cascadeOnDelete();
-            $table->dateTime('schedule');
+            $table->time('start');
+            $table->time('end');
+            $table->string('day');
             $table->string('course');
             $table->string('yrsec');
-            $table->string('room')->nullable();
+            $table->string('room');
             $table->string('type')->default('Lec');
             $table->timestamps();
         });

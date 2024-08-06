@@ -30,8 +30,8 @@ class Announcement extends Model
     protected function casts(): array
     {
         return [
-            'created_at' => 'datetime:d/m/Y H:i',
-            'updated_at' => 'datetime:d/m/Y H:i',
+            'created_at' => 'datetime:d/m/Y g:i A',
+            'updated_at' => 'datetime:d/m/Y g:i A',
         ];
     }
 }

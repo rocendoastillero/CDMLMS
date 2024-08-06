@@ -34,7 +34,6 @@ export default function Schedules({  auth, subjects, schedules, activesubject = 
             <nav className="nav nav-borders flex justify-between !mb-8">
                 <div className='flex flex-row items-center'>
                     {
-
                         subjects.map((subject, index) =>
                             <div className={`nav-link cursor-pointer ${tab.index == index ? "border-b-4 border-white !text-white" : "!text-gray-300 "}`} key={subject.id} onClick={() => setTab({ index: index, subject_id: subject.id, subject_name: subject.subject })}>
                                 {subject.subject}

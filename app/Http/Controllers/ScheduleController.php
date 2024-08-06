@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Schedule;
 use App\Models\Subject;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        
+        return Inertia::render('Admin/Schedules');
     }
 
     /**
@@ -36,14 +37,17 @@ class ScheduleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
+    // : RedirectResponse
     {
 
         $validated = $request->validate([
-            'schedule' => 'required',
-            'room' => 'string|max:255',
-            'course' => 'string|max:255',
-            'yrsec' => 'string|max:255',
+            'start' => 'required',
+            'end' => 'required|after:start',
+            'day' => 'required|integer',
+            'room' => 'required|string|max:255',
+            'course' => 'required|string|max:255',
+            'yrsec' => 'required|string|max:255',
             'type' => 'string|max:255'
         ]);
 
@@ -76,10 +80,12 @@ class ScheduleController extends Controller
         Gate::authorize('update', $schedule);
 
         $validated = $request->validate([
-            'schedule' => 'required',
-            'room' => 'string|max:255',
-            'course' => 'string|max:255',
-            'yrsec' => 'string|max:255',
+            'start' => 'required',
+            'end' => 'required|after:start',
+            'day' => 'required|integer',
+            'room' => 'required|string|max:255',
+            'course' => 'required|string|max:255',
+            'yrsec' => 'required|string|max:255',
             'type' => 'string|max:255'
         ]);
 

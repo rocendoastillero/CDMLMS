@@ -16,11 +16,7 @@ Route::redirect('/', '/login', 301);
 
 Route::middleware('auth')->group(function () {
     Route::get('unverified', function () {
-        if (Route::has('Dashboard')) {
-            return Inertia::render('Faculty/Dashboard');
-        } else {
-            return Inertia::render('Unverified');
-        }
+        return Inertia::render('Unverified');
     })->name('unverified faculty');
 });
 
@@ -83,7 +79,7 @@ Route::middleware('faculty')->group(function () {
             ->only(['index', 'store', 'update', 'destroy']);
 
         Route::get('/repositoryoffiles', function () {
-            return Inertia::render('Faculty/RepositoryOfFiles', []);
+            return Inertia::render('Admin/RepositoryOfFiles', []);
         })->name('admin.repositoryoffiles');
         Route::get('/admin/download/{file}', [FileController::class, 'download'])->name('admin.download');
 

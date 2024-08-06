@@ -11,12 +11,34 @@ class Schedule extends Model
     use HasFactory;
 
     protected $fillable = [
-        'schedule',
+        'time',
+        'day',
         'course',
         'yrsec',
         'room',
         'type',
     ];
+
+    protected $appends = [
+        'code'
+    ];
+
+    protected $hidden = [
+        'subject'
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'created_at' => 'datetime:d/m/Y g:i A',
+            'updated_at' => 'datetime:d/m/Y g:i A',
+        ];
+    }
 
     /**
      * Get the user that owns the Schedule
@@ -28,16 +50,8 @@ class Schedule extends Model
         return $this->belongsTo(Subject::class);
     }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function getCodeAttribute() : String 
     {
-        return [
-            'created_at' => 'datetime:d/m/Y H:i',
-            'updated_at' => 'datetime:d/m/Y H:i',
-        ];
+        return $this->subject->code;
     }
 }
