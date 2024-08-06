@@ -183,7 +183,9 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                 >
                                   Delete
                                 </button>
-                                <Link className='hover:bg-green-50 px-1' as='button'>
+                                <Link className='hover:bg-green-50 px-1' as='button'
+                                  href={route('schedules.view', subject.id)}
+                                >
                                   Schedules
                                 </Link>
                               </Dropdown.Content>

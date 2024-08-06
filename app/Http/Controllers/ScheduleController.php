@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Schedule;
 use App\Models\Subject;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,9 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Schedules');
+        return Inertia::render('Admin/Schedules/Schedules',[
+            'schedules' => []
+        ]);
     }
 
     /**
@@ -39,7 +42,11 @@ class ScheduleController extends Controller
 
     public function scheduleOf(Subject $subject)
     {
-        return $subject->schedules;
+        return Inertia::render('Admin/Schedules/ViewSched', [
+            'schedules' => $subject->schedules->sortBy('start'),
+            'pageHeaderSubtitle' => "View schedules of " . $subject->code,
+            'subject' => $subject->id
+        ]);
     }
 
     /**
@@ -47,29 +54,31 @@ class ScheduleController extends Controller
      */
     public function create(Subject $subject)
     {
-        //
+        return Inertia::render('Admin/Schedules/ViewSched', [
+            'pageHeaderSubtitle' => "View schedules of " . $subject->code
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    // : RedirectResponse
     {
+
+        $subject = Subject::find($request->subject)->first();
 
         $validated = $request->validate([
             'start' => 'required',
             'end' => 'required|after:start',
-            'day' => 'required|integer',
+            'day' => 'required|string',
             'room' => 'required|string|max:255',
-            'course' => 'required|string|max:255',
             'yrsec' => 'required|string|max:255',
             'type' => 'string|max:255'
         ]);
 
-        $request->user()->schedules()->create($validated);
+        $subject->schedules()->create($validated);
 
-        return redirect(route('schedules.index'));
+        return redirect(route('schedules.view', $request->subject));
     }
 
     /**

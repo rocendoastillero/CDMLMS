@@ -11,16 +11,17 @@ class Schedule extends Model
     use HasFactory;
 
     protected $fillable = [
-        'time',
+        'start',
+        'end',
         'day',
-        'course',
         'yrsec',
         'room',
         'type',
     ];
 
     protected $appends = [
-        'code'
+        'code',
+        'course',
     ];
 
     protected $hidden = [
@@ -37,6 +38,8 @@ class Schedule extends Model
         return [
             'created_at' => 'datetime:d/m/Y g:i A',
             'updated_at' => 'datetime:d/m/Y g:i A',
+            'start' => 'datetime:g:i A',
+            'end' => 'datetime:g:i A',
         ];
     }
 
@@ -53,5 +56,9 @@ class Schedule extends Model
     public function getCodeAttribute() : String 
     {
         return $this->subject->code;
+    }
+    public function getCourseAttribute() : String
+    {
+        return $this->subject->course;    
     }
 }

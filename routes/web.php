@@ -7,6 +7,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubjectController;
+use App\Models\Schedule;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -37,8 +38,6 @@ Route::middleware('faculty')->group(function () {
     Route::get('/announcements', [AnnouncementController::class, 'view'])->name('announcements');
 
     Route::get('schedules', [ScheduleController::class, 'mySchedule'])->name('schedules');
-
-    Route::get('schedules/{subject}', [ScheduleController::class, 'scheduleOf'])->name('schedules.subject');
 
     Route::get('/classrecord', [FileController::class, 'classRecord'])->name('classrecord');
 
@@ -86,7 +85,7 @@ Route::middleware('faculty')->group(function () {
         Route::get('/admin/download/{file}', [FileController::class, 'download'])->name('admin.download');
         
         
-        Route::get('/admin/schedules/create/{subject}', [FileController::class, 'create'])->name('schedules.create');
+        Route::get('/admin/schedules/{subject}', [ScheduleController::class, 'scheduleOf'])->name('schedules.view');
         Route::resource('/admin/schedules', ScheduleController::class)
             ->only(['index', 'store', 'update', 'destroy']);
     });
