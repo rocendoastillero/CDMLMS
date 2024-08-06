@@ -10,7 +10,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import Layout from '@/Layouts/Layout'
-import { ChevronDownIcon, ExclamationTriangleIcon, MegaphoneIcon, PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { ChevronDownIcon, EllipsisVerticalIcon, ExclamationTriangleIcon, MegaphoneIcon, PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { Head, Link, useForm } from '@inertiajs/react'
 import React, { useEffect, useState } from 'react'
 
@@ -114,22 +114,51 @@ export default function Announcements({ auth, paginated }) {
                                                                             title={announcement.title}
                                                                             body={announcement.content}
                                                                             button={
-                                                                                <div className='m-2 flex flex-row gap-2'>
-                                                                                    <Link
-                                                                                        className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
-                                                                                        href={route('announcements.destroy', announcement.id)}
-                                                                                        as='button'
-                                                                                    >
-                                                                                        <PencilIcon className='m-2 w-5 h-5 text-white' />
-                                                                                    </Link>
-                                                                                    <Link
-                                                                                        className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
-                                                                                        href={route('announcements.destroy', announcement.id)}
-                                                                                        as='button' method='delete'
-                                                                                    >
-                                                                                        <TrashIcon className='m-2 w-5 h-5 text-white' />
-                                                                                    </Link>
-                                                                                </div>
+                                                                                <Dropdown>
+                                                                                    <Dropdown.Trigger>
+                                                                                        <button className='rounded-[50%] hover:bg-gray-200 p-1 mx-2 mt-2' type='button'>
+                                                                                            <EllipsisVerticalIcon className='w-6 h-6 text-black' />
+                                                                                        </button>
+                                                                                    </Dropdown.Trigger>
+                                                                                    <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='!mt-0 mr-3' width='w-auto'>
+                                                                                        <button className='hover:bg-green-50 '
+                                                                                        // onClick={() => {
+                                                                                        //     if (editing && (subject.id != selectedSubject.id)) {
+                                                                                        //         setSelectedSubject(subject);
+                                                                                        //         setData(subject);
+                                                                                        //     } else if (!editing && selectedSubject.id == '') {
+                                                                                        //         setEditing(true);
+                                                                                        //         setSelectedSubject(subject);
+                                                                                        //         setData(subject);
+                                                                                        //     } else if (editing && subject.id == selectedSubject.id) {
+                                                                                        //         setEditing(false);
+                                                                                        //         setSelectedSubject(empty);
+                                                                                        //         setData(empty);
+                                                                                        //     }
+                                                                                        //     if (warning) {
+                                                                                        //         setWarning(false);
+                                                                                        //     }
+                                                                                        // }}
+                                                                                        >
+                                                                                            {/* {subject.id == selectedSubject.id ? "Cancel" : "Edit"} */}
+                                                                                            Edit
+                                                                                        </button>
+                                                                                        <button className='hover:bg-green-50 mx-1'
+                                                                                        // onClick={() => {
+                                                                                        //     if (subject.id == selectedSubject.id) {
+                                                                                        //         setWarning(!warning);
+                                                                                        //     } else if (!editing && selectedSubject.id == '') {
+                                                                                        //         setEditing(true);
+                                                                                        //         setSelectedSubject(subject);
+                                                                                        //         setData(subject);
+                                                                                        //         setWarning(!warning);
+                                                                                        //     }
+                                                                                        // }}
+                                                                                        >
+                                                                                            Delete
+                                                                                        </button>
+                                                                                    </Dropdown.Content>
+                                                                                </Dropdown>
                                                                             }
                                                                         />
 
@@ -142,24 +171,51 @@ export default function Announcements({ auth, paginated }) {
                                                                             body={announcement.content}
                                                                             iconColor={`bg-[${announcement.color}]`}
                                                                             button={
-                                                                                <>
-                                                                                    <div className='m-2 flex flex-row gap-2'>
-                                                                                        <Link
-                                                                                            className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
-                                                                                            href={route('announcements.destroy', announcement.id)}
-                                                                                            as='button'
+                                                                                <Dropdown>
+                                                                                    <Dropdown.Trigger>
+                                                                                        <button className='rounded-[50%] hover:bg-gray-200 p-1 mx-2 mt-2' type='button'>
+                                                                                            <EllipsisVerticalIcon className='w-6 h-6 text-black' />
+                                                                                        </button>
+                                                                                    </Dropdown.Trigger>
+                                                                                    <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='!mt-0 mr-3' width='w-auto'>
+                                                                                        <button className='hover:bg-green-50 '
+                                                                                        // onClick={() => {
+                                                                                        //     if (editing && (subject.id != selectedSubject.id)) {
+                                                                                        //         setSelectedSubject(subject);
+                                                                                        //         setData(subject);
+                                                                                        //     } else if (!editing && selectedSubject.id == '') {
+                                                                                        //         setEditing(true);
+                                                                                        //         setSelectedSubject(subject);
+                                                                                        //         setData(subject);
+                                                                                        //     } else if (editing && subject.id == selectedSubject.id) {
+                                                                                        //         setEditing(false);
+                                                                                        //         setSelectedSubject(empty);
+                                                                                        //         setData(empty);
+                                                                                        //     }
+                                                                                        //     if (warning) {
+                                                                                        //         setWarning(false);
+                                                                                        //     }
+                                                                                        // }}
                                                                                         >
-                                                                                            <PencilIcon className='m-2 w-5 h-5 text-white' />
-                                                                                        </Link>
-                                                                                        <Link
-                                                                                            className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
-                                                                                            href={route('announcements.destroy', announcement.id)}
-                                                                                            as='button' method='delete'
+                                                                                            {/* {subject.id == selectedSubject.id ? "Cancel" : "Edit"} */}
+                                                                                            Edit
+                                                                                        </button>
+                                                                                        <button className='hover:bg-green-50 mx-1'
+                                                                                        // onClick={() => {
+                                                                                        //     if (subject.id == selectedSubject.id) {
+                                                                                        //         setWarning(!warning);
+                                                                                        //     } else if (!editing && selectedSubject.id == '') {
+                                                                                        //         setEditing(true);
+                                                                                        //         setSelectedSubject(subject);
+                                                                                        //         setData(subject);
+                                                                                        //         setWarning(!warning);
+                                                                                        //     }
+                                                                                        // }}
                                                                                         >
-                                                                                            <TrashIcon className='m-2 w-5 h-5 text-white' />
-                                                                                        </Link>
-                                                                                    </div>
-                                                                                </>
+                                                                                            Delete
+                                                                                        </button>
+                                                                                    </Dropdown.Content>
+                                                                                </Dropdown>
                                                                             }
                                                                         />
 
@@ -174,24 +230,51 @@ export default function Announcements({ auth, paginated }) {
                                                                                 </div>
                                                                             }
                                                                             button={
-                                                                                <>
-                                                                                    <div className='m-2 flex flex-row gap-2'>
-                                                                                        <Link
-                                                                                            className='rounded-[50%] bg-blue-500 min-h-5 min-w-5'
-                                                                                            href={route('announcements.destroy', announcement.id)}
-                                                                                            as='button'
+                                                                                <Dropdown>
+                                                                                    <Dropdown.Trigger>
+                                                                                        <button className='rounded-[50%] hover:bg-gray-200 p-1 mx-2 mt-2' type='button'>
+                                                                                            <EllipsisVerticalIcon className='w-6 h-6 text-black' />
+                                                                                        </button>
+                                                                                    </Dropdown.Trigger>
+                                                                                    <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='!mt-0 mr-3' width='w-auto'>
+                                                                                        <button className='hover:bg-green-50 '
+                                                                                        // onClick={() => {
+                                                                                        //     if (editing && (subject.id != selectedSubject.id)) {
+                                                                                        //         setSelectedSubject(subject);
+                                                                                        //         setData(subject);
+                                                                                        //     } else if (!editing && selectedSubject.id == '') {
+                                                                                        //         setEditing(true);
+                                                                                        //         setSelectedSubject(subject);
+                                                                                        //         setData(subject);
+                                                                                        //     } else if (editing && subject.id == selectedSubject.id) {
+                                                                                        //         setEditing(false);
+                                                                                        //         setSelectedSubject(empty);
+                                                                                        //         setData(empty);
+                                                                                        //     }
+                                                                                        //     if (warning) {
+                                                                                        //         setWarning(false);
+                                                                                        //     }
+                                                                                        // }}
                                                                                         >
-                                                                                            <PencilIcon className='m-2 w-5 h-5 text-white' />
-                                                                                        </Link>
-                                                                                        <Link
-                                                                                            className='rounded-[50%] bg-red-500 min-h-5 min-w-5'
-                                                                                            href={route('announcements.destroy', announcement.id)}
-                                                                                            as='button' method='delete'
+                                                                                            {/* {subject.id == selectedSubject.id ? "Cancel" : "Edit"} */}
+                                                                                            Edit
+                                                                                        </button>
+                                                                                        <button className='hover:bg-green-50 mx-1'
+                                                                                        // onClick={() => {
+                                                                                        //     if (subject.id == selectedSubject.id) {
+                                                                                        //         setWarning(!warning);
+                                                                                        //     } else if (!editing && selectedSubject.id == '') {
+                                                                                        //         setEditing(true);
+                                                                                        //         setSelectedSubject(subject);
+                                                                                        //         setData(subject);
+                                                                                        //         setWarning(!warning);
+                                                                                        //     }
+                                                                                        // }}
                                                                                         >
-                                                                                            <TrashIcon className='m-2 w-5 h-5 text-white' />
-                                                                                        </Link>
-                                                                                    </div>
-                                                                                </>
+                                                                                            Delete
+                                                                                        </button>
+                                                                                    </Dropdown.Content>
+                                                                                </Dropdown>
                                                                             }
                                                                         />
                                                                     );
@@ -211,8 +294,56 @@ export default function Announcements({ auth, paginated }) {
                                                         />
                                                     )
                                                 }
+
                                             </>
                                         }
+                                        stickyNavHeader={paginated.data.length != 0 && (`Page: ${paginated.current_page}`)}
+                                        stickyNavBody={
+                                            <>
+                                                {paginated.data.map(announcement =>
+                                                    <div className='nav-link mb-5'>
+                                                        {announcement.title}
+                                                    </div>
+                                                )}
+                                                {
+                                                    paginated.data.length != 0 && (
+                                                        <div className='absolute -translate-x-2/4 left-2/4 bottom-1 w-full flex flex-row items-center place-content-center'>
+                                                            {
+                                                                paginated.links.map(
+                                                                    (link, index) => {
+                                                                        if (index == 0 || index == paginated.links.length - 1) {
+                                                                            return (
+                                                                                <Link
+                                                                                    dangerouslySetInnerHTML={{ __html: index == 0 ? "&laquo;" : "&raquo;" }}
+                                                                                    className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                                                                    href={link.url}
+                                                                                    as='button'
+                                                                                    preserveScroll={true}
+                                                                                    disabled={link.url == null}
+                                                                                />
+                                                                            )
+
+                                                                        } else {
+                                                                            return (
+                                                                                <Link
+                                                                                    dangerouslySetInnerHTML={{ __html: link.label }}
+                                                                                    className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                                                                    href={link.url}
+                                                                                    as='button'
+                                                                                    preserveScroll={true}
+                                                                                    disabled={link.url == null}
+                                                                                />
+                                                                            )
+                                                                        }
+                                                                    }
+                                                                )
+                                                            }
+                                                        </div>
+                                                    )
+                                                }
+                                            </>
+                                        }
+
                                     />
                                 );
                             } else if (tab == 2) {

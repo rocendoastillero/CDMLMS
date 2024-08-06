@@ -3,11 +3,11 @@ import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import Dropdown from '@/Components/Dropdown';
 import Layout from '@/Layouts/Layout';
-import { BookOpenIcon, CheckIcon, ChevronDownIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { BookOpenIcon, CheckIcon, ChevronDownIcon, EllipsisVerticalIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import React, { useEffect, useState } from 'react'
 
-export default function Subjects({  auth, paginated, searched = '' }) {
+export default function Subjects({ auth, paginated, searched = '' }) {
 
   /**
     * Empty Instance of Subjects
@@ -16,8 +16,8 @@ export default function Subjects({  auth, paginated, searched = '' }) {
     id: '',
     code: '',
     description: '',
-    year: '',
-    sem: '',
+    year: '1st',
+    sem: '1st',
   };
 
   const [selectedSubject, setSelectedSubject] = useState({
@@ -74,6 +74,7 @@ export default function Subjects({  auth, paginated, searched = '' }) {
       <CardsWithSticky
         cards={
           <SingleCardCenter
+            bodyPadding='p-4'
             table={
               <>
                 <div className='w-1/3 mb-4 relative'>
@@ -133,48 +134,61 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                   <tbody>
                     {
                       paginated.data.map(subject =>
-                        <tr key={subject.id} className={`${subject.user_id == null ? "bg-red-100" : ""} ${subject.id == selectedSubject.id ? "bg-green-100" : ""}`}>
+                        <tr key={subject.id} className={`${subject.user_id == null ? "bg-red-100" : ""} ${subject.id == selectedSubject.id ? "!bg-blue-100 !font-bold" : ""}`}>
                           <td key={subject.user_id}>{subject.instructor}</td>
                           <td>{subject.course}</td>
                           <td>{subject.code}</td>
                           <td>{subject.description}</td>
                           <td>{`${subject.year}-${subject.sem}`} </td>
                           <td>
-                            <button className='btn-primary mx-1 rounded-[50%] bg-blue-500 hover:bg-blue-700'
-                              onClick={() => {
-                                if (editing && (subject.id != selectedSubject.id)) {
-                                  setSelectedSubject(subject);
-                                  setData(subject);
-                                } else if (!editing && selectedSubject.id == '') {
-                                  setEditing(true);
-                                  setSelectedSubject(subject);
-                                  setData(subject);
-                                } else if (editing && subject.id == selectedSubject.id) {
-                                  setEditing(false);
-                                  setSelectedSubject(empty);
-                                  setData(empty);
-                                }
-                                if (warning) {
-                                  setWarning(false);
-                                }
-                              }}
-                            >
-                              <PencilIcon className='w-5 h-5 m-1 text-white' />
-                            </button>
-                            <button className='btn-primary mx-1 rounded-[50%] bg-red-500 hover:bg-red-700'
-                              onClick={() => {
-                                if (subject.id == selectedSubject.id) {
-                                  setWarning(!warning);
-                                } else if (!editing && selectedSubject.id == '') {
-                                  setEditing(true);
-                                  setSelectedSubject(subject);
-                                  setData(subject);
-                                  setWarning(!warning);
-                                }
-                              }}
-                            >
-                              <TrashIcon className='w-5 h-5 m-1 text-white' />
-                            </button>
+                            <Dropdown>
+                              <Dropdown.Trigger>
+                                <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
+                                  <EllipsisVerticalIcon className='w-5 h-5 text-black' />
+                                </button>
+                              </Dropdown.Trigger>
+                              <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='mt-0' width='w-auto'>
+                                <button className='hover:bg-green-50 '
+                                  onClick={() => {
+                                    if (editing && (subject.id != selectedSubject.id)) {
+                                      setSelectedSubject(subject);
+                                      setData(subject);
+                                    } else if (!editing && selectedSubject.id == '') {
+                                      setEditing(true);
+                                      setSelectedSubject(subject);
+                                      setData(subject);
+                                    } else if (editing && subject.id == selectedSubject.id) {
+                                      setEditing(false);
+                                      setSelectedSubject(empty);
+                                      setData(empty);
+                                    }
+                                    if (warning) {
+                                      setWarning(false);
+                                    }
+                                  }}
+                                >
+                                  {subject.id == selectedSubject.id ? "Cancel" : "Edit"}
+                                </button>
+                                <button className='hover:bg-green-50 '
+                                  onClick={() => {
+                                    if (subject.id == selectedSubject.id) {
+                                      setWarning(!warning);
+                                    } else if (!editing && selectedSubject.id == '') {
+                                      setEditing(true);
+                                      setSelectedSubject(subject);
+                                      setData(subject);
+                                      setWarning(!warning);
+                                    }
+                                  }}
+                                >
+                                  Delete
+                                </button>
+                                <Link className='hover:bg-green-50 px-1' as='button'>
+                                  Schedules
+                                </Link>
+                              </Dropdown.Content>
+                            </Dropdown>
+
                           </td>
                         </tr>
                       )
@@ -188,15 +202,33 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                   </div>
                   <div className='flex flex-row'>
                     {
-                      paginated.links.map(link =>
-                        <Link
-                          dangerouslySetInnerHTML={{ __html: link.label }}
-                          className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
-                          href={link.url}
-                          as='button'
-                          preserveScroll={true}
-                        />
+                      paginated.links.map(
+                        (link, index) => {
+                          if (index == 0 || index == paginated.links.length - 1) {
+                            return (
+                              <Link
+                                dangerouslySetInnerHTML={{ __html: index == 0 ? "&laquo;" : "&raquo;" }}
+                                className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                href={link.url}
+                                as='button'
+                                preserveScroll={true}
+                                disabled={link.url == null}
+                              />
+                            )
 
+                          } else {
+                            return (
+                              <Link
+                                dangerouslySetInnerHTML={{ __html: link.label }}
+                                className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                href={link.url}
+                                as='button'
+                                preserveScroll={true}
+                                disabled={link.url == null}
+                              />
+                            )
+                          }
+                        }
                       )
                     }
                   </div>
@@ -229,10 +261,10 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                     </button>
                   </Dropdown.Trigger>
                   <Dropdown.Content margin='mt-0' width='w-full'>
-                    <div onClick={() => { setData('year', '1st') }} className='cursor-pointer py-2 hover:bg-green-100'>1st</div>
-                    <div onClick={() => { setData('year', '2nd') }} className='cursor-pointer py-2 hover:bg-green-100'>2nd</div>
-                    <div onClick={() => { setData('year', '3rd') }} className='cursor-pointer py-2 hover:bg-green-100'>3rd</div>
-                    <div onClick={() => { setData('year', '4th') }} className='cursor-pointer py-2 hover:bg-green-100'>4th</div>
+                    <div onClick={() => { setData('year', '1st') }} className='cursor-pointer py-2 hover:bg-green-50'>1st</div>
+                    <div onClick={() => { setData('year', '2nd') }} className='cursor-pointer py-2 hover:bg-green-50'>2nd</div>
+                    <div onClick={() => { setData('year', '3rd') }} className='cursor-pointer py-2 hover:bg-green-50'>3rd</div>
+                    <div onClick={() => { setData('year', '4th') }} className='cursor-pointer py-2 hover:bg-green-50'>4th</div>
                   </Dropdown.Content>
                 </Dropdown>
               </div>
@@ -246,9 +278,9 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                     </button>
                   </Dropdown.Trigger>
                   <Dropdown.Content margin='mt-0' width='w-full'>
-                    <div onClick={() => { setData('sem', '1st') }} className='cursor-pointer py-2 hover:bg-green-100'>1st</div>
-                    <div onClick={() => { setData('sem', '2nd') }} className='cursor-pointer py-2 hover:bg-green-100'>2nd</div>
-                    <div onClick={() => { setData('sem', 'intersem') }} className='cursor-pointer py-2 hover:bg-green-100'>intersem</div>
+                    <div onClick={() => { setData('sem', '1st') }} className='cursor-pointer py-2 hover:bg-green-50'>1st</div>
+                    <div onClick={() => { setData('sem', '2nd') }} className='cursor-pointer py-2 hover:bg-green-50'>2nd</div>
+                    <div onClick={() => { setData('sem', 'intersem') }} className='cursor-pointer py-2 hover:bg-green-50'>intersem</div>
                   </Dropdown.Content>
                 </Dropdown>
               </div>

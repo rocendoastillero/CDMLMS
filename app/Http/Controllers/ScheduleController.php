@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Schedule;
 use App\Models\Subject;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Throwable;
 
 class ScheduleController extends Controller
 {
@@ -27,11 +26,28 @@ class ScheduleController extends Controller
      */
     public function mySchedule()
     {
-        return Inertia::render('Faculty/Schedules', [
-            'subjects' => Auth::user()->subjects,
-            'schedules' => Auth::user()->subjects->first()->schedules,
-            'activesubject' => Auth::user()->subjects->first()->code
-        ]);
+        try {
+            return Inertia::render('Faculty/Schedules', [
+                'subjects' => Auth::user()->subjects,
+                'schedules' => Auth::user()->subjects->first()->schedules,
+                'activesubject' => Auth::user()->subjects->first()->code
+            ]);
+        } catch (Throwable $e) {
+            return redirect(route('subjects.index'));
+        }
+    }
+
+    public function scheduleOf(Subject $subject)
+    {
+        return $subject->schedules;
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(Subject $subject)
+    {
+        //
     }
 
     /**
@@ -59,7 +75,7 @@ class ScheduleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Schedule $schedule)
+    public function show(Subject $schedule)
     {
         //
     }

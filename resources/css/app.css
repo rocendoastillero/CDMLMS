@@ -22571,3 +22571,7 @@ pre[class*=language-] {
 .custom-tooltip-parent:hover .custom-tooltip-child {
  visibility: visible;
 }
+
+.w-1\/7 {
+  width: 14.285714%;
+}

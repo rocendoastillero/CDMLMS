@@ -93,7 +93,7 @@ export default function Announcements({ auth, paginated }) {
                 stickyNavBody={
                     <>
                         {paginated.data.map(announcement =>
-                            <div className='nav-link'>
+                            <div className='nav-link mb-5'>
                                 {announcement.title}
                             </div>
                         )}

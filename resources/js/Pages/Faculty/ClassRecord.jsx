@@ -24,10 +24,10 @@ export default function ClassRecord({ auth, paginated }) {
 
     const submit = (e) => {
         e.preventDefault();
-        if (data.file != null){
+        if (data.file != null) {
             post(route('file.store'), { onSuccess: () => reset() });
         }
-        
+
     }
 
     useEffect((() => {
@@ -48,6 +48,7 @@ export default function ClassRecord({ auth, paginated }) {
                 stickySize='!w-4/12'
                 cards={
                     <SingleCardCenter
+                        bodyPadding='p-4'
                         table={
                             <>
                                 <table className='datatable-table text-center mt-3'>

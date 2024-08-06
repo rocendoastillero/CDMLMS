@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import Layout from "@/Layouts/Layout";
-import { BookOpenIcon, MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { BookOpenIcon, EllipsisVerticalIcon, MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import { Link, Head, useForm, router } from '@inertiajs/react';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import CardsWithHeader from '@/Components/CDMLMS/CardsWithHeader';
+import Dropdown from '@/Components/Dropdown';
 
 
 
@@ -14,7 +15,7 @@ import CardsWithHeader from '@/Components/CDMLMS/CardsWithHeader';
  * @param auth The Authentication 
  * @returns Page
  */
-export default function Subjects({  auth, paginated, searched = '' }) {
+export default function Subjects({ auth, paginated, searched = '' }) {
 
     const [search, setSearch] = useState(searched);
 
@@ -27,6 +28,7 @@ export default function Subjects({  auth, paginated, searched = '' }) {
             headerSubtitle='View Subjects'>
             <Head title='Subjects' />
             <SingleCardCenter
+                bodyPadding='p-3'
                 table={
                     <>
                         <div className='w-1/3 mb-4 relative'>
@@ -45,7 +47,7 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                                 search == '' ? (
                                     <MagnifyingGlassIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 text-gray-600' />
                                 ) : (
-                                    <XCircleIcon onClick={() => {router.visit(route('subjects.index'))}} className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 cursor-pointer' />
+                                    <XCircleIcon onClick={() => { router.visit(route('subjects.index')) }} className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 cursor-pointer' />
                                 )
                             }
                         </div>
@@ -64,19 +66,32 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                             <tbody>
                                 {
                                     paginated.data.map(subject =>
-                                        <tr key={subject.id}>
+                                        <tr className={`${auth.user.id == subject.user_id ? "bg-green-50" : ""}`} key={subject.id}>
                                             <td key={subject.user_id}>{subject.instructor}</td>
                                             <td>{subject.course}</td>
                                             <td>{subject.code}</td>
                                             <td>{subject.description}</td>
                                             <td>{`${subject.year}-${subject.sem}`} </td>
-                                            <td>
-                                                <Link className={`btn-primary mx-1 p-1 rounded text-white ${auth.user.id == subject.user_id ? "bg-red-700 hover:bg-red-500" : "bg-green-700 hover:bg-green-500"}`}
-                                                    href={route('subjects.assign')} as='button' method='patch' preserveScroll={true}
-                                                    data={{ id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) }}
-                                                >
-                                                    {auth.user.id == subject.user_id ? "Drop" : "Assign"}
-                                                </Link>
+                                            <td >
+                                                <Dropdown>
+                                                    <Dropdown.Trigger>
+                                                        <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
+                                                            <EllipsisVerticalIcon className='w-5 h-5 text-black' />
+                                                        </button>
+                                                    </Dropdown.Trigger>
+                                                    <Dropdown.Content contentClasses='flex flex-col gap-2' margin='mt-1' width='w-auto'>
+                                                        <Link className='hover:hover:bg-green-50 px-1' href={route('subjects.assign')} as='button' method='patch'
+                                                            data={{ id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) }} preserveScroll={true}
+                                                        >
+                                                            {auth.user.id == subject.user_id ? "Drop Subject" : "Assign Subject"}
+                                                        </Link>
+                                                        <Link className='hover:hover:bg-green-50' as='button'
+                                                            href={route('schedules.subject', subject.id)}
+                                                        >
+                                                            Schedules
+                                                        </Link>
+                                                    </Dropdown.Content>
+                                                </Dropdown>
                                             </td>
                                         </tr>
                                     )
@@ -90,15 +105,33 @@ export default function Subjects({  auth, paginated, searched = '' }) {
                             </div>
                             <div className='flex flex-row'>
                                 {
-                                    paginated.links.map(link =>
-                                        <Link
-                                            dangerouslySetInnerHTML={{ __html: link.label }}
-                                            className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
-                                            href={link.url}
-                                            as='button'
-                                            preserveScroll={true}
-                                        />
+                                    paginated.links.map(
+                                        (link, index) => {
+                                            if (index == 0 || index == paginated.links.length - 1) {
+                                                return (
+                                                    <Link
+                                                        dangerouslySetInnerHTML={{ __html: index == 0 ? "&laquo;" : "&raquo;" }}
+                                                        className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                                        href={link.url}
+                                                        as='button'
+                                                        preserveScroll={true}
+                                                        disabled={link.url == null}
+                                                    />
+                                                )
 
+                                            } else {
+                                                return (
+                                                    <Link
+                                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                                        className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                                        href={link.url}
+                                                        as='button'
+                                                        preserveScroll={true}
+                                                        disabled={link.url == null}
+                                                    />
+                                                )
+                                            }
+                                        }
                                     )
                                 }
                             </div>

@@ -38,6 +38,8 @@ Route::middleware('faculty')->group(function () {
 
     Route::get('schedules', [ScheduleController::class, 'mySchedule'])->name('schedules');
 
+    Route::get('schedules/{subject}', [ScheduleController::class, 'scheduleOf'])->name('schedules.subject');
+
     Route::get('/classrecord', [FileController::class, 'classRecord'])->name('classrecord');
 
     Route::get('/gradesheet', [FileController::class, 'gradeSheet'])->name('gradesheet');
@@ -82,7 +84,9 @@ Route::middleware('faculty')->group(function () {
             return Inertia::render('Admin/RepositoryOfFiles', []);
         })->name('admin.repositoryoffiles');
         Route::get('/admin/download/{file}', [FileController::class, 'download'])->name('admin.download');
-
+        
+        
+        Route::get('/admin/schedules/create/{subject}', [FileController::class, 'create'])->name('schedules.create');
         Route::resource('/admin/schedules', ScheduleController::class)
             ->only(['index', 'store', 'update', 'destroy']);
     });

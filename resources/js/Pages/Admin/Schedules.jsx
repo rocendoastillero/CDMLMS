@@ -9,7 +9,7 @@ import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { Head, useForm } from "@inertiajs/react";
 import { useEffect } from "react";
 
-export default function Schedules({ auth }) {
+export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule' }) {
 
     const { data, setData, post, patch, errors, processing, reset } = useForm({
         start: '',
@@ -22,12 +22,12 @@ export default function Schedules({ auth }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('schedules.store'), {onSuccess : () => reset()});
+        post(route('schedules.store'), { onSuccess: () => reset() });
     };
 
-    useEffect((()=>{
+    useEffect((() => {
         console.log(errors);
-    }),[]);
+    }), []);
 
     return (
         <Layout
@@ -35,11 +35,61 @@ export default function Schedules({ auth }) {
             isAdmin={auth.isAdmin}
             icon={<CalendarDaysIcon className='w-9 h-9 text-gray-500' />}
             headerTitle='Schedule'
-            headerSubtitle='view Schedule'
+            headerSubtitle={pageHeaderSubtitle}
         >
             <Head title="Schedules" />
 
-            <SingleCardWithHeader
+            <div className="relative w-full">
+                <div className="absolute bottom-[105%] mb-1">
+
+                </div>
+            </div>
+
+            <div className="flex flex-row gap-1 mt-2 text-white text-center">
+                <div className="relative w-1/7 h-5">
+                    Monday
+                    <div className="absolute top-[105%] flex flex-col mt-2 h-10 w-full bg-white">
+
+                    </div>
+                </div>
+                <div className="relative w-1/7 h-5">
+                    Tuesday
+                    <div className="absolute top-[105%] flex flex-col mt-2 h-10 w-full bg-white">
+
+                    </div>
+                </div>
+                <div className="relative w-1/7 h-5">
+                    Wednesday
+                    <div className="absolute top-[105%] flex flex-col mt-2 h-10 w-full bg-white">
+
+                    </div>
+                </div>
+                <div className="relative w-1/7 h-5">
+                    Thursday
+                    <div className="absolute top-[105%] flex flex-col mt-2 h-10 w-full bg-white">
+
+                    </div>
+                </div>
+                <div className="relative w-1/7 h-5">
+                    Friday
+                    <div className="absolute top-[105%] flex flex-col mt-2 h-10 w-full bg-white">
+
+                    </div>
+                </div>
+                <div className="relative w-1/7 h-5">
+                    Saturday
+                    <div className="absolute top-[105%] flex flex-col mt-2 h-10 w-full bg-white">
+
+                    </div>
+                </div>
+                <div className="relative w-1/7 h-5">
+                    Sunday
+                    <div className="absolute top-[105%] flex flex-col mt-2 h-10 w-full bg-white">
+
+                    </div>
+                </div>
+            </div>
+            {/* <SingleCardWithHeader
                 header="Create Schedule"
                 body={
                     <div className="mt-3">
@@ -71,20 +121,18 @@ export default function Schedules({ auth }) {
                                     <InputLabel value="Day" />
                                     <Dropdown>
                                         <Dropdown.Trigger>
-                                            <button className="form-control">
+                                            <div className="form-control">
                                                 {data.day}
-                                            </button>
-                                        </Dropdown.Trigger>
-                                        <Dropdown.Content margin="mt-0" width="w-full">
-                                            <div className="flex flex-col gap-1 text-center">
-                                                <button onClick={() => { setData('day', 'Mon') }}> Mon</button>
-                                                <button onClick={() => { setData('day', 'Tue') }}> Tue</button>
-                                                <button onClick={() => { setData('day', 'Wed') }}> Wed</button>
-                                                <button onClick={() => { setData('day', 'Thu') }}> Thu</button>
-                                                <button onClick={() => { setData('day', 'Fri') }}> Fri</button>
-                                                <button onClick={() => { setData('day', 'Sat') }}> Sat</button>
-                                                <button onClick={() => { setData('day', 'Sun') }}> Sun</button>
                                             </div>
+                                        </Dropdown.Trigger>
+                                        <Dropdown.Content contentClasses="flex flex-col gap-1 text-center" margin="mt-0" width="w-full">
+                                            <div onClick={() => { setData('day', 'Mon') }}> Mon</div>
+                                            <div onClick={() => { setData('day', 'Tue') }}> Tue</div>
+                                            <div onClick={() => { setData('day', 'Wed') }}> Wed</div>
+                                            <div onClick={() => { setData('day', 'Thu') }}> Thu</div>
+                                            <div onClick={() => { setData('day', 'Fri') }}> Fri</div>
+                                            <div onClick={() => { setData('day', 'Sat') }}> Sat</div>
+                                            <div onClick={() => { setData('day', 'Sun') }}> Sun</div>
                                         </Dropdown.Content>
                                     </Dropdown>
 
@@ -93,15 +141,13 @@ export default function Schedules({ auth }) {
                                     <InputLabel value="Course" />
                                     <Dropdown>
                                         <Dropdown.Trigger>
-                                            <button className="form-control">
+                                            <div className="form-control">
                                                 {data.course}
-                                            </button>
-                                        </Dropdown.Trigger>
-                                        <Dropdown.Content margin="mt-0" width="w-full">
-                                            <div className="flex flex-col gap-1 text-center">
-                                                <button onClick={() => { setData('course', 'CPE') }}>CPE</button>
-                                                <button onClick={() => { setData('course', 'IT') }}>IT</button>
                                             </div>
+                                        </Dropdown.Trigger>
+                                        <Dropdown.Content contentClasses="flex flex-col gap-1 text-center" margin="mt-0" width="w-full">
+                                            <div onClick={() => { setData('course', 'CPE') }}>CPE</div>
+                                            <div onClick={() => { setData('course', 'IT') }}>IT</div>
                                         </Dropdown.Content>
                                     </Dropdown>
                                 </div>
@@ -115,7 +161,7 @@ export default function Schedules({ auth }) {
                                         placeholder="1A"
                                         onChange={(e) => { setData('yrsec', e.target.value) }}
                                     />
-                                    <InputError message={errors.yrsec}/>
+                                    <InputError message={errors.yrsec} />
                                 </div>
                             </div>
                             <PrimaryButton disabled={processing}>
@@ -123,8 +169,9 @@ export default function Schedules({ auth }) {
                             </PrimaryButton>
                         </form>
                     </div>
+                    
                 }
-            />
+            /> */}
         </Layout>
     );
 }

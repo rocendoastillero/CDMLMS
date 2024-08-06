@@ -30,7 +30,7 @@ const Trigger = ({ children }) => {
     );
 };
 
-const Content = ({ align = 'right', width = 'w-48', contentClasses = 'py-1 bg-white', margin = 'mt-4', children }) => {
+const Content = ({ align = 'right', width = 'w-48', contentClasses = '', margin = 'mt-4', children }) => {
     const { open, setOpen } = useContext(DropDownContext);
 
     let alignmentClasses = 'origin-top';
@@ -58,7 +58,7 @@ const Content = ({ align = 'right', width = 'w-48', contentClasses = 'py-1 bg-wh
                     className={`absolute z-50 ${margin} rounded-md shadow-lg ${alignmentClasses} ${width}`}
                     onClick={() => setOpen(false)}
                 >
-                    <div className={`rounded-md ring-1 ring-black ring-opacity-5 ` + contentClasses}>{children}</div>
+                    <div className={`rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white ` + contentClasses}>{children}</div>
                 </div>
             </Transition>
         </>

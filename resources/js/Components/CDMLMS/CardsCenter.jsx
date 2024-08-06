@@ -8,11 +8,11 @@ import React from 'react'
  * @param {*} image Image Content 
  * @returns HTML
  */
-function CardsCenter({ title, body , image = null}) {
+function CardsCenter({ title, body, bodyPadding , image = null}) {
     return (
         <div className="col-xxl-6 col-xl-12 mb-4">
             <div className={`card`}>
-                <div className={`card-body p-5`}>
+                <div className={`card-body p-5 ${bodyPadding}`}>
                     <div className="col-xl-8 col-xxl-12">
                         <div className="row align-items-center">
                             <div className="col-xl-8 col-xxl-12">

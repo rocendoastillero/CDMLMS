@@ -110,8 +110,8 @@ export default function Register() {
                                     </button>
                                 </Dropdown.Trigger>
                                 <Dropdown.Content margin='mt-0' width='w-full'>
-                                    <div onClick={()=>{setData('course','CPE')}} className='cursor-pointer py-1 hover:bg-green-100'>CPE</div>
-                                    <div onClick={()=>{setData('course','IT')}} className='cursor-pointer py-1 hover:bg-green-100'>IT</div>
+                                    <div onClick={()=>{setData('course','CPE')}} className='cursor-pointer py-1 hover:bg-green-50'>CPE</div>
+                                    <div onClick={()=>{setData('course','IT')}} className='cursor-pointer py-1 hover:bg-green-50'>IT</div>
                                 </Dropdown.Content>
                             </Dropdown>
                         </div>

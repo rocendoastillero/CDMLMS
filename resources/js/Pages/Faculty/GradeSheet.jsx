@@ -44,6 +44,7 @@ export default function GradeSheet({ auth, paginated }) {
                 stickySize='!w-4/12'
                 cards={
                     <SingleCardCenter
+                        bodyPadding='p-4'
                         table={
                             <>
                                 <table className='datatable-table text-center mt-3'>

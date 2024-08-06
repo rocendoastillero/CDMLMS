@@ -44,6 +44,7 @@ export default function Syllabus({ auth, paginated }) {
                 stickySize='!w-3/12 lg:!w-4/12'
                 cards={
                     <SingleCardCenter
+                        bodyPadding='p-4'
                         table={
                             <>
                                 <table className='datatable-table text-center mt-3'>
