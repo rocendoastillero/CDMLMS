@@ -1,5 +1,4 @@
-import CardsRow from "@/Components/CDMLMS/CardsRow";
-import CardsWithHeader from "@/Components/CDMLMS/CardsWithHeader";
+import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
 import Dropdown from "@/Components/Dropdown";
 import Layout from "@/Layouts/Layout";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
@@ -25,25 +24,23 @@ export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', 
 
                 </div>
             </div>
-            <CardsRow
-                card1={
-                    <CardsWithHeader
-                        header='Pick a Subject'
-                        body={
-                            <Dropdown>
-                                <Dropdown.Trigger>
-                                    <button className="form-control">
-                                        Subject
-                                    </button>
-                                </Dropdown.Trigger>
-                                <Dropdown.Content margin="mt-0" width="w-full">
 
-                                </Dropdown.Content>
-                            </Dropdown>
-                        }
-                    />
+            <SingleCardWithHeader
+                header='Pick a Subject'
+                body={
+                    <Dropdown>
+                        <Dropdown.Trigger>
+                            <button className="form-control mt-3">
+                                Subject
+                            </button>
+                        </Dropdown.Trigger>
+                        <Dropdown.Content margin="mt-0" width="w-full">
+
+                        </Dropdown.Content>
+                    </Dropdown>
                 }
             />
+
         </Layout>
     );
 }
