@@ -47,7 +47,12 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                 search == '' ? (
                                     <MagnifyingGlassIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 text-gray-600' />
                                 ) : (
-                                    <XCircleIcon onClick={() => { router.visit(route('subjects.index')) }} className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 cursor-pointer' />
+                                    <Link
+                                        className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3 '
+                                        href={route('subjects.index')} preserveScroll={true} as='button'
+                                    >
+                                        <XCircleIcon className='w-8 h-8' />
+                                    </Link>
                                 )
                             }
                         </div>
@@ -79,15 +84,15 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                                             <EllipsisVerticalIcon className='w-5 h-5 text-black' />
                                                         </button>
                                                     </Dropdown.Trigger>
-                                                    <Dropdown.Content contentClasses='flex flex-col gap-2' margin='mt-1' width='w-auto'>
+                                                    <Dropdown.Content contentClasses='flex flex-col gap-2' margin='mt-1'>
                                                         <Link className='hover:hover:bg-green-50 px-1' href={route('subjects.assign')} as='button' method='patch'
                                                             data={{ id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) }} preserveScroll={true}
                                                         >
-                                                            {auth.user.id == subject.user_id ? "Drop Subject" : "Assign Subject"}
+                                                            {auth.user.id == subject.user_id ? "Drop" : "Take"}
                                                         </Link>
                                                         {
                                                             subject.user_id == auth.user.id && (
-                                                                <Link className='hover:hover:bg-green-50' as='button'
+                                                                <Link className='hover:hover:bg-green-50 px-1' as='button'
                                                                 // href={route('schedules.subject', subject.id)}
                                                                 >
                                                                     Schedules
