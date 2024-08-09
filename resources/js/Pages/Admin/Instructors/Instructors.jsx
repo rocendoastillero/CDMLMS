@@ -58,20 +58,27 @@ export default function Instructors({ auth, paginated, searched }) {
                                         <tr className='card-header'>
                                             <th >Instructor</th>
                                             <th >Verified</th>
-                                            <th >Course</th>
                                             <th >Verify</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
                                             paginated.data.map(instructor =>
+                                                //TODO tooltip
                                                 <tr key={instructor.id} className='text-center'>
-                                                    <td><Link href={route('admin.instructors.view', instructor.id)} as='button'>{instructor.lastname + ", " + instructor.firstname}</Link></td>
-                                                    <td className='flex place-content-center'>{instructor.verified ? <CheckCircleIcon className='w-7 h-7 text-green-600' /> : <XCircleIcon className='w-7 h-7 text-red-600' />}</td>
-                                                    <td>{instructor.course}</td>
+                                                    <td>
+                                                        <Link className='font-bold' href={route('admin.instructors.view', instructor.id)} as='button'>
+                                                            {instructor.lastname + ", " + instructor.firstname}
+                                                        </Link>
+                                                    </td>
+                                                    <td>
+                                                        <div className="flex place-content-center">
+                                                            {instructor.verified ? <CheckCircleIcon className='w-7 h-7 text-green-600' /> : <XCircleIcon className='w-7 h-7 text-red-600' />}
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <Link
-                                                            className={`font-semibold ${instructor.verified ? "text-red-700" : "text-green-700"}`}
+                                                            className={`btn btn-primary font-semibold ${instructor.verified ? "!bg-red-700" : ""}`}
                                                             href={route('admin.verify')} method='patch' as='button'
                                                             data={{ id: instructor.id, verify: (instructor.verified ? 0 : 1) }}
                                                         >

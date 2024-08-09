@@ -30,14 +30,20 @@ class AdminController extends Controller
         return Inertia::render('Admin/Instructors/Instructors', [
 
             'paginated' => User::where('type', 'user')
-                ->latest()
-                ->orderBy('verified')
+                ->orderBy('verified', 'ASC')
                 ->get()
                 ->makeHidden(['email', 'email_verified_at', 'created_at', 'updated_at', 'phone'])
                 ->paginate(8),
             'searched' => '',
 
 
+        ]);
+    }
+
+    public function viewInstructor(User $user): Response
+    {
+        return Inertia::render('Admin/Instructors/View', [
+            'instructor' => $user
         ]);
     }
 
@@ -71,12 +77,7 @@ class AdminController extends Controller
         return redirect(route('admin.instructors'));
     }
 
-    public function viewInstructor(User $user): Response
-    {
-        return Inertia::render('Admin/Instructors/View', [
-            'instructor' => $user
-        ]);
-    }
+
 
 
     /**

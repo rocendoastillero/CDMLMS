@@ -13,14 +13,14 @@ export default function CompactHeader({ title, icon, buttons, children }) {
                                     {title}
                                 </h1>
                             </div>
-                            <div className="col-12 col-xl-auto mb-3">
+                            <div className="col-12 col-xl-auto mb-3 flex flex-row gap-3">
                                 {buttons}
                             </div>
                         </div>
                     </div>
                 </div>
             </header>
-            <div className="container-xl px-4 mt-n10">
+            <div className="container-xl px-4 ">
                 {children}
             </div>
         </main>
