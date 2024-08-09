@@ -60,7 +60,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                             ref={currentPasswordInput}
                             value={data.current_password}
                             onChange={(e) => setData('current_password', e.target.value)}
-                            type={show1 ? "" : "password"}
+                            type={show1 ? "text" : "password"}
                             className="mt-1 block w-full"
                             autoComplete="current-password"
                         />
@@ -86,7 +86,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                             ref={passwordInput}
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
-                            type={show2 ? "" : "password"}
+                            type={show2 ? "text" : "password"}
                             className="mt-1 block w-full"
                             autoComplete="new-password"
                         />
@@ -110,7 +110,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                             id="password_confirmation"
                             value={data.password_confirmation}
                             onChange={(e) => setData('password_confirmation', e.target.value)}
-                            type={show3 ? "" : "password"}
+                            type={show3 ? "text" : "password"}
                             className="mt-1 block w-full"
                             autoComplete="new-password"
                         />

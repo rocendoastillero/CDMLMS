@@ -14,7 +14,40 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/test', function () {
-    return Inertia::render('Tests');
+    return Inertia::render('Tests', [
+        'test' => [
+            [
+                'a' => 'a',
+                'b' => 'aa',
+                'c' => 'aaa',
+            ],
+            [
+                'a' => 'b',
+                'b' => 'bb',
+                'c' => 'bbb',
+            ],
+            [
+                'a' => 'c',
+                'b' => 'cc',
+                'c' => 'ccc',
+            ],
+            [
+                'a' => 'd',
+                'b' => 'dd',
+                'c' => 'ddd',
+            ],
+            [
+                'a' => 'e',
+                'b' => 'ee',
+                'c' => 'eee',
+            ],
+            [
+                'a' => 'f',
+                'b' => 'ff',
+                'c' => 'fff',
+            ]
+        ]
+    ]);
 });
 
 Route::redirect('/', '/login', 301);
@@ -88,8 +121,8 @@ Route::middleware('faculty')->group(function () {
             return Inertia::render('Admin/RepositoryOfFiles', []);
         })->name('admin.repositoryoffiles');
         Route::get('/admin/download/{file}', [FileController::class, 'download'])->name('admin.download');
-        
-        
+
+
         Route::get('/admin/schedules/{subject}', [ScheduleController::class, 'scheduleOf'])->name('schedules.view');
         Route::resource('/admin/schedules', ScheduleController::class)
             ->only(['index', 'store', 'update', 'destroy']);

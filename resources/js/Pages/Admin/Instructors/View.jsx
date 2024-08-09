@@ -4,7 +4,7 @@ import Layout from "@/Layouts/Layout";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Head, Link } from "@inertiajs/react";
 
-export default function View({ auth, instructor }) {
+export default function View({ auth, instructor, reports, subjects, files }) {
     return (
         <Layout
             user={auth.user}
@@ -14,30 +14,53 @@ export default function View({ auth, instructor }) {
             <CompactHeader
                 title={`${instructor.firstname} ${instructor.lastname}`}
                 icon={<UserCircleIcon className="w-6 h-6" />}
-                buttons={
-                    <>
-                        <Link
-                            className="btn btn-sm btn-light text-primary"
-                            as="button"
-                        >
-                            Accomplishment Reports
-                        </Link>
-                        <Link
-                            className="btn btn-sm btn-light text-primary"
-                            as="button"
-                        >
-                            Subjects
-                        </Link>
-                        <Link
-                            className="btn btn-sm btn-light text-primary"
-                            as="button"
-                        >
-                            Files
-                        </Link>
-                    </>
-                }
             >
-                <SingleCardWithHeader />
+                <SingleCardWithHeader
+                    header='Accomplishment Reports'
+                    body={
+                        <div className="table-reponsive mt-2">
+                            <table className="datatable-table text-center">
+                                <thead>
+                                    <tr className="border-b-2">
+                                        <th >Date</th>
+                                        <th >Start</th>
+                                        <th >End</th>
+                                        <th >Activity</th>
+                                        <th >Designation</th>
+                                        <th >Venue</th>
+                                        <th >Time Spent</th>
+                                        <th >Report</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        reports.map(report =>
+                                            <tr key={report.user_id}>
+                                                <td>{report.date}</td>
+                                                <td>{report.start}</td>
+                                                <td>{report.end}</td>
+                                                <td>{report.activity}</td>
+                                                <td>{report.designation}</td>
+                                                <td>{report.venue}</td>
+                                                <td>{report.timespent}</td>
+                                                <td>{report.report}</td>
+                                            </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                />
+
+                <SingleCardWithHeader
+                    header='Subjects'
+                    body={
+                        <div className="mt-4">
+                            
+                        </div >
+                    }
+                />
             </CompactHeader>
         </Layout>
     )

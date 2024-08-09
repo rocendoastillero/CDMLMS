@@ -1,5 +1,5 @@
 import Dropdown from '@/Components/Dropdown';
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { Link } from '@inertiajs/react';
@@ -33,10 +33,6 @@ export default function Layout(
 
     const [dropdown, setDropDown] = useState(openDropdown);
 
-    useEffect((() => {
-        console.log(window.innerHeight);
-        console.log(window.innerWidth);
-    }), [])
 
     return (
         <div className={`nav-fixed ${isOpen ? "" : "sidenav-toggled"}`}>
@@ -77,11 +73,9 @@ export default function Layout(
                             </span>
                         </Dropdown.Trigger>
 
-                        <Dropdown.Content>
-                            <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                            <Dropdown.Link href={route('logout')} method="post" as="button">
-                                Log Out
-                            </Dropdown.Link>
+                        <Dropdown.Content contentClasses='flex flex-col gap-2' >
+                            <Link className='text-start px-3 py-1' href={route('profile.edit')} as='button'>Profile</Link>
+                            <Link className='text-start px-3 py-1' href={route('logout')} method="post" as="button">Log Out</Link>
                         </Dropdown.Content>
                     </Dropdown>
                 </div>

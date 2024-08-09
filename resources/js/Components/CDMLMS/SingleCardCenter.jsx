@@ -1,4 +1,4 @@
-import React from 'react'
+import { forwardRef } from 'react'
 
 /**
  * @function Component Single Card with no header
@@ -10,9 +10,9 @@ import React from 'react'
  * @param button Card Buttons top Right
  * @returns HTML
  */
-function SingleCardCenter({ title, body, bodyPadding = 'p-5', table, button }) {
+export default forwardRef(function SingleCardCenter({ title, body, bodyPadding = 'p-5', table, button }, ref) {
     return (
-        <div className='card mb-4 relative'>
+        <div ref={ref} className='card mb-4 relative'>
             <div className='absolute top-0 right-0'>
                 {button}
             </div>
@@ -27,6 +27,5 @@ function SingleCardCenter({ title, body, bodyPadding = 'p-5', table, button }) {
             </div>
         </div>
     )
-}
+});
 
-export default SingleCardCenter

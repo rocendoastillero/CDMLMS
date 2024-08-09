@@ -83,6 +83,6 @@ class Accomplishreport extends Model
 
         $date = Carbon::parse($this->start);
 
-        return $date->format('m/d') . ", " . $weekMap[$date->dayOfWeek()];
+        return  $weekMap[$date->dayOfWeek()] . " - " .  $date->format('m/d');
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 
 /** 
@@ -13,11 +13,11 @@ import React from 'react'
  * 
  * @returns HTML
  */
-function IconCard({ icon = null, title, body, iconColor = 'bg-sky-800', button, active, selectAction, setWarning}) {
+export default forwardRef(function IconCard({ icon = null, title, body, iconColor = 'bg-sky-800', button, active, selectAction, setWarning}, ref) {
 
     
     return (
-        <div className={`card card-icon mb-4 lift !border-0 relative ${active ? "!translate-y-[-0.4444444rem] !shadow-[0_1.5rem_3rem_0_rgba(33,40,50,1)]" : ""}`} >
+        <div ref={ref} className={`card card-icon mb-4 lift !border-0 relative ${active ? "!translate-y-[-0.4444444rem] !shadow-[0_1.5rem_3rem_0_rgba(33,40,50,1)]" : ""}`} >
             <div className='absolute top-0 right-0'>
                 {button}
             </div>
@@ -38,6 +38,5 @@ function IconCard({ icon = null, title, body, iconColor = 'bg-sky-800', button, 
             </div>
         </div>
     )
-}
+});
 
-export default IconCard

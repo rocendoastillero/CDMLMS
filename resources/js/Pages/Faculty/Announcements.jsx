@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Layout from "@/Layouts/Layout";
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader';
 import { Head } from '@inertiajs/react';
@@ -9,6 +9,7 @@ import { Link } from '@inertiajs/react';
 import IconParse from '@/Components/CDMLMS/IconParse';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import AlertCard from '@/Components/CDMLMS/AlertCard';
+import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
 
 
 /**
@@ -18,6 +19,8 @@ import AlertCard from '@/Components/CDMLMS/AlertCard';
  * @returns Page
  */
 export default function Announcements({ auth, paginated }) {
+
+    const announceRef = useRef([]);
 
     return (
         <Layout
@@ -29,19 +32,18 @@ export default function Announcements({ auth, paginated }) {
                 icon={<MegaphoneIcon className='w-9 h-9 text-gray-500' />}
                 title='Announcements'
                 subtitle='View Announcements'
-
             >
-
                 <CardsWithSticky
                     cards={
                         <>
                             {
                                 paginated.data.length != 0 ? (
                                     paginated.data.map(
-                                        announcement => {
+                                        (announcement, index) => {
                                             if (announcement.cardtype == 'center') {
                                                 return (
                                                     <SingleCardCenter
+                                                        ref={el => announceRef.current[index] = el}
                                                         key={announcement.id}
                                                         title={announcement.title}
                                                         body={announcement.content}
@@ -52,6 +54,7 @@ export default function Announcements({ auth, paginated }) {
                                             } else if (announcement.cardtype == 'icon') {
                                                 return (
                                                     <IconCard
+                                                        ref={el => announceRef.current[index] = el}
                                                         key={announcement.id}
                                                         icon={<IconParse icon={announcement.icon} color='text-white' />}
                                                         title={announcement.title}
@@ -64,6 +67,7 @@ export default function Announcements({ auth, paginated }) {
                                             } else if (announcement.cardtype == 'header') {
                                                 return (
                                                     <SingleCardWithHeader
+                                                        ref={el => announceRef.current[index] = el}
                                                         key={announcement.id}
                                                         header={announcement.title}
                                                         body={
@@ -92,15 +96,23 @@ export default function Announcements({ auth, paginated }) {
                             }
                         </>
                     }
+
                     withCard={paginated.data.length != 0}
                     stickyNavHeader={paginated.data.length != 0 && (`Page: ${paginated.current_page}`)}
                     stickyNavBody={
                         <>
-                            {paginated.data.map(announcement =>
-                                <div className='nav-link mb-5'>
-                                    {announcement.title}
-                                </div>
-                            )}
+                            <div className='mb-5'>
+                                {
+                                    paginated.data.map((announcement, index) =>
+                                        <button
+                                            onClick={() => announceRef.current[index].scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' })}
+                                            className='nav-link'
+                                        >
+                                            {announcement.title}
+                                        </button>
+                                    )
+                                }
+                            </div>
                             {
                                 paginated.data.length != 0 && (
                                     <div className='absolute -translate-x-2/4 left-2/4 bottom-1 w-full flex flex-row items-center place-content-center'>

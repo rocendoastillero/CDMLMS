@@ -23,7 +23,7 @@ class AnnouncementController extends Controller
      */
     public function index() : Response
     {
-        return Inertia::render('Admin/Announcements',[
+        return Inertia::render('Admin/Announcements/Announcements',[
             'paginated' => Announcement::latest()->get()->paginate(8)
         ]);
     }

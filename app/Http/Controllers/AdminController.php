@@ -43,7 +43,8 @@ class AdminController extends Controller
     public function viewInstructor(User $user): Response
     {
         return Inertia::render('Admin/Instructors/View', [
-            'instructor' => $user
+            'instructor' => $user,
+            'reports' => $user->accomplishmentreports
         ]);
     }
 

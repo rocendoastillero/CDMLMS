@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 
 /**
@@ -10,9 +10,9 @@ import React from 'react'
  * @param button Card button(s)
  * @returns HTML
  */
-function SingleCardWithHeader({ header, subtitle = '', body, button, alert }) {
+export default forwardRef(function SingleCardWithHeader({ header, subtitle = '', body, button, alert }, ref) {
   return (
-    <div className="card mb-4 relative">
+    <div ref={ref} className="card mb-4 relative">
       {
         alert && (
           <div className='absolute w-full h-full bg-black opacity-45 '>
@@ -45,6 +45,4 @@ function SingleCardWithHeader({ header, subtitle = '', body, button, alert }) {
       </div>
     </div>
   )
-}
-
-export default SingleCardWithHeader
+});
