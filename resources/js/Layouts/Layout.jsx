@@ -1,5 +1,5 @@
 import Dropdown from '@/Components/Dropdown';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import PageHeader from '@/Components/CDMLMS/PageHeader';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon, UsersIcon } from "@heroicons/react/24/outline";
@@ -34,8 +34,13 @@ export default function Layout(
 
     const [dropdown, setDropDown] = useState(openDropdown);
 
+    useEffect((() => {
+        console.log(window.innerHeight);
+        console.log(window.innerWidth);
+    }), [])
+
     return (
-        <div className="nav-fixed">
+        <div className={`nav-fixed ${isOpen ? "" : "sidenav-toggled"}`}>
             <nav className="topnav navbar shadow sm:!gap-0 max-sm: max-md:!justify-between  navbar-light bg-white"
                 id="sidenavAccordion">
                 <button onClick={() => { setIsOpen(!isOpen) }} className="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0 " id="sidebarToggle">
@@ -83,7 +88,10 @@ export default function Layout(
                 </div>
             </nav>
             <div id="layoutSidenav">
-                <div id="layoutSidenav_nav" className={`${isOpen ? "!w-[240px] !translate-x-0" : "!w-[0px]"}`}>
+                <div
+                    id="layoutSidenav_nav"
+                    // className={`${isOpen ? "!w-[240px] !translate-x-0" : "!w-[0px]"}`}
+                >
                     <nav className="sidenav shadow-right sidenav-light">
                         <div className="sidenav-menu">
                             <div className="nav accordion transition-transform duration-900 ease-in-out" id="accordionSidenav">
@@ -107,7 +115,7 @@ export default function Layout(
                                                 </div>
                                                 Instructors
                                             </Link>
-                                            <Link className='nav-link !py-[10px]'  href={route('admin.repositoryoffiles')} >
+                                            <Link className='nav-link !py-[10px]' href={route('admin.repositoryoffiles')} >
                                                 <div className='nav-link-icon'>
                                                     <CloudArrowUpIcon className='w-5 h-5 text-gray-500' />
                                                 </div>
@@ -212,7 +220,7 @@ export default function Layout(
                                 </Link>
                             </div>
                         </div>
-                        <div className="sidenav-footer" style={{ visibility: isOpen ? "visible" : "hidden" }}>
+                        <div className="sidenav-footer">
                             <div className="sidenav-footer-content">
                                 <div className="sidenav-footer-subtitle">Logged in as:</div>
                                 <div className="sidenav-footer-title">{((user.firstname != null) && (user.lastname != null)) ? (user.firstname + " " + user.lastname) : ("Please Update Profile!")}</div>
@@ -221,8 +229,8 @@ export default function Layout(
                     </nav>
                 </div>
                 <div
-                    id={`layoutSidenav_content`}
-                    className={`${isOpen ? "lg:!ml-[0rem] md:!ml-[-15rem] sm:!ml-[-15rem]" : "!ml-[-15rem]"}`}
+                    id="layoutSidenav_content"
+                // className={`${isOpen ? "lg:!ml-[0rem] md:!ml-[-15rem] sm:!ml-[-15rem]" : "!ml-[-15rem]"}`}
                 // style={{ "marginLeft": isOpen ? "0rem" : "-15rem" }}
                 >
                     <main >

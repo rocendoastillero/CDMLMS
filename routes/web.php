@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+Route::get('/test', function () {
+    return Inertia::render('Tests');
+});
+
 Route::redirect('/', '/login', 301);
 
 Route::middleware('auth')->group(function () {

@@ -1,39 +1,32 @@
+import { Link } from "@inertiajs/react";
+import { useState } from "react";
+
 export default function TestLayout({ children }) {
+
+    const [isOpen , setOpen] = useState(true);
+
     return (
-        // <div className="relative w-screen h-screen">
-        //     <div className="top-0 right-0 left-0 h-[60px] bg-red-200">
+        <div className={`nav-fixed ${isOpen ? "" : "sidenav-toggled"}`}>
+            <nav className="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white">
+                <button className="w-5 h-5" onClick={()=>setOpen(!isOpen)}>
 
-        //     </div>
-        //     <div className="flex flex-row w-screen h-full max-h-[90.4%]">
-        //         <div className="h-full w-[10rem] bg-sky-200 ">
-        //             <div className="flex flex-col items-center w-full">
-        //                 <a href=""> a</a>
-        //             </div>
-        //         </div>
-        //         <div className="w-full flex place-content-center items-center">
-        //             <div className="max-w-[80%] h-[8rem] w-full bg-slate-200">
-        //                 {children}
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
-        <div className="relative flex flex-col w-sreen h-screen bg-yellow-300 flex flex-row">
-            <div className=" top-0 w-full h-[4rem] z-[1] bg-white shadow-md">
-                <div className="absolute bottom-0 w-full h-[1px] bg-gray-300 ">
-
+                </button>
+            </nav>
+            <div id="layoutSidenav">
+                <div id="layoutSidenav_nav">
+                    <nav className="sidenav shadow-right sidenav-liht">
+                        <div className="sidenav-menu">
+                            <div className="nav accordion" id="accordionSidenav">
+                                <div class="sidenav-menu-heading">Core</div>
+                                <Link className="nav-link">
+                                    Dashboard
+                                </Link>
+                            </div>
+                        </div>
+                    </nav>
                 </div>
-            </div>
-            <div className="relative flex flex-row h-full w-full bg-sky-50">
-                <div className="relative h-full w-[10rem] bg-white shadow-lg">
-                    <div className="absolute right-0 w-[1px] h-full bg-gray-200 ">
-
-                    </div>
-                    <div className="absolute top-0 w-full h-[0px] bg-gray-300 ">
-
-                    </div>
-                </div>
-                <div className="w-full h-full flex">
-
+                <div id="layoutSidenav_content">
+                    {children}
                 </div>
             </div>
         </div>

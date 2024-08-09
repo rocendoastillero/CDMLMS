@@ -50,7 +50,7 @@ export default function ClassRecord({ auth, paginated }) {
                     <SingleCardCenter
                         bodyPadding='p-4'
                         table={
-                            <>
+                            <div className='table-responsive'>
                                 <table className='datatable-table text-center mt-3'>
                                     <thead>
                                         <tr className='card-header'>
@@ -71,7 +71,7 @@ export default function ClassRecord({ auth, paginated }) {
                                         }
                                     </tbody>
                                 </table>
-                            </>
+                            </div>
                         }
                     />
                 }

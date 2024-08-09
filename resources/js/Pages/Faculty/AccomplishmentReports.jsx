@@ -112,7 +112,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
                                 return (
                                     <SingleCardCenter
                                         table={
-                                            <>
+                                            <div className='table-responsive'>
                                                 <table className='datatable-table mt-3 text-center'>
                                                     <thead>
                                                         <tr className='card-header'>
@@ -148,7 +148,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
                                                         }
                                                     </tbody>
                                                 </table>
-                                            </>
+                                            </div>
                                         }
                                     />
 

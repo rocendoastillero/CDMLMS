@@ -56,94 +56,97 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                 )
                             }
                         </div>
-                        <table className='datatable-table !text-center'>
-                            <thead>
-                                <tr className='card-header'>
+                        <div className='table-responsive'>
 
-                                    <th >Instructor</th>
-                                    <th >Course</th>
-                                    <th >Code</th>
-                                    <th >Description</th>
-                                    <th >Year/Sem</th>
-                                    <th >Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    paginated.data.map(subject =>
-                                        <tr className={`${auth.user.id == subject.user_id ? "bg-green-50" : ""}`} key={subject.id}>
-                                            <td key={subject.user_id}>{subject.instructor}</td>
-                                            <td>{subject.course}</td>
-                                            <td>{subject.code}</td>
-                                            <td>{subject.description}</td>
-                                            <td>{`${subject.year}-${subject.sem}`} </td>
-                                            <td >
-                                                <Dropdown>
-                                                    <Dropdown.Trigger>
-                                                        <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
-                                                            <EllipsisVerticalIcon className='w-5 h-5 text-black' />
-                                                        </button>
-                                                    </Dropdown.Trigger>
-                                                    <Dropdown.Content contentClasses='flex flex-col gap-2' margin='mt-1'>
-                                                        <Link className='hover:hover:bg-green-50 px-1' href={route('subjects.assign')} as='button' method='patch'
-                                                            data={{ id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) }} preserveScroll={true}
-                                                        >
-                                                            {auth.user.id == subject.user_id ? "Drop" : "Take"}
-                                                        </Link>
-                                                        {
-                                                            subject.user_id == auth.user.id && (
-                                                                <Link className='hover:hover:bg-green-50 px-1' as='button'
-                                                                // href={route('schedules.subject', subject.id)}
-                                                                >
-                                                                    Schedules
-                                                                </Link>
-                                                            )
-                                                        }
+                            <table className='datatable-table !text-center'>
+                                <thead>
+                                    <tr className='card-header'>
 
-                                                    </Dropdown.Content>
-                                                </Dropdown>
-                                            </td>
-                                        </tr>
-                                    )
-                                }
-                            </tbody>
+                                        <th >Instructor</th>
+                                        <th >Course</th>
+                                        <th >Code</th>
+                                        <th >Description</th>
+                                        <th >Year/Sem</th>
+                                        <th >Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        paginated.data.map(subject =>
+                                            <tr className={`${auth.user.id == subject.user_id ? "bg-green-50" : ""}`} key={subject.id}>
+                                                <td key={subject.user_id}>{subject.instructor}</td>
+                                                <td>{subject.course}</td>
+                                                <td>{subject.code}</td>
+                                                <td>{subject.description}</td>
+                                                <td>{`${subject.year}-${subject.sem}`} </td>
+                                                <td >
+                                                    <Dropdown>
+                                                        <Dropdown.Trigger>
+                                                            <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
+                                                                <EllipsisVerticalIcon className='w-5 h-5 text-black' />
+                                                            </button>
+                                                        </Dropdown.Trigger>
+                                                        <Dropdown.Content contentClasses='flex flex-col gap-2' margin='mt-1'>
+                                                            <Link className='hover:hover:bg-green-50 px-1' href={route('subjects.assign')} as='button' method='patch'
+                                                                data={{ id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) }} preserveScroll={true}
+                                                            >
+                                                                {auth.user.id == subject.user_id ? "Drop" : "Take"}
+                                                            </Link>
+                                                            {
+                                                                subject.user_id == auth.user.id && (
+                                                                    <Link className='hover:hover:bg-green-50 px-1' as='button'
+                                                                    // href={route('schedules.subject', subject.id)}
+                                                                    >
+                                                                        Schedules
+                                                                    </Link>
+                                                                )
+                                                            }
 
-                        </table>
-                        <div className='w-full flex flex-row justify-between'>
-                            <div>
-                                <p>Current page: {paginated.current_page}</p>
-                            </div>
-                            <div className='flex flex-row'>
-                                {
-                                    paginated.links.map(
-                                        (link, index) => {
-                                            if (index == 0 || index == paginated.links.length - 1) {
-                                                return (
-                                                    <Link
-                                                        dangerouslySetInnerHTML={{ __html: index == 0 ? "&laquo;" : "&raquo;" }}
-                                                        className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
-                                                        href={link.url}
-                                                        as='button'
-                                                        preserveScroll={true}
-                                                        disabled={link.url == null}
-                                                    />
-                                                )
+                                                        </Dropdown.Content>
+                                                    </Dropdown>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }
+                                </tbody>
 
-                                            } else {
-                                                return (
-                                                    <Link
-                                                        dangerouslySetInnerHTML={{ __html: link.label }}
-                                                        className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
-                                                        href={link.url}
-                                                        as='button'
-                                                        preserveScroll={true}
-                                                        disabled={link.url == null}
-                                                    />
-                                                )
+                            </table>
+                            <div className='w-full flex flex-row justify-between'>
+                                <div>
+                                    <p>Current page: {paginated.current_page}</p>
+                                </div>
+                                <div className='flex flex-row'>
+                                    {
+                                        paginated.links.map(
+                                            (link, index) => {
+                                                if (index == 0 || index == paginated.links.length - 1) {
+                                                    return (
+                                                        <Link
+                                                            dangerouslySetInnerHTML={{ __html: index == 0 ? "&laquo;" : "&raquo;" }}
+                                                            className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                                            href={link.url}
+                                                            as='button'
+                                                            preserveScroll={true}
+                                                            disabled={link.url == null}
+                                                        />
+                                                    )
+
+                                                } else {
+                                                    return (
+                                                        <Link
+                                                            dangerouslySetInnerHTML={{ __html: link.label }}
+                                                            className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
+                                                            href={link.url}
+                                                            as='button'
+                                                            preserveScroll={true}
+                                                            disabled={link.url == null}
+                                                        />
+                                                    )
+                                                }
                                             }
-                                        }
-                                    )
-                                }
+                                        )
+                                    }
+                                </div>
                             </div>
                         </div>
                     </>
