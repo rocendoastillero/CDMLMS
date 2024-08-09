@@ -74,6 +74,7 @@ Route::middleware('faculty')->group(function () {
         Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
         Route::get('/admin/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
+        Route::get('/admin/instructors/view/{user}', [AdminController::class, 'viewInstructor'])->name('admin.instructors.view');
         Route::get('/admin/instructors/{search}', [AdminController::class, 'searchInstructor'])->name('admin.instructors.search');
         Route::patch('/admin/instructors', [AdminController::class, 'verify'])->name('admin.verify');
 
