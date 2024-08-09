@@ -28,8 +28,6 @@ export default function Announcements({ auth, paginated }) {
             headerSubtitle='View Announcements'>
             <Head title='Announcements' />
             <CardsWithSticky
-                contentSize='!w-9/12 max-lg:!w-10/12'
-                stickySize='!w-3/12 max-lg:!w-2/12'
                 cards={
                     <>
                         {

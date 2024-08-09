@@ -86,10 +86,10 @@ export default function Announcements({ auth, paginated }) {
             <>
                 <div className='relative text-gray-400 p-1 my-2'>
                     <div className='absolute bottom-[110%] w-full flex flex-row gap-2 md:mb-1 lg:mb-2'>
-                        <button onClick={() => { setTab(1) }} className={`${tab == 1 ? "border-b-2 !text-white" : ""} md:p-1 lg:p-2 `} >
+                        <button onClick={() => { setTab(1) }} className={`${tab == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
                             View
                         </button>
-                        <button onClick={() => { setTab(2) }} className={`${tab == 2 ? "border-b-2 !text-white" : ""} md:p-1 lg:p-2 `} >
+                        <button onClick={() => { setTab(2) }} className={`${tab == 2 ? "border-b-2 !text-white" : ""} p-2 `} >
                             Create
                         </button>
                     </div>
@@ -100,8 +100,6 @@ export default function Announcements({ auth, paginated }) {
                             if (tab == 1) {
                                 return (
                                     <CardsWithSticky
-                                        contentSize='!w-9/12 max-lg:!w-10/12'
-                                        stickySize='!w-3/12 max-lg:!w-2/12'
                                         cards={
                                             <>
                                                 {
