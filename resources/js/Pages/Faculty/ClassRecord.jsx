@@ -44,8 +44,6 @@ export default function ClassRecord({ auth, paginated }) {
             openDropdown={true}>
             <Head title='Files' />
             <CardsWithSticky
-                contentSize='!w-8/12'
-                stickySize='!w-4/12'
                 cards={
                     <SingleCardCenter
                         bodyPadding='p-4'
@@ -77,7 +75,7 @@ export default function ClassRecord({ auth, paginated }) {
                 }
                 stickyNavHeader="Upload a File"
                 stickyNavBody={
-                    <div className='h-36 relative '>
+                    <div className='h-36  '>
                         <form onSubmit={submit}>
                             <div className='mb-3'>
 
@@ -90,7 +88,9 @@ export default function ClassRecord({ auth, paginated }) {
 
                                 <InputError message={errors.file} className="mt-2" />
                             </div>
-                            <PrimaryButton className='!absolute !-translate-x-2/4 !left-2/4 bottom-0'>
+                            <PrimaryButton 
+                            // className='!absolute !-translate-x-2/4 !left-2/4 bottom-0'
+                            >
                                 Upload
                             </PrimaryButton>
                         </form>

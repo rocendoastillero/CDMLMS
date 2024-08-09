@@ -37,11 +37,10 @@ export default function GradeSheet({ auth, paginated }) {
             icon={<DocumentIcon className='w-9 h-9 text-gray-500' />}
             headerTitle="Grade Sheets"
             headerSubtitle='Files'
-            openDropdown={true}>
+            openDropdown={true}
+        >
             <Head title='Files' />
             <CardsWithSticky
-                contentSize='!w-8/12'
-                stickySize='!w-4/12'
                 cards={
                     <SingleCardCenter
                         bodyPadding='p-4'

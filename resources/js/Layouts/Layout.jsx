@@ -88,13 +88,10 @@ export default function Layout(
                 </div>
             </nav>
             <div id="layoutSidenav">
-                <div
-                    id="layoutSidenav_nav"
-                    // className={`${isOpen ? "!w-[240px] !translate-x-0" : "!w-[0px]"}`}
-                >
+                <div id="layoutSidenav_nav">
                     <nav className="sidenav shadow-right sidenav-light">
                         <div className="sidenav-menu">
-                            <div className="nav accordion transition-transform duration-900 ease-in-out" id="accordionSidenav">
+                            <div className="nav accordion" id="accordionSidenav">
                                 <Link href={isAdmin ? route('admin.dashboard') : route('dashboard')} className="nav-link mt-4" >
                                     <div className="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity text-gray-500"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
                                     Dashboard
@@ -228,11 +225,7 @@ export default function Layout(
                         </div>
                     </nav>
                 </div>
-                <div
-                    id="layoutSidenav_content"
-                // className={`${isOpen ? "lg:!ml-[0rem] md:!ml-[-15rem] sm:!ml-[-15rem]" : "!ml-[-15rem]"}`}
-                // style={{ "marginLeft": isOpen ? "0rem" : "-15rem" }}
-                >
+                <div id="layoutSidenav_content" onClick={()=>{if(window.innerWidth < 992 && !isOpen){setIsOpen(true)}}}>
                     <main >
                         <PageHeader
                             icon={icon}

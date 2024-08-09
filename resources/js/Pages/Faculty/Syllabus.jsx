@@ -40,8 +40,6 @@ export default function Syllabus({ auth, paginated }) {
             openDropdown={true}>
             <Head title='Files' />
             <CardsWithSticky
-                contentSize='!w-9/12 lg:!w-8/12'
-                stickySize='!w-3/12 lg:!w-4/12'
                 cards={
                     <SingleCardCenter
                         bodyPadding='p-4'
