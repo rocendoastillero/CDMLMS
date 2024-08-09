@@ -20,7 +20,6 @@ export default function Register() {
         email: '',
         firstname: '',
         lastname: '',
-        course: 'CPE',
         phone: '',
         password: '',
         password_confirmation: '',
@@ -85,7 +84,7 @@ export default function Register() {
                     </div>
 
                     <div className='flex flex-row justify-between mt-4'>
-                        <div className='w-2/3 mr-2'>
+                        <div className='w-full mr-2'>
                             <InputLabel htmlFor="email" value="Email" />
 
                             <TextInput
@@ -99,21 +98,6 @@ export default function Register() {
                             />
 
                             <InputError message={errors.email} className="mt-2" />
-                        </div>
-                        <div className='w-1/3 ml-2'>
-                            <InputLabel htmlFor="course" value="Course" />
-                            <Dropdown>
-                                <Dropdown.Trigger>
-                                    <button className='form-control relative text-start' type='button'>
-                                        {data.course}
-                                        <ChevronDownIcon className='absolute -translate-y-2/4 top-2/4 right-3 w-5 h-5'/>
-                                    </button>
-                                </Dropdown.Trigger>
-                                <Dropdown.Content margin='mt-0' width='w-full'>
-                                    <div onClick={()=>{setData('course','CPE')}} className='cursor-pointer py-1 hover:bg-green-50'>CPE</div>
-                                    <div onClick={()=>{setData('course','IT')}} className='cursor-pointer py-1 hover:bg-green-50'>IT</div>
-                                </Dropdown.Content>
-                            </Dropdown>
                         </div>
                     </div>
 
