@@ -100,8 +100,8 @@ export default function Announcements({ auth, paginated }) {
                     withCard={paginated.data.length != 0}
                     stickyNavHeader={paginated.data.length != 0 && (`Page: ${paginated.current_page}`)}
                     stickyNavBody={
-                        <>
-                            <div className='mb-5'>
+                        <div className='flex flex-col gap-3'>
+                            <div>
                                 {
                                     paginated.data.map((announcement, index) =>
                                         <button
@@ -115,7 +115,7 @@ export default function Announcements({ auth, paginated }) {
                             </div>
                             {
                                 paginated.data.length != 0 && (
-                                    <div className='absolute -translate-x-2/4 left-2/4 bottom-1 w-full flex flex-row items-center place-content-center'>
+                                    <div className='w-full flex flex-row items-center place-content-center'>
                                         {
                                             paginated.links.map(
                                                 (link, index) => {
@@ -149,7 +149,7 @@ export default function Announcements({ auth, paginated }) {
                                     </div>
                                 )
                             }
-                        </>
+                        </div>
                     }
                 />
 
