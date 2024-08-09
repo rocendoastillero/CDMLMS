@@ -2,6 +2,7 @@ import AlertCard from '@/Components/CDMLMS/AlertCard';
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import IconCard from '@/Components/CDMLMS/IconCard';
 import IconParse from '@/Components/CDMLMS/IconParse';
+import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader';
 import Dropdown from '@/Components/Dropdown';
@@ -78,12 +79,13 @@ export default function Announcements({ auth, paginated }) {
         <Layout
             isAdmin={auth.isAdmin}
             user={auth.user}
-            icon={<MegaphoneIcon className='w-9 h-9 text-gray-500' />}
-            headerTitle="Announcements"
-            headerSubtitle="Admin Announcements"
         >
             <Head title='Admin Announcements' />
-            <>
+            <OverlapHeader
+                icon={<MegaphoneIcon className='w-9 h-9 text-gray-500' />}
+                title="Announcements"
+                subtitle="Admin Announcements"
+            >
                 <div className='relative text-gray-400 p-1 my-2'>
                     <div className='absolute bottom-[110%] w-full flex flex-row gap-2 md:mb-1 lg:mb-2'>
                         <button onClick={() => { setTab(1) }} className={`${tab == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
@@ -546,7 +548,7 @@ export default function Announcements({ auth, paginated }) {
                         }
                     )()
                 }
-            </>
+            </OverlapHeader>
         </Layout>
     )
 }

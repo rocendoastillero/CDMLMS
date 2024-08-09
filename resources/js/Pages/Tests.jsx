@@ -1,4 +1,5 @@
-import PageHeader from "@/Components/CDMLMS/PageHeader";
+import CompactHeader from "@/Components/CDMLMS/CompactHeader";
+import OverlapHeader from "@/Components/CDMLMS/OverlapHeader";
 import TestLayout from "@/Layouts/TestLayout";
 import { Head } from "@inertiajs/react";
 
@@ -7,15 +8,12 @@ export default function Tests({ auth }) {
     return (
         <TestLayout>
             <Head title="Test" />
-            <main>
-                <PageHeader
-                    title='Test'
-                    subtitle='Test'
-                />
-                <div className="container-xl px-4">
+            <CompactHeader
+                title='Test'
+                subtitle='Test'
+            >
 
-                </div>
-            </main>
+            </CompactHeader>
         </TestLayout>
     );
 }

@@ -1,6 +1,5 @@
 import Dropdown from '@/Components/Dropdown';
 import { useEffect, useState } from 'react'
-import PageHeader from '@/Components/CDMLMS/PageHeader';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { Link } from '@inertiajs/react';
@@ -225,17 +224,18 @@ export default function Layout(
                         </div>
                     </nav>
                 </div>
-                <div id="layoutSidenav_content" onClick={()=>{if(window.innerWidth < 992 && !isOpen){setIsOpen(true)}}}>
-                    <main >
+                <div id="layoutSidenav_content" onClick={() => { if (window.innerWidth < 992 && !isOpen) { setIsOpen(true) } }}>
+                    {children}
+                    {/* <main >
                         <PageHeader
                             icon={icon}
                             title={headerTitle}
                             subtitle={headerSubtitle}
                         />
                         <div className="container-xl px-4 mt-n10">
-                            {children}
+
                         </div>
-                    </main>
+                    </main> */}
                     <footer className="footer-admin mt-auto footer-light">
                         <div className="container-xl px-4">
                             <div className="row">

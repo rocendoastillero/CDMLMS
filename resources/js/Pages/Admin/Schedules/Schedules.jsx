@@ -1,3 +1,4 @@
+import OverlapHeader from "@/Components/CDMLMS/OverlapHeader";
 import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
 import Dropdown from "@/Components/Dropdown";
 import Layout from "@/Layouts/Layout";
@@ -13,33 +14,37 @@ export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', 
         <Layout
             user={auth.user}
             isAdmin={auth.isAdmin}
-            icon={<CalendarDaysIcon className='w-9 h-9 text-gray-500' />}
-            headerTitle='Schedule'
-            headerSubtitle={pageHeaderSubtitle}
         >
             <Head title="Schedules" />
+            <OverlapHeader
+                icon={<CalendarDaysIcon className='w-9 h-9 text-gray-500' />}
+                title='Schedule'
+                subtitle={pageHeaderSubtitle}
 
-            <div className="relative w-full">
-                <div className="absolute bottom-[105%] mb-1">
+            >
 
+                <div className="relative w-full">
+                    <div className="absolute bottom-[105%] mb-1">
+
+                    </div>
                 </div>
-            </div>
 
-            <SingleCardWithHeader
-                header='Pick a Subject'
-                body={
-                    <Dropdown>
-                        <Dropdown.Trigger>
-                            <button className="form-control mt-3">
-                                Subject
-                            </button>
-                        </Dropdown.Trigger>
-                        <Dropdown.Content margin="mt-0" width="w-full">
+                <SingleCardWithHeader
+                    header='Pick a Subject'
+                    body={
+                        <Dropdown>
+                            <Dropdown.Trigger>
+                                <button className="form-control mt-3">
+                                    Subject
+                                </button>
+                            </Dropdown.Trigger>
+                            <Dropdown.Content margin="mt-0" width="w-full">
 
-                        </Dropdown.Content>
-                    </Dropdown>
-                }
-            />
+                            </Dropdown.Content>
+                        </Dropdown>
+                    }
+                />
+            </OverlapHeader>
 
         </Layout>
     );

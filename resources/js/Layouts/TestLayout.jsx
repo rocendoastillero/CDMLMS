@@ -17,7 +17,7 @@ export default function TestLayout({ children }) {
                     <nav className="sidenav shadow-right sidenav-light">
                         <div className="sidenav-menu">
                             <div className="nav accordion" id="accordionSidenav">
-                                <div class="sidenav-menu-heading">Core</div>
+                                <div className="sidenav-menu-heading">Core</div>
                                 <Link className="nav-link">
                                     Dashboard
                                 </Link>

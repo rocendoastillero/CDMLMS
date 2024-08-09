@@ -8,6 +8,7 @@ import InputError from '@/Components/InputError'
 import TextInput from '@/Components/TextInput'
 import PrimaryButton from '@/Components/PrimaryButton'
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter'
+import OverlapHeader from '@/Components/CDMLMS/OverlapHeader'
 
 
 /**
@@ -34,64 +35,67 @@ export default function GradeSheet({ auth, paginated }) {
         <Layout
             isAdmin={auth.isAdmin}
             user={auth.user}
-            icon={<DocumentIcon className='w-9 h-9 text-gray-500' />}
-            headerTitle="Grade Sheets"
-            headerSubtitle='Files'
             openDropdown={true}
         >
             <Head title='Files' />
-            <CardsWithSticky
-                cards={
-                    <SingleCardCenter
-                        bodyPadding='p-4'
-                        table={
-                            <div className='table-responsive'>
-                                <table className='datatable-table text-center mt-3'>
-                                    <thead>
-                                        <tr className='card-header'>
-                                            <th>Name</th>
-                                            <th>Size</th>
-                                            <th>Uploaded</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            paginated.data.map(file =>
-                                                <tr key={file.id}>
-                                                    <td>{file.name}</td>
-                                                    <td>{file.size}</td>
-                                                    <td>{file.created_at}</td>
-                                                </tr>
-                                            )
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        }
-                    />
-                }
-                stickyNavHeader="Upload a File"
-                stickyNavBody={
-                    <div className='h-36 relative '>
-                        <form onSubmit={submit}>
-                            <div className='mb-3'>
+            <OverlapHeader
+                icon={<DocumentIcon className='w-9 h-9 text-gray-500' />}
+                title="Grade Sheets"
+                subtitle='Files'
 
-                                <TextInput
-                                    id="gradesheet"
-                                    type="file"
-                                    name="gradesheet"
-                                    onChange={(e) => setData('file', e.target.files[0])}
-                                />
+            >
 
-                                <InputError message={errors.file} className="mt-2" />
-                            </div>
-                            <PrimaryButton className='!absolute !-translate-x-2/4 !left-2/4 bottom-0'>
-                                Upload
-                            </PrimaryButton>
-                        </form>
-                    </div>
-                }
-            />
+                <CardsWithSticky
+                    cards={
+                        <SingleCardCenter
+                            bodyPadding='p-4'
+                            table={
+                                <div className='table-responsive'>
+                                    <table className='datatable-table text-center mt-3'>
+                                        <thead>
+                                            <tr className='card-header'>
+                                                <th>Name</th>
+                                                <th>Size</th>
+                                                <th>Uploaded</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                paginated.data.map(file =>
+                                                    <tr key={file.id}>
+                                                        <td>{file.name}</td>
+                                                        <td>{file.size}</td>
+                                                        <td>{file.created_at}</td>
+                                                    </tr>
+                                                )
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        />
+                    }
+                    stickyNavHeader="Upload a File"
+                    stickyNavBody={
+                        <div className='h-36 relative '>
+                            <form onSubmit={submit}>
+                                <div className='mb-3'>
+                                    <TextInput
+                                        id="gradesheet"
+                                        type="file"
+                                        name="gradesheet"
+                                        onChange={(e) => setData('file', e.target.files[0])}
+                                    />
+                                    <InputError message={errors.file} className="mt-2" />
+                                </div>
+                                <PrimaryButton className='!absolute !-translate-x-2/4 !left-2/4 bottom-0'>
+                                    Upload
+                                </PrimaryButton>
+                            </form>
+                        </div>
+                    }
+                />
+            </OverlapHeader>
 
         </Layout>
     )

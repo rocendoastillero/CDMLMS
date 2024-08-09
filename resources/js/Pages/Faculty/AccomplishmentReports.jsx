@@ -8,6 +8,7 @@ import AlertCard from '@/Components/CDMLMS/AlertCard';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
+import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
 
 
 /**
@@ -80,11 +81,14 @@ export default function AccomplishmentReports({ auth, paginated }) {
         <Layout
             isAdmin={auth.isAdmin}
             user={auth.user}
-            icon={<TrophyIcon className='w-9 h-9 text-gray-500' />}
-            headerTitle='Accomplishment Reports'
-            headerSubtitle='View Accomplishment Reports' >
+        >
             <Head title='Accomplishment Reports' />
-            <>
+            <OverlapHeader
+                icon={<TrophyIcon className='w-9 h-9 text-gray-500' />}
+                title='Accomplishment Reports'
+                subtitle='View Accomplishment Reports'
+
+            >
                 <div className='relative text-gray-400 p-1 my-2'>
                     <div className='absolute bottom-[110%] w-full flex flex-row gap-2 md:mb-1 lg:mb-2'>
                         <button onClick={() => { setView(1) }} className={`${view == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
@@ -238,7 +242,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
                         }
                     }
                 )()}
-            </>
+            </OverlapHeader>
 
         </Layout>
     )

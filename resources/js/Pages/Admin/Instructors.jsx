@@ -61,7 +61,7 @@ export default function Instructors({ auth, paginated, searched }) {
                                     {
                                         paginated.data.map(instructor =>
                                             <tr key={instructor.id} className='text-center'>
-                                                <td><Link as='button'>{instructor.lastname + ", " + instructor.firstname}</Link></td>
+                                                <td><Link href={route('admin.instructors.view',instructor.id)} as='button'>{instructor.lastname + ", " + instructor.firstname}</Link></td>
                                                 <td className='flex place-content-center'>{instructor.verified ? <CheckCircleIcon className='w-7 h-7 text-green-600' /> : <XCircleIcon className='w-7 h-7 text-red-600' />}</td>
                                                 <td>{instructor.course}</td>
                                                 <td>
