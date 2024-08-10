@@ -23,22 +23,22 @@ export default function Form({ selected, editing = false, back }) {
     const submit = (e) => {
         e.preventDefault();
         if (editing) {
-            patch(route('announcements.update'), { data: data.id, onSuccess: () => { back() } });
+            patch(route('announcements.update', data.id), { onSuccess: () => { back() } });
         } else {
             post(route('announcements.store'), { onSuccess: () => { reset(); back(); } });
         }
 
     }
 
-    useEffect(()=>{
-       if(editing) {
-        setData(selected);
-       }
-    },[]);
+    useEffect(() => {
+        if (editing) {
+            setData(selected);
+        }
+    }, []);
 
     return (
         <SingleCardWithHeader
-            header='Create Announcement'
+            header={editing ? "Edit Announcement" : "Create Announcement"}
             body={
                 <>
                     <form onSubmit={submit}>

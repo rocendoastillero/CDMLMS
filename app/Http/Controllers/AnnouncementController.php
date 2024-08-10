@@ -76,9 +76,19 @@ class AnnouncementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Announcement $announcement)
+    public function update(Request $request, Announcement $announcement) : RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'cardtype' => 'required|string|max:255',
+            'icon' => '',
+            'color' => '',
+        ]);
+
+        $announcement->update($validated);
+
+        return redirect(route('announcements.index'));
     }
 
     /**
