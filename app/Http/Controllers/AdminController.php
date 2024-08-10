@@ -89,7 +89,7 @@ class AdminController extends Controller
     {
 
         return Inertia::render('Admin/Subjects', [
-            'paginated' => Subject::orderby('year')->orderBy('sem')->paginate(8)
+            'paginated' => Subject::orderby('year')->get()->sortBy('instructor')->paginate(8)
         ]);
         // return Subject::orderby('year')->orderBy('sem')->paginate(8);
     }

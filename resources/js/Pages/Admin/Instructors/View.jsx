@@ -18,7 +18,7 @@ export default function View({ auth, instructor, reports, subjects, files }) {
                 <SingleCardWithHeader
                     header='Accomplishment Reports'
                     body={
-                        <div className="table-reponsive mt-2">
+                        <div className="table-responsive mt-2">
                             <table className="datatable-table text-center">
                                 <thead>
                                     <tr className="border-b-2">

@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             'firstname' => 'John',
             'lastname' => 'Doe',
             'type' => 'user',
-            'email' => 'johndoe@lms.edu.ph',
+            'email' => 'johndoe@lms.pnm.edu.ph',
             'phone' => '09876543213',
             'password' => Hash::make('faculty')
         ]);

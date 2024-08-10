@@ -17,17 +17,19 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : Response
+    public function index(): Response
     {
-        
+
         $mySubjects = Auth::user()->subjects;
-        $otherSubjects = Subject::where('user_id','!=', Auth::user()->id)->orWhereNull('user_id')->get();
-        
+        $otherSubjects = Subject::where('user_id', '!=', Auth::user()->id)
+            ->orWhereNull('user_id')
+            ->get()
+            ->sortBy('instructor');
+
         $all = $mySubjects->concat($otherSubjects);
         return Inertia::render('Faculty/Subjects', [
             'paginated' => $all->paginate(8)
         ]);
-
     }
 
     /**
@@ -64,12 +66,12 @@ class SubjectController extends Controller
     public function search($search): Response
     {
         return Inertia::render('Faculty/Subjects', [
-            
+
             'paginated' => Subject::where('code', 'LIKE', "%{$search}%")
-            ->orWhere('description', 'LIKE', "%{$search}%")
-            ->orWhere('year', 'LIKE', "%{$search}%")
-            ->orWhere('sem', 'LIKE', "%{$search}%")
-            ->paginate(8),
+                ->orWhere('description', 'LIKE', "%{$search}%")
+                ->orWhere('year', 'LIKE', "%{$search}%")
+                ->orWhere('sem', 'LIKE', "%{$search}%")
+                ->paginate(8),
             'searched' => $search,
         ]);
         // return Subject::where('code', 'LIKE', "%{$search}%")->paginate(8);
@@ -101,7 +103,7 @@ class SubjectController extends Controller
         return redirect(route('subjects.index'));
     }
 
-    public function assign(Request $request) : RedirectResponse
+    public function assign(Request $request): RedirectResponse
     {
         $subject = Subject::where('id', $request->id)->first();
 

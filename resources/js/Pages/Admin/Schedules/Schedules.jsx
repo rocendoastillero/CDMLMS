@@ -3,12 +3,15 @@ import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
 import Dropdown from "@/Components/Dropdown";
 import Layout from "@/Layouts/Layout";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
+import { useEffect } from "react";
 
 
-export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', schedules }) {
+export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', subjects }) {
 
-
+    useEffect(()=>{
+        console.log(subjects);
+    },[])
 
     return (
         <Layout
@@ -32,16 +35,11 @@ export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', 
                 <SingleCardWithHeader
                     header='Pick a Subject'
                     body={
-                        <Dropdown>
-                            <Dropdown.Trigger>
-                                <button className="form-control mt-3">
-                                    Subject
-                                </button>
-                            </Dropdown.Trigger>
-                            <Dropdown.Content margin="mt-0" width="w-full">
-
-                            </Dropdown.Content>
-                        </Dropdown>
+                        <div className="mt-4 mb-2">
+                            <Link href={route('admin.subjects')} className="nav-link">
+                                Subjects
+                            </Link>
+                        </div>
                     }
                 />
             </OverlapHeader>
