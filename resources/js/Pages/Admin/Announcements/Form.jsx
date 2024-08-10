@@ -7,8 +7,9 @@ import PrimaryButton from "@/Components/PrimaryButton"
 import TextInput from "@/Components/TextInput"
 import { ChevronDownIcon } from "@heroicons/react/24/outline"
 import { useForm } from "@inertiajs/react"
+import { useEffect } from "react"
 
-export default function Form({ selected, editing = false }) {
+export default function Form({ selected, editing = false, back }) {
 
     const { data, setData, post, patch, errors, processing, reset } = useForm({
         id: '',
@@ -22,12 +23,18 @@ export default function Form({ selected, editing = false }) {
     const submit = (e) => {
         e.preventDefault();
         if (editing) {
-            patch(route('announcements.update'), data.id);
+            patch(route('announcements.update'), { data: data.id, onSuccess: () => { back() } });
         } else {
-            post(route('announcements.store'), { onSuccess: () => { reset(); setTab(1) } });
-            console.log(errors)
+            post(route('announcements.store'), { onSuccess: () => { reset(); back(); } });
         }
+
     }
+
+    useEffect(()=>{
+       if(editing) {
+        setData(selected);
+       }
+    },[]);
 
     return (
         <SingleCardWithHeader
@@ -216,7 +223,7 @@ export default function Form({ selected, editing = false }) {
                         </div>
 
                         <PrimaryButton disabled={processing}>
-                            Create
+                            {editing ? "Edit" : "Create"}
                         </PrimaryButton>
                     </form>
                 </>

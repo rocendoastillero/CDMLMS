@@ -57,7 +57,16 @@ export default function View({ auth, instructor, reports, subjects, files }) {
                     header='Subjects'
                     body={
                         <div className="mt-4">
-                            
+
+                        </div >
+                    }
+                />
+
+                <SingleCardWithHeader
+                    header='Files'
+                    body={
+                        <div className="mt-4">
+
                         </div >
                     }
                 />

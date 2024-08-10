@@ -18,16 +18,20 @@ export default function Announcements({ auth, paginated }) {
 
     const [editing, setEditing] = useState(false);
 
-    const [tab, setTab] = useState(1);
+    const [warning, setWarning] = useState(false);
 
-    const [selectedAnnouncement, setSelectedAnnouncement] = useState({
+    const [tab, setTab] = useState(0);
+
+    const empty = {
         id: '',
         title: '',
         content: '',
         cardtype: '',
         icon: '',
         color: '',
-    });
+    };
+
+    const [selectedAnnouncement, setSelectedAnnouncement] = useState(empty);
 
     return (
         <Layout
@@ -42,19 +46,33 @@ export default function Announcements({ auth, paginated }) {
             >
                 <div className='relative text-gray-400 p-1 my-2'>
                     <div className='absolute bottom-[110%] w-full flex flex-row gap-2 md:mb-1 lg:mb-2'>
-                        <button onClick={() => { setTab(1) }} className={`${tab == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
+                        <button 
+                        onClick={() => { setTab(0); setEditing(false); setSelectedAnnouncement(empty); }} 
+                        className={`${tab == 0 ? "border-b-2 !text-white" : ""} p-2 `} >
                             View
                         </button>
-                        <button onClick={() => { setTab(2) }} className={`${tab == 2 ? "border-b-2 !text-white" : ""} p-2 `} >
+                        <button 
+                        onClick={() => { setTab(1); setEditing(false); setSelectedAnnouncement(empty); }} 
+                        className={`${tab == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
                             Create
                         </button>
+                        {
+                            tab == 2 && (
+                                <button className="border-b-2 !text-white p-2 ">
+                                    Edit
+                                </button>
+                            )
+                        }
+                        <div>
+                            {selectedAnnouncement.title} {editing ? "true" : "false"}
+                        </div>
                     </div>
                 </div>
                 {
                     (
                         //TODO edit logic, edit tab
                         () => {
-                            if (tab == 1) {
+                            if (tab == 0) {
                                 return (
                                     <CardsWithSticky
                                         cards={
@@ -78,35 +96,22 @@ export default function Announcements({ auth, paginated }) {
                                                                                     </Dropdown.Trigger>
                                                                                     <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='!mt-0 mr-3' width='w-auto'>
                                                                                         <button className='hover:bg-green-50 '
-                                                                                        // onClick={() => {
-                                                                                        //     if (editing && (subject.id != selectedSubject.id)) {
-                                                                                        //         setSelectedSubject(subject);
-                                                                                        //         setData(subject);
-                                                                                        //     } else if (!editing && selectedSubject.id == '') {
-                                                                                        //         setEditing(true);
-                                                                                        //         setSelectedSubject(subject);
-                                                                                        //         setData(subject);
-                                                                                        //     } else if (editing && subject.id == selectedSubject.id) {
-                                                                                        //         setEditing(false);
-                                                                                        //         setSelectedSubject(empty);
-                                                                                        //         setData(empty);
-                                                                                        //     }
-                                                                                        //     if (warning) {
-                                                                                        //         setWarning(false);
-                                                                                        //     }
-                                                                                        // }}
+                                                                                            onClick={() => {
+                                                                                                setEditing(true);
+                                                                                                setSelectedAnnouncement(announcement);
+                                                                                                setTab(2);
+                                                                                            }}
                                                                                         >
-                                                                                            {/* {subject.id == selectedSubject.id ? "Cancel" : "Edit"} */}
+                                                                                            {/* {announcement.id == selectedAnnouncement.id ? "Cancel" : "Edit"} */}
                                                                                             Edit
                                                                                         </button>
                                                                                         <button className='hover:bg-green-50 mx-1'
                                                                                         // onClick={() => {
-                                                                                        //     if (subject.id == selectedSubject.id) {
+                                                                                        //     if (announcement.id == selectedAnnouncement.id) {
                                                                                         //         setWarning(!warning);
-                                                                                        //     } else if (!editing && selectedSubject.id == '') {
+                                                                                        //     } else if (!editing && selectedAnnouncement.id == '') {
                                                                                         //         setEditing(true);
-                                                                                        //         setSelectedSubject(subject);
-                                                                                        //         setData(subject);
+                                                                                        //         setSelectedAnnouncement(announcement);
                                                                                         //         setWarning(!warning);
                                                                                         //     }
                                                                                         // }}
@@ -136,35 +141,22 @@ export default function Announcements({ auth, paginated }) {
                                                                                     </Dropdown.Trigger>
                                                                                     <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='!mt-0 mr-3' width='w-auto'>
                                                                                         <button className='hover:bg-green-50 '
-                                                                                        // onClick={() => {
-                                                                                        //     if (editing && (subject.id != selectedSubject.id)) {
-                                                                                        //         setSelectedSubject(subject);
-                                                                                        //         setData(subject);
-                                                                                        //     } else if (!editing && selectedSubject.id == '') {
-                                                                                        //         setEditing(true);
-                                                                                        //         setSelectedSubject(subject);
-                                                                                        //         setData(subject);
-                                                                                        //     } else if (editing && subject.id == selectedSubject.id) {
-                                                                                        //         setEditing(false);
-                                                                                        //         setSelectedSubject(empty);
-                                                                                        //         setData(empty);
-                                                                                        //     }
-                                                                                        //     if (warning) {
-                                                                                        //         setWarning(false);
-                                                                                        //     }
-                                                                                        // }}
+                                                                                            onClick={() => {
+                                                                                                setEditing(true);
+                                                                                                setSelectedAnnouncement(announcement);
+                                                                                                setTab(2);
+                                                                                            }}
                                                                                         >
-                                                                                            {/* {subject.id == selectedSubject.id ? "Cancel" : "Edit"} */}
+                                                                                            {/* {announcement.id == selectedAnnouncement.id ? "Cancel" : "Edit"} */}
                                                                                             Edit
                                                                                         </button>
                                                                                         <button className='hover:bg-green-50 mx-1'
                                                                                         // onClick={() => {
-                                                                                        //     if (subject.id == selectedSubject.id) {
+                                                                                        //     if (announcement.id == selectedAnnouncement.id) {
                                                                                         //         setWarning(!warning);
-                                                                                        //     } else if (!editing && selectedSubject.id == '') {
+                                                                                        //     } else if (!editing && selectedAnnouncement.id == '') {
                                                                                         //         setEditing(true);
-                                                                                        //         setSelectedSubject(subject);
-                                                                                        //         setData(subject);
+                                                                                        //         setSelectedAnnouncement(announcement);
                                                                                         //         setWarning(!warning);
                                                                                         //     }
                                                                                         // }}
@@ -196,35 +188,22 @@ export default function Announcements({ auth, paginated }) {
                                                                                     </Dropdown.Trigger>
                                                                                     <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='!mt-0 mr-3' width='w-auto'>
                                                                                         <button className='hover:bg-green-50 '
-                                                                                        // onClick={() => {
-                                                                                        //     if (editing && (subject.id != selectedSubject.id)) {
-                                                                                        //         setSelectedSubject(subject);
-                                                                                        //         setData(subject);
-                                                                                        //     } else if (!editing && selectedSubject.id == '') {
-                                                                                        //         setEditing(true);
-                                                                                        //         setSelectedSubject(subject);
-                                                                                        //         setData(subject);
-                                                                                        //     } else if (editing && subject.id == selectedSubject.id) {
-                                                                                        //         setEditing(false);
-                                                                                        //         setSelectedSubject(empty);
-                                                                                        //         setData(empty);
-                                                                                        //     }
-                                                                                        //     if (warning) {
-                                                                                        //         setWarning(false);
-                                                                                        //     }
-                                                                                        // }}
+                                                                                            onClick={() => {
+                                                                                                setEditing(true);
+                                                                                                setSelectedAnnouncement(announcement);
+                                                                                                setTab(2);
+                                                                                            }}
                                                                                         >
-                                                                                            {/* {subject.id == selectedSubject.id ? "Cancel" : "Edit"} */}
+                                                                                            {/* {announcement.id == selectedAnnouncement.id ? "Cancel" : "Edit"} */}
                                                                                             Edit
                                                                                         </button>
                                                                                         <button className='hover:bg-green-50 mx-1'
                                                                                         // onClick={() => {
-                                                                                        //     if (subject.id == selectedSubject.id) {
+                                                                                        //     if (announcement.id == selectedAnnouncement.id) {
                                                                                         //         setWarning(!warning);
-                                                                                        //     } else if (!editing && selectedSubject.id == '') {
+                                                                                        //     } else if (!editing && selectedAnnouncement.id == '') {
                                                                                         //         setEditing(true);
-                                                                                        //         setSelectedSubject(subject);
-                                                                                        //         setData(subject);
+                                                                                        //         setSelectedAnnouncement(announcement);
                                                                                         //         setWarning(!warning);
                                                                                         //     }
                                                                                         // }}
@@ -256,9 +235,9 @@ export default function Announcements({ auth, paginated }) {
                                             </>
                                         }
                                         withCard={paginated.data.length != 0}
-                                        stickyNavHeader={paginated.data.length != 0 && (`Page: ${paginated.current_page}`)}
+                                        stickyNavHeader='Navigate'
                                         stickyNavBody={
-                                            <div className='flex flex-col gap-3 '>
+                                            <div className='flex flex-col gap-4 '>
                                                 <div>
 
                                                     {
@@ -312,12 +291,20 @@ export default function Announcements({ auth, paginated }) {
 
                                     />
                                 );
+                            } else if (tab == 1) {
+                                return (
+                                    <Form
+                                        back={() => setTab(0)}
+                                    />
+                                )
                             } else if (tab == 2) {
                                 return (
-                                    <Form />
+                                    <Form
+                                        selected={selectedAnnouncement}
+                                        editing={editing}
+                                        back={() => setTab(0)}
+                                    />
                                 )
-                            } else if (tab == 3) {
-
                             }
                         }
                     )()

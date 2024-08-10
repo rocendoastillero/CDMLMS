@@ -98,9 +98,9 @@ export default function Announcements({ auth, paginated }) {
                     }
 
                     withCard={paginated.data.length != 0}
-                    stickyNavHeader={paginated.data.length != 0 && (`Page: ${paginated.current_page}`)}
+                    stickyNavHeader='Navigate'
                     stickyNavBody={
-                        <div className='flex flex-col gap-3'>
+                        <div className='flex flex-col gap-4'>
                             <div>
                                 {
                                     paginated.data.map((announcement, index) =>
