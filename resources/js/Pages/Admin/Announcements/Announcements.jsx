@@ -26,7 +26,7 @@ export default function Announcements({ auth, paginated }) {
         id: '',
         title: '',
         content: '',
-        cardtype: '',
+        cardtype: 'center',
         icon: '',
         color: '',
     };
@@ -46,14 +46,14 @@ export default function Announcements({ auth, paginated }) {
             >
                 <div className='relative text-gray-400 p-1 my-2'>
                     <div className='absolute bottom-[110%] w-full flex flex-row gap-2 md:mb-1 lg:mb-2'>
-                        <button 
-                        onClick={() => { setTab(0); setEditing(false); setSelectedAnnouncement(empty); }} 
-                        className={`${tab == 0 ? "border-b-2 !text-white" : ""} p-2 `} >
+                        <button
+                            onClick={() => { setTab(0); setEditing(false); setSelectedAnnouncement(empty); }}
+                            className={`${tab == 0 ? "border-b-2 !text-white" : ""} p-2 `} >
                             View
                         </button>
-                        <button 
-                        onClick={() => { setTab(1); setEditing(false); setSelectedAnnouncement(empty); }} 
-                        className={`${tab == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
+                        <button
+                            onClick={() => { setTab(1); setEditing(false); setSelectedAnnouncement(empty); }}
+                            className={`${tab == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
                             Create
                         </button>
                         {
@@ -294,7 +294,8 @@ export default function Announcements({ auth, paginated }) {
                             } else if (tab == 1) {
                                 return (
                                     <Form
-                                        back={() => setTab(0)}
+                                        selected={empty}
+                                        back={() => { setTab(0); setEditing(false); setSelectedAnnouncement(empty); }}
                                     />
                                 )
                             } else if (tab == 2) {
@@ -302,7 +303,7 @@ export default function Announcements({ auth, paginated }) {
                                     <Form
                                         selected={selectedAnnouncement}
                                         editing={editing}
-                                        back={() => setTab(0)}
+                                        back={() => { setTab(0); setEditing(false); setSelectedAnnouncement(empty); }}
                                     />
                                 )
                             }

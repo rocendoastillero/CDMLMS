@@ -31,10 +31,8 @@ export default function Form({ selected, editing = false, back }) {
     }
 
     useEffect(() => {
-        if (editing) {
-            setData(selected);
-        }
-    }, []);
+        setData(selected);
+    }, [editing]);
 
     return (
         <SingleCardWithHeader
