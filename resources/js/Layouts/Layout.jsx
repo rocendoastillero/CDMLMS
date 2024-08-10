@@ -21,9 +21,7 @@ export default function Layout(
     {
         isAdmin,
         user,
-        icon,
-        headerTitle,
-        headerSubtitle,
+        warning,
         children,
         openDropdown = false,
 
@@ -219,6 +217,7 @@ export default function Layout(
                     </nav>
                 </div>
                 <div id="layoutSidenav_content" onClick={() => { if (window.innerWidth < 992 && !isOpen) { setIsOpen(true) } }}>
+                    {warning}
                     {children}
                     {/* <main >
                         <PageHeader

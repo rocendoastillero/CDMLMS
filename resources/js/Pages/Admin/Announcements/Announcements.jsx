@@ -7,7 +7,7 @@ import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader';
 import Dropdown from '@/Components/Dropdown';
 import Layout from '@/Layouts/Layout'
-import { EllipsisVerticalIcon, ExclamationTriangleIcon, MegaphoneIcon } from '@heroicons/react/24/outline'
+import { CheckIcon, EllipsisVerticalIcon, ExclamationTriangleIcon, MegaphoneIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Head, Link } from '@inertiajs/react'
 import React, { useRef, useState } from 'react'
 import Form from './Form';
@@ -37,6 +37,30 @@ export default function Announcements({ auth, paginated }) {
         <Layout
             isAdmin={auth.isAdmin}
             user={auth.user}
+            warning={
+                warning && (
+                    <div className='fixed w-full h-full z-[2] bg-black bg-opacity-50'
+                        onClick={() => { setWarning(false) }}
+                    >
+                        <AlertCard
+                            icon={<ExclamationTriangleIcon className='w-5 h-5' />}
+                            type='alert-warning'
+                            title='Warning'
+                            message={`Delete ${selectedAnnouncement.title}`}
+                            actions={
+                                <>
+                                    <Link href={route('announcements.destroy', selectedAnnouncement.id)} method='delete' as='button'>
+                                        <CheckIcon className='w-5 h-5' />
+                                    </Link>
+                                    <button onClick={() => { setWarning(false) }}>
+                                        <XMarkIcon className='w-5 h-5' />
+                                    </button>
+                                </>
+                            }
+                        />
+                    </div>
+                )
+            }
         >
             <Head title='Admin Announcements' />
             <OverlapHeader
@@ -63,9 +87,6 @@ export default function Announcements({ auth, paginated }) {
                                 </button>
                             )
                         }
-                        <div>
-                            {selectedAnnouncement.title} {editing ? "true" : "false"}
-                        </div>
                     </div>
                 </div>
                 {
@@ -106,15 +127,10 @@ export default function Announcements({ auth, paginated }) {
                                                                                             Edit
                                                                                         </button>
                                                                                         <button className='hover:bg-green-50 mx-1'
-                                                                                        // onClick={() => {
-                                                                                        //     if (announcement.id == selectedAnnouncement.id) {
-                                                                                        //         setWarning(!warning);
-                                                                                        //     } else if (!editing && selectedAnnouncement.id == '') {
-                                                                                        //         setEditing(true);
-                                                                                        //         setSelectedAnnouncement(announcement);
-                                                                                        //         setWarning(!warning);
-                                                                                        //     }
-                                                                                        // }}
+                                                                                            onClick={() => {
+                                                                                                setSelectedAnnouncement(announcement);
+                                                                                                setWarning(true);
+                                                                                            }}
                                                                                         >
                                                                                             Delete
                                                                                         </button>
@@ -151,15 +167,10 @@ export default function Announcements({ auth, paginated }) {
                                                                                             Edit
                                                                                         </button>
                                                                                         <button className='hover:bg-green-50 mx-1'
-                                                                                        // onClick={() => {
-                                                                                        //     if (announcement.id == selectedAnnouncement.id) {
-                                                                                        //         setWarning(!warning);
-                                                                                        //     } else if (!editing && selectedAnnouncement.id == '') {
-                                                                                        //         setEditing(true);
-                                                                                        //         setSelectedAnnouncement(announcement);
-                                                                                        //         setWarning(!warning);
-                                                                                        //     }
-                                                                                        // }}
+                                                                                            onClick={() => {
+                                                                                                setSelectedAnnouncement(announcement);
+                                                                                                setWarning(true);
+                                                                                            }}
                                                                                         >
                                                                                             Delete
                                                                                         </button>
@@ -198,15 +209,10 @@ export default function Announcements({ auth, paginated }) {
                                                                                             Edit
                                                                                         </button>
                                                                                         <button className='hover:bg-green-50 mx-1'
-                                                                                        // onClick={() => {
-                                                                                        //     if (announcement.id == selectedAnnouncement.id) {
-                                                                                        //         setWarning(!warning);
-                                                                                        //     } else if (!editing && selectedAnnouncement.id == '') {
-                                                                                        //         setEditing(true);
-                                                                                        //         setSelectedAnnouncement(announcement);
-                                                                                        //         setWarning(!warning);
-                                                                                        //     }
-                                                                                        // }}
+                                                                                            onClick={() => {
+                                                                                                setSelectedAnnouncement(announcement);
+                                                                                                setWarning(true);
+                                                                                            }}
                                                                                         >
                                                                                             Delete
                                                                                         </button>
@@ -311,6 +317,6 @@ export default function Announcements({ auth, paginated }) {
                     )()
                 }
             </OverlapHeader>
-        </Layout>
+        </Layout >
     )
 }

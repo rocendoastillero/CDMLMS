@@ -67,6 +67,29 @@ export default function Subjects({ auth, paginated, searched = '' }) {
     <Layout
       isAdmin={auth.isAdmin}
       user={auth.user}
+      warning={
+        warning && (
+          <div className='fixed w-full h-full z-[2] bg-black bg-opacity-50'
+            onClick={() => { setWarning(false) }}
+          >
+            <AlertCard
+              type="alert-warning"
+              title={`Delete ${selectedSubject.code}?`}
+              message="The subject will be deleted forever and any data related to it"
+              actions={
+                <>
+                  <Link className='border-none' as='button' href={route('subjects.destroy', selectedSubject.id)} method='delete'>
+                    <CheckIcon className="h-6 w-6 hover:text-[#8b0d00]" />
+                  </Link>
+                  <Link className='border-none' onClick={() => { setWarning(false) }} preserveScroll={true}>
+                    <XMarkIcon className="h-6 w-6 text-[#926100] hover:text-[#8b0d00]" />
+                  </Link>
+                </>
+              }
+            />
+          </div>
+        )
+      }
     >
       <Head title='Admin Subjects' />
       <OverlapHeader
@@ -104,29 +127,8 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                     }
                   </div>
                   <div className='table-responsive'>
-                    <table className='datatable-table text-center relative'>
-                      {(warning && (
-                        <>
-                          <div className='absolute w-full h-full bg-black opacity-80 z-[8]'>
+                    <table className='datatable-table text-center'>
 
-                          </div>
-                          <AlertCard
-                            type="alert-warning"
-                            title={`Delete ${selectedSubject.code}?`}
-                            message="The subject will be deleted forever and any data related to it"
-                            actions={
-                              <>
-                                <Link className='border-none' as='button' href={route('subjects.destroy', selectedSubject.id)} method='delete'>
-                                  <CheckIcon className="h-6 w-6 hover:text-[#8b0d00]" />
-                                </Link>
-                                <Link className='border-none' onClick={() => { setWarning(false) }} preserveScroll={true}>
-                                  <XMarkIcon className="h-6 w-6 text-[#926100] hover:text-[#8b0d00]" />
-                                </Link>
-                              </>
-                            }
-                          />
-                        </>
-                      ))}
                       <thead>
                         <tr className='card-header'>
                           <th>Instructor</th>
