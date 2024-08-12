@@ -1,6 +1,7 @@
 import AlertCard from '@/Components/CDMLMS/AlertCard';
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
+import PageNav from '@/Components/CDMLMS/PageNav';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import Dropdown from '@/Components/Dropdown';
 import Layout from '@/Layouts/Layout';
@@ -207,39 +208,12 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                     </table>
                     <div className='w-full flex flex-row justify-between'>
                       <div>
-                        <p>Current page: {paginated.current_page}</p>
+                        <p>Page: {paginated.current_page}</p>
                       </div>
                       <div className='flex flex-row'>
-                        {
-                          paginated.links.map(
-                            (link, index) => {
-                              if (index == 0 || index == paginated.links.length - 1) {
-                                return (
-                                  <Link
-                                    dangerouslySetInnerHTML={{ __html: index == 0 ? "&laquo;" : "&raquo;" }}
-                                    className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
-                                    href={link.url}
-                                    as='button'
-                                    preserveScroll={true}
-                                    disabled={link.url == null}
-                                  />
-                                )
-
-                              } else {
-                                return (
-                                  <Link
-                                    dangerouslySetInnerHTML={{ __html: link.label }}
-                                    className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
-                                    href={link.url}
-                                    as='button'
-                                    preserveScroll={true}
-                                    disabled={link.url == null}
-                                  />
-                                )
-                              }
-                            }
-                          )
-                        }
+                        <PageNav
+                          links={paginated.links}
+                        />
                       </div>
                     </div>
                   </div>

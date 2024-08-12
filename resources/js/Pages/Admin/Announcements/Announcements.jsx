@@ -11,6 +11,7 @@ import { CheckIcon, EllipsisVerticalIcon, ExclamationTriangleIcon, MegaphoneIcon
 import { Head, Link } from '@inertiajs/react'
 import React, { useRef, useState } from 'react'
 import Form from './Form';
+import PageNav from '@/Components/CDMLMS/PageNav';
 
 export default function Announcements({ auth, paginated }) {
 
@@ -259,36 +260,9 @@ export default function Announcements({ auth, paginated }) {
                                                 {
                                                     paginated.data.length != 0 && (
                                                         <div className='w-full flex flex-row items-center place-content-center'>
-                                                            {
-                                                                paginated.links.map(
-                                                                    (link, index) => {
-                                                                        if (index == 0 || index == paginated.links.length - 1) {
-                                                                            return (
-                                                                                <Link
-                                                                                    dangerouslySetInnerHTML={{ __html: index == 0 ? "&laquo;" : "&raquo;" }}
-                                                                                    className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
-                                                                                    href={link.url}
-                                                                                    as='button'
-                                                                                    preserveScroll={true}
-                                                                                    disabled={link.url == null}
-                                                                                />
-                                                                            )
-
-                                                                        } else {
-                                                                            return (
-                                                                                <Link
-                                                                                    dangerouslySetInnerHTML={{ __html: link.label }}
-                                                                                    className={`flex flex-row p-2 h-8 items-center place-content-center ${link.url == null && ('text-gray-500')} ${link.active ? "bg-[#044721] !border-[#044721] text-white" : ""}`}
-                                                                                    href={link.url}
-                                                                                    as='button'
-                                                                                    preserveScroll={true}
-                                                                                    disabled={link.url == null}
-                                                                                />
-                                                                            )
-                                                                        }
-                                                                    }
-                                                                )
-                                                            }
+                                                            <PageNav
+                                                                links={paginated.links}
+                                                            />
                                                         </div>
                                                     )
                                                 }

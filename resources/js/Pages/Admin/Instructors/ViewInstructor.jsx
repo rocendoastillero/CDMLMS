@@ -1,10 +1,11 @@
 import CompactHeader from "@/Components/CDMLMS/CompactHeader";
+import PageNav from "@/Components/CDMLMS/PageNav";
 import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
 import Layout from "@/Layouts/Layout";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Head, Link } from "@inertiajs/react";
 
-export default function View({ auth, instructor, reports, subjects, files }) {
+export default function ViewInstructor({ auth, instructor, reports, subjects, files }) {
     return (
         <Layout
             user={auth.user}
@@ -34,7 +35,7 @@ export default function View({ auth, instructor, reports, subjects, files }) {
                                 </thead>
                                 <tbody>
                                     {
-                                        reports.map(report =>
+                                        reports.data.map(report =>
                                             <tr key={report.user_id}>
                                                 <td>{report.date}</td>
                                                 <td>{report.start}</td>
@@ -49,6 +50,16 @@ export default function View({ auth, instructor, reports, subjects, files }) {
                                     }
                                 </tbody>
                             </table>
+                            <div className='w-full flex flex-row justify-between'>
+                                <div>
+                                    <p>Page: {reports.current_page}</p>
+                                </div>
+                                <div className='flex flex-row'>
+                                    <PageNav
+                                        links={reports.links}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     }
                 />
