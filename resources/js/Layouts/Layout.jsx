@@ -34,18 +34,16 @@ export default function Layout(
 
     return (
         <div className={`nav-fixed ${isOpen ? "" : "sidenav-toggled"}`}>
-            <nav className="topnav navbar shadow sm:!gap-0 max-sm: max-md:!justify-between  navbar-light bg-white"
+            <nav className="topnav navbar shadow navbar-light bg-white"
                 id="sidenavAccordion">
                 <button onClick={() => { setIsOpen(!isOpen) }} className="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0 " id="sidebarToggle">
                     <Bars3Icon className="h-5 w-5 text-gray-600" />
                 </button>
-                <Link className="navbar-brand pe-3 ps-4 ps-lg-2 max-sm:!w-32" href={isAdmin ? route('admin.dashboard') : route('dashboard')}>
+                <Link className="navbar-brand pe-3 ps-4 ps-lg-2" href={isAdmin ? route('admin.dashboard') : route('dashboard')}>
                     CDM LMS
                 </Link>
-                <div className="form-inline me-auto d-none d-lg-block">
 
-                </div>
-                <div className="ms-3 mr-6 relative">
+                <div className="ms-auto !mr-6 relative">
                     <Dropdown>
                         <Dropdown.Trigger>
                             <span className="inline-flex rounded-md">
