@@ -1,6 +1,7 @@
+
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader';
 import Dropdown from '@/Components/Dropdown';
-import InputError from '@/Components/InputError';
+import InputError  from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
@@ -8,7 +9,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useForm, usePage } from '@inertiajs/react';
 import React from 'react'
 
-export default function Create() {
+export default function Create({ back }) {
 
     const { data, setData, post, patch, errors, processing, reset } = useForm({
         subject: usePage().props.subject,
@@ -22,8 +23,7 @@ export default function Create() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('schedules.store'), { onSuccess: () => reset() });
-        console.log(errors);
+        post(route('schedules.store'), { onSuccess: () => { reset(); back(); } });
     };
 
     return (
@@ -55,10 +55,10 @@ export default function Create() {
                                             <div className='hover:bg-green-50' onClick={() => { setData('day', 'Sun') }}> Sun</div>
                                         </Dropdown.Content>
                                     </Dropdown>
-
+                                    <InputError className="mt-1" message={errors.day} />
                                 </div>
                                 <div>
-                                    <InputLabel value="Year and Setion" />
+                                    <InputLabel value="Yr/Sec" />
                                     <TextInput
                                         id="yrsec"
                                         type="text"
@@ -67,7 +67,7 @@ export default function Create() {
                                         placeholder="1A"
                                         onChange={(e) => { setData('yrsec', e.target.value) }}
                                     />
-                                    <InputError message={errors.yrsec} />
+                                    <InputError className="mt-1" message={errors.yrsec} />
                                 </div>
                                 <div>
                                     <InputLabel value="Room" />
@@ -79,7 +79,7 @@ export default function Create() {
                                         placeholder="1A"
                                         onChange={(e) => { setData('room', e.target.value) }}
                                     />
-                                    <InputError message={errors.room} />
+                                    <InputError className="mt-1" message={errors.room} />
                                 </div>
                             </div>
                             <div className="flex flex-row gap-3">
@@ -92,7 +92,7 @@ export default function Create() {
                                         value={data.start}
                                         onChange={(e) => { setData('start', e.target.value) }}
                                     />
-                                    <InputError message={errors.start} />
+                                    <InputError className="mt-1" message={errors.start} />
                                 </div>
                                 <div className="mb-3">
                                     <InputLabel value="End" />
@@ -103,7 +103,7 @@ export default function Create() {
                                         value={data.end}
                                         onChange={(e) => { setData('end', e.target.value) }}
                                     />
-                                    <InputError message={errors.end} />
+                                    <InputError className="mt-1" message={errors.end} />
                                 </div>
                             </div>
                         </div>

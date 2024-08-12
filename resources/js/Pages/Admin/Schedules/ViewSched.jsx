@@ -3,16 +3,16 @@ import { CalendarDaysIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
 import Create from './Create';
 import { Head } from '@inertiajs/react';
-import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
+import CompactHeader from '@/Components/CDMLMS/CompactHeader';
 
 
 
-export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view Schedules', subject }) {
+export default function ViewSched({ auth, schedules, title, subject }) {
 
     const [tab, setTab] = useState(0);
 
     useEffect((() => {
-        console.log(schedules)
+        console.log(title)
     }), [])
 
     return (
@@ -21,32 +21,28 @@ export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view 
             isAdmin={auth.isAdmin}
         >
             <Head title='Schedules' />
-            <OverlapHeader
-                icon={<CalendarDaysIcon className='w-9 h-9 text-gray-500' />}
-                title='Schedule'
-                subtitle={pageHeaderSubtitle}
-
-            >
-
-                <div className='relative text-gray-400 p-1 my-2'>
-                    <div className='absolute bottom-[110%] w-full flex flex-row gap-2 md:mb-1 lg:mb-2'>
-                        <button onClick={() => { setTab(0) }} className={`${tab == 0 ? "border-b-2 !text-white" : ""} p-2 `} >
+            <CompactHeader
+                icon={<CalendarDaysIcon className='w-7 h-7 text-gray-500' />}
+                title={title}
+                buttons={
+                    <>
+                        <button onClick={() => { setTab(0) }} className={`btn btn-sm btn-light text-primary ${tab == 0 ? "" : ""}`} >
                             Schedule
                         </button>
-                        <button onClick={() => { setTab(1) }} className={`${tab == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
+                        <button onClick={() => { setTab(1) }} className={`btn btn-sm btn-light text-primary ${tab == 1 ? "" : ""}`} >
                             Create
-                        </button>
-                    </div>
-                </div>
+                        </button></>
+                }
+            >
                 {
                     (
                         () => {
                             if (tab == 0) {
                                 return (
-                                    <div className="flex flex-row gap-1 mt-2 text-white text-center text-lg">
-                                        <div className="relative w-1/7 h-5">
-                                            Monday
-                                            <div className="absolute top-[105%] flex flex-col gap-3 mt-4 w-full">
+                                    <div className="flex flex-col md:flex-row gap-3 md:gap-1 w-full mt-2 text-black text-center text-lg">
+                                        <div className="flex flex-row md:!flex-col gap-3 md:h-auto w-1/7 md:items-center ">
+                                            <div className="flex items-center">Monday</div>
+                                            <div className="flex flex-row md:!flex-col gap-3">
                                                 {
                                                     schedules.map(schedule => {
                                                         if (schedule.day == 'Mon') {
@@ -63,7 +59,7 @@ export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view 
                                                                     </div>
                                                                     <div className="card-footer !p-2">
                                                                         <div className="small text-muted">
-                                                                            {`${schedule.start} -${schedule.end}`}
+                                                                            {`${schedule.start} - ${schedule.end}`}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -73,9 +69,10 @@ export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view 
                                                 }
                                             </div>
                                         </div>
-                                        <div className="relative w-1/7 h-5">
-                                            Tuesday
-                                            <div className="absolute top-[105%] flex flex-col mt-4 w-full">
+                                        <div className="flex flex-row md:!flex-col gap-3 md:h-auto w-1/7 md:items-center ">
+                                            <div className="flex items-center">Tuesday</div>
+
+                                            <div className="flex flex-row md:!flex-col gap-3">
                                                 {
                                                     schedules.map(schedule => {
                                                         if (schedule.day == 'Tue') {
@@ -102,9 +99,9 @@ export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view 
                                                 }
                                             </div>
                                         </div>
-                                        <div className="relative w-1/7 h-5">
-                                            Wednesday
-                                            <div className="absolute top-[105%] flex flex-col mt-4 w-full">
+                                        <div className="flex flex-row md:!flex-col gap-3 md:h-auto w-1/7 md:items-center ">
+                                            <div className="flex items-center">Wednesday</div>
+                                            <div className="flex flex-row md:!flex-col gap-3">
                                                 {
                                                     schedules.map(schedule => {
                                                         if (schedule.day == 'Wed') {
@@ -131,9 +128,9 @@ export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view 
                                                 }
                                             </div>
                                         </div>
-                                        <div className="relative w-1/7 h-5">
-                                            Thursday
-                                            <div className="absolute top-[105%] flex flex-col mt-4 w-full">
+                                        <div className="flex flex-row md:!flex-col gap-3 md:h-auto w-1/7 md:items-center ">
+                                            <div className="flex items-center">Thursday</div>
+                                            <div className="flex flex-row md:!flex-col gap-3">
                                                 {
                                                     schedules.map(schedule => {
                                                         if (schedule.day == 'Thu') {
@@ -160,9 +157,9 @@ export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view 
                                                 }
                                             </div>
                                         </div>
-                                        <div className="relative w-1/7 h-5">
-                                            Friday
-                                            <div className="absolute top-[105%] flex flex-col mt-4 w-full">
+                                        <div className="flex flex-row md:!flex-col gap-3 md:h-auto w-1/7 md:items-center ">
+                                            <div className="flex items-center">Friday</div>
+                                            <div className="flex flex-row md:!flex-col gap-3">
                                                 {
                                                     schedules.map(schedule => {
                                                         if (schedule.day == 'Fri') {
@@ -189,9 +186,9 @@ export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view 
                                                 }
                                             </div>
                                         </div>
-                                        <div className="relative w-1/7 h-5">
-                                            Saturday
-                                            <div className="absolute top-[105%] flex flex-col mt-4 w-full">
+                                        <div className="flex flex-row md:!flex-col gap-3 md:h-auto w-1/7 md:items-center ">
+                                            <div className="flex items-center">Saturday</div>
+                                            <div className="flex flex-row md:!flex-col gap-3">
                                                 {
                                                     schedules.map(schedule => {
                                                         if (schedule.day == 'Sat') {
@@ -218,9 +215,9 @@ export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view 
                                                 }
                                             </div>
                                         </div>
-                                        <div className="relative w-1/7 h-5">
-                                            Sunday
-                                            <div className="absolute top-[105%] flex flex-col mt-4 w-full">
+                                        <div className="flex flex-row md:!flex-col gap-3 md:h-auto w-1/7 md:items-center ">
+                                            <div className="flex items-center">Sunday</div>
+                                            <div className="flex flex-row md:!flex-col h-full gap-3">
                                                 {
                                                     schedules.map(schedule => {
                                                         if (schedule.day == 'Sun') {
@@ -252,14 +249,16 @@ export default function ViewSched({ auth, schedules, pageHeaderSubtitle = 'view 
                             }
                             else if (tab == 1) {
                                 return (
-                                    <Create />
+                                    <Create
+                                        back={() => setTab(0)}
+                                    />
                                 );
                             }
                         }
                     )
                         ()
                 }
-            </OverlapHeader>
+            </CompactHeader>
 
         </Layout>
     )

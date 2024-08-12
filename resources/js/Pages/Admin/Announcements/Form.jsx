@@ -147,18 +147,18 @@ export default function Form({ selected, editing = false, back }) {
                                                             <Dropdown.Trigger>
                                                                 <InputLabel htmlFor='color' value='Color' />
                                                                 <button className='form-control flex flex-row justify-between lg:!text-lg relative !pr-12' type='button'>
-                                                                    <div className={`${data.color != '' ? `bg-[${data.color}]` : "bg-[#0066ff]"}  w-5 h-5 lg:w-8 lg:h-8`} />
-                                                                    <ChevronDownIcon className='absolute -translate-y-2/4 top-2/4 right-3 w-5 h-5 lg:w-8 lg:h-8' />
+                                                                    <div className={`${data.color != '' ? `bg-[${data.color}]` : "bg-[#0066ff]"}  w-5 h-5 lg:w-7 lg:h-7`} />
+                                                                    <ChevronDownIcon className='absolute -translate-y-2/4 top-2/4 right-3 w-5 h-5 lg:w-7 lg:h-7' />
                                                                 </button>
                                                                 <InputError message={errors.color} className="mt-2" />
                                                             </Dropdown.Trigger>
                                                             <Dropdown.Content contentClasses='bg-white text-center' margin="!mt-0" width='w-full'>
-                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#0066ff') }}><div className='bg-[#0066ff]  w-5 h-5 lg:w-8 lg:h-8' /></div>
-                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#996600') }}><div className='bg-[#996600]  w-5 h-5 lg:w-8 lg:h-8' /></div>
-                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#009933') }}><div className='bg-[#009933]  w-5 h-5 lg:w-8 lg:h-8' /></div>
-                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#cc3300') }}><div className='bg-[#cc3300]  w-5 h-5 lg:w-8 lg:h-8' /></div>
-                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#cc0000') }}><div className='bg-[#cc0000]  w-5 h-5 lg:w-8 lg:h-8' /></div>
-                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#9900ff') }}><div className='bg-[#9900ff]  w-5 h-5 lg:w-8 lg:h-8' /></div>
+                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#0066ff') }}><div className='bg-[#0066ff]  w-5 h-5 lg:w-6 lg:h-6' /></div>
+                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#996600') }}><div className='bg-[#996600]  w-5 h-5 lg:w-6 lg:h-6' /></div>
+                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#009933') }}><div className='bg-[#009933]  w-5 h-5 lg:w-6 lg:h-6' /></div>
+                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#cc3300') }}><div className='bg-[#cc3300]  w-5 h-5 lg:w-6 lg:h-6' /></div>
+                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#cc0000') }}><div className='bg-[#cc0000]  w-5 h-5 lg:w-6 lg:h-6' /></div>
+                                                                <div className='flex cursor-pointer py-1 items-center place-content-center hover:bg-green-50 relative' onClick={() => { setData('color', '#9900ff') }}><div className='bg-[#9900ff]  w-5 h-5 lg:w-6 lg:h-6' /></div>
                                                             </Dropdown.Content>
                                                         </Dropdown>
                                                     </div>

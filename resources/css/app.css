@@ -22573,5 +22573,11 @@ pre[class*=language-] {
 }
 
 .w-1\/7 {
-  width: 14.285714%;
+  width: auto;
+}
+
+@media (min-width:768px) {
+  .w-1\/7 {
+    width: 14.285714%;
+  }
 }
