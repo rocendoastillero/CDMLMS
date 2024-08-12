@@ -1,7 +1,7 @@
 import { BellAlertIcon, CalendarDaysIcon, CodeBracketIcon, ExclamationCircleIcon, ExclamationTriangleIcon, MegaphoneIcon, NoSymbolIcon, PaperClipIcon } from '@heroicons/react/24/outline';
 import React from 'react'
 
-export default function IconParse({ icon = '', size = 'w-7 h-7', color = 'text-gray-600', style='' }) {
+export default function IconParse({ icon = '', size = 'w-4 h-4 lg:w-7 lg:h-7', color = 'text-gray-600', style='' }) {
 
     if (icon == 'megaphone') {
         return (

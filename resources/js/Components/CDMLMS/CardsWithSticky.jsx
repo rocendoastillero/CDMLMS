@@ -11,7 +11,7 @@ import React from 'react'
  * @param contentSize tailwind for the width of Cards column
  * @returns HTML
  */
-function CardsWithSticky({ cards,stickyNavHeader, stickyNavBody, withCard = true, stickySize = '', contentSize = '' }) {
+function CardsWithSticky({ cards, stickyNavHeader, stickyNavBody, withCard = true, stickySize = '', contentSize = '' }) {
     return (
         <div className="row">
             <div className={`col-lg-9 ${contentSize}`}>
@@ -19,9 +19,9 @@ function CardsWithSticky({ cards,stickyNavHeader, stickyNavBody, withCard = true
 
             </div>
             <div className={`col-lg-3 ${stickySize}`}>
-                {
-                    withCard ? (
-                        <div className="nav-sticky">
+                <div className="nav-sticky">
+                    {
+                        withCard ? (
                             <div className="card mb-4">
                                 <div className="card-header">
                                     {stickyNavHeader}
@@ -30,11 +30,11 @@ function CardsWithSticky({ cards,stickyNavHeader, stickyNavBody, withCard = true
                                     {stickyNavBody}
                                 </div>
                             </div>
-                        </div>
-                    ) : (
-                        stickyNavBody
-                    )
-                }
+                        ) : (
+                            stickyNavBody
+                        )
+                    }
+                </div>
             </div>
         </div>
     )
