@@ -2,8 +2,9 @@ import React from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Layout from '@/Layouts/Layout'
 import { Head } from '@inertiajs/react'
-import { CloudArrowUpIcon } from '@heroicons/react/24/outline'
+import { CloudArrowUpIcon, WrenchIcon } from '@heroicons/react/24/outline'
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader'
+import IconCard from '@/Components/CDMLMS/IconCard'
 
 
 /**
@@ -25,12 +26,10 @@ export default function RepositoryOfFiles({ auth }) {
                 subtitle='View Repository of Files'
             >
 
-                <SingleCardWithHeader
-                    header="Repository"
-                    body={
-                        <p>
-                            the action or process of talking about something in order to reach a decision or to exchange ideas.<br />"the proposals are not a blueprint but ideas for discussion"
-                        </p>}
+                <IconCard
+                    title="Under Development"
+                    body="This page is still under development!"
+                    icon={<WrenchIcon className='w-8 h-8 text-white' />}
                 />
             </OverlapHeader>
 
