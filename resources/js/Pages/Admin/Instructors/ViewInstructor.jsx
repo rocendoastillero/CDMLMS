@@ -4,8 +4,14 @@ import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
 import Layout from "@/Layouts/Layout";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Head, Link } from "@inertiajs/react";
+import { useEffect } from "react";
 
 export default function ViewInstructor({ auth, instructor, reports, subjects, files }) {
+
+    useEffect(()=>{
+        
+    },[])
+
     return (
         <Layout
             user={auth.user}

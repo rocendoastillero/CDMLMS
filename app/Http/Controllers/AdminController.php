@@ -44,7 +44,8 @@ class AdminController extends Controller
     {
         return Inertia::render('Admin/Instructors/ViewInstructor', [
             'instructor' => $user,
-            'reports' => $user->accomplishmentreports->paginate(8)
+            'reports' => $user->accomplishmentreports->paginate(8),
+            'subjects' => $user->subjects->select('code')->paginate(8)
         ]);
     }
 
