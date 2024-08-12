@@ -171,7 +171,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
                                     }
                                     button={
                                         <div className='flex flex-row'>
-                                            <div className={`rounded-[50%] h-10 w-10  flex place-content-center items-center mx-3 !bg-sky-700  `}
+                                            <div className={`rounded-[50%] h-10 w-10  flex place-content-center items-center mx-3 ${editing ? "bg-sky-700" : "!bg-green-700"}  `}
                                             >
                                                 {
                                                     editing ? (
