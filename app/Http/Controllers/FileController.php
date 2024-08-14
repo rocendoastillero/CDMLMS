@@ -58,7 +58,7 @@ class FileController extends Controller
     public function index()
     {
         return Inertia::render('Admin/RepositoryOfFiles',[
-            'paginated' => ''
+            'paginate' => ''
         ]);
     }
 
