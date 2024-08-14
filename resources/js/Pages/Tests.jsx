@@ -1,15 +1,25 @@
-import AlertCard from "@/Components/CDMLMS/AlertCard";
-import CardsWithSticky from "@/Components/CDMLMS/CardsWithSticky";
-import IconCard from "@/Components/CDMLMS/IconCard";
 import OverlapHeader from "@/Components/CDMLMS/OverlapHeader";
-import SingleCardCenter from "@/Components/CDMLMS/SingleCardCenter";
-import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
-import Dropdown from "@/Components/Dropdown";
 import Layout from "@/Layouts/Layout";
-import { CheckIcon, ChevronDownIcon, CodeBracketIcon, ExclamationTriangleIcon, HomeIcon, MagnifyingGlassIcon, MagnifyingGlassMinusIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Head, Link } from "@inertiajs/react";
+import { HomeIcon } from "@heroicons/react/24/outline";
+import { Head } from "@inertiajs/react";
+import { useState } from "react";
 
 export default function Tests({ auth, test }) {
+
+    const [sample, setSample] = useState(
+        [
+            {
+                id: 1,
+                question: 'What is',
+                choices: [
+                    { choice: 'A' },
+                    { choice: 'B' },
+                    { choice: 'C' }
+                ],
+                answer_key: 2
+            }
+        ]
+    );
 
     return (
         <Layout
@@ -23,64 +33,29 @@ export default function Tests({ auth, test }) {
                 subtitle="Test"
 
             >
+                <button onClick={() => setSample(sample + 1)}>
+                    click
+                </button>
 
-                <SingleCardWithHeader
-                    header={
-                        <ul className="nav nav-tabs card-header-tabs">
-                            <li className="nav-item">
-                                <Link className="nav-link" as="button">
-                                    Class Record
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" as="button">
-                                    Grade Sheet
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" as="button">
-                                    Syllabus
-                                </Link>
-                            </li>
-                        </ul>
-                    }
-                    body={
-                        <div className="flex flex-row mt-3">
-                            <div className="flex w-1/3">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <button className="form-control !flex gap-2">
-                                            Dropdown 1
-                                            <ChevronDownIcon className=" text-gray-600 w-6 h-6" />
-                                        </button>
-                                    </Dropdown.Trigger>
-                                    <Dropdown.Content contentClasses="flex flex-col gap-3 text-center" margin="mt-0">
-                                        <div>Item 1</div>
-                                        <div>Item 2</div>
-                                        <div>Item 3</div>
-                                        <div>Item 4</div>
-                                    </Dropdown.Content>
-                                </Dropdown>
+                {
+                    sample.map((question) => {
+                        return (
+                            <div key={question.id} className="w-full bg-slate-400 my-2">
+                                <h1>{question.question}</h1>
+                                <ul>
+                                    {
+                                        question.choices.map(choice =>
+                                            <li>
+                                                {choice.choice}
+                                            </li>
+                                        )
+                                    }
+                                </ul>
                             </div>
-                            <div className="flex w-1/3">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <button className="form-control !flex gap-2">
-                                            Dropdown 2
-                                            <ChevronDownIcon className=" text-gray-600 w-6 h-6" />
-                                        </button>
-                                    </Dropdown.Trigger>
-                                    <Dropdown.Content contentClasses="flex flex-col gap-3 text-center" margin="mt-0">
-                                        <div>Item 1</div>
-                                        <div>Item 2</div>
-                                        <div>Item 3</div>
-                                        <div>Item 4</div>
-                                    </Dropdown.Content>
-                                </Dropdown>
-                            </div>
-                        </div>
+                        )
                     }
-                />
+                    )
+                }
 
             </OverlapHeader>
 
