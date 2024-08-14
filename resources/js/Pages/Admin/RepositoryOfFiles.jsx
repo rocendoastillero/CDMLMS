@@ -37,7 +37,7 @@ export default function RepositoryOfFiles({ auth, paginate }) {
                                     <SingleCardWithHeader
                                         header="Files"
                                         body={
-                                            <div className='flex flex-col gap-2 mt-3'>
+                                            <div className='flex flex-col gap-3 mt-3'>
                                                 <Link href={route('admin.repositoryoffiles.classrecord')} className='nav-link text-start' as='button'>Class Record</Link>
                                                 <Link href={route('admin.repositoryoffiles.gradesheet')} className='nav-link text-start' as='button'>Grade Sheet</Link>
                                                 <Link href={route('admin.repositoryoffiles.syllabus')} className='nav-link text-start' as='button'>Syllabus</Link>
@@ -47,6 +47,7 @@ export default function RepositoryOfFiles({ auth, paginate }) {
                                 )
                             } else {
                                 return (
+                                    //TODO convert to Navigation Card - Bootstrap
                                     <SingleCardWithHeader
                                         header={
                                             <button onClick={()=>setPaginated('')}>
