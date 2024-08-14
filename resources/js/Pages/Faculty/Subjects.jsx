@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Layout from "@/Layouts/Layout";
-import { BookOpenIcon, EllipsisVerticalIcon, MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { BookOpenIcon, CheckIcon, EllipsisVerticalIcon, MagnifyingGlassIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, Head, useForm, router } from '@inertiajs/react';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import CardsWithHeader from '@/Components/CDMLMS/CardsWithHeader';
 import Dropdown from '@/Components/Dropdown';
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
 import PageNav from '@/Components/CDMLMS/PageNav';
+import AlertCard from '@/Components/CDMLMS/AlertCard';
 
 
 
@@ -21,10 +22,39 @@ export default function Subjects({ auth, paginated, searched = '' }) {
 
     const [search, setSearch] = useState(searched);
 
+    const [warning, setWarning] = useState(false);
+
+    const [selected, setSelected] = useState(0);
+
     return (
         <Layout
             isAdmin={auth.isAdmin}
             user={auth.user}
+            warning={
+                warning && (
+                    <div className='fixed w-full h-full z-[2] bg-black bg-opacity-50'
+                        onClick={() => { setWarning(false) }}
+                    >
+                        <AlertCard
+                            type="alert-warning"
+                            title='Subject Already Taken'
+                            message="Take the subject anyway?"
+                            actions={
+                                <>
+                                    <Link  href={route('subjects.assign')} as='button' method='patch'
+                                        data={{ id: selected, assign: 1 }} preserveScroll={true}
+                                    >
+                                        <CheckIcon className="h-6 w-6 hover:text-[#8b0d00]" />
+                                    </Link>
+                                    <button className='border-none' onClick={() => { setWarning(false) }} preserveScroll={true}>
+                                        <XMarkIcon className="h-6 w-6 text-[#926100] hover:text-[#8b0d00]" />
+                                    </button>
+                                </>
+                            }
+                        />
+                    </div>
+                )
+            }
         >
             <Head title='Subjects' />
             <OverlapHeader
@@ -92,11 +122,22 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                                                 </button>
                                                             </Dropdown.Trigger>
                                                             <Dropdown.Content contentClasses='flex flex-col gap-2' margin='mt-1'>
-                                                                <Link className='hover:hover:bg-green-50 px-1' href={route('subjects.assign')} as='button' method='patch'
-                                                                    data={{ id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) }} preserveScroll={true}
+                                                                <button className='hover:hover:bg-green-50 px-1'
+                                                                    onClick={
+                                                                        () => {
+                                                                            if (subject.user_id == null) {
+                                                                                router.visit(route('subjects.assign'), { method: 'patch', data: { id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) } })
+                                                                            } else {
+                                                                                setSelected(subject.id)
+                                                                                setWarning(true);
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                    preserveScroll={true}
                                                                 >
                                                                     {auth.user.id == subject.user_id ? "Drop" : "Take"}
-                                                                </Link>
+                                                                </button>
                                                                 {
                                                                     subject.user_id == auth.user.id && (
                                                                         <Link className='hover:hover:bg-green-50 px-1' as='button'

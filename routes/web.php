@@ -34,7 +34,7 @@ Route::middleware('faculty')->group(function () {
     })->name('dashboard');
 
     Route::get('/subjects/{search}', [SubjectController::class, 'search'])->name('subjects.search');
-    Route::patch('subjects/assign', [SubjectController::class, 'assign'])->name('subjects.assign');
+    Route::patch('/subjects/assign', [SubjectController::class, 'assign'])->name('subjects.assign');
     Route::resource('subjects', SubjectController::class)
         ->only(['index', 'store', 'update', 'destroy']);
 

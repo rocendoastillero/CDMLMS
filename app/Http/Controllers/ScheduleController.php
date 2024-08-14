@@ -20,7 +20,7 @@ class ScheduleController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Schedules/Schedules',[
-            'subjects' => Subject::select('id','code')->get()->makeHidden('instructor')->paginate(10)
+            'subjects' => Subject::select('id','code')->get()->makeHidden('instructor')->paginate(8)
         ]);
     }
 

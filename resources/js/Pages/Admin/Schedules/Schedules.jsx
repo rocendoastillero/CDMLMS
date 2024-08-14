@@ -1,4 +1,5 @@
 import OverlapHeader from "@/Components/CDMLMS/OverlapHeader";
+import PageNav from "@/Components/CDMLMS/PageNav";
 import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
 import Dropdown from "@/Components/Dropdown";
 import Layout from "@/Layouts/Layout";
@@ -9,9 +10,9 @@ import { useEffect } from "react";
 
 export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', subjects }) {
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(subjects);
-    },[])
+    }, [])
 
     return (
         <Layout
@@ -26,19 +27,42 @@ export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', 
 
             >
 
-                <div className="relative w-full">
-                    <div className="absolute bottom-[105%] mb-1">
-
-                    </div>
-                </div>
-
                 <SingleCardWithHeader
                     header='Pick a Subject'
                     body={
-                        <div className="mt-4 mb-2">
-                            <Link href={route('admin.subjects')} className="nav-link">
-                                Subjects
-                            </Link>
+                        <div className="mt-4 mb-2 w-full table-reponsive">
+                            <table className="datatable-table !w-full text-center">
+                                <thead>
+                                    <tr>
+                                        <th>CODE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        subjects.data.map(
+                                            subject =>
+                                                <tr key={subject.id}>
+                                                    <td>
+                                                        <Link className="nav-link" href={route('schedules.view', subject.id)}>
+                                                            {subject.code}
+                                                        </Link>
+
+                                                    </td>
+                                                </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                            <div className="flex flex-row justify-between">
+                                <div>
+                                    Page: {subjects.current_page}
+                                </div>
+                                <div className="flex flex-row">
+                                    <PageNav
+                                        links={subjects.links}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     }
                 />

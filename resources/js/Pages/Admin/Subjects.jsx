@@ -82,9 +82,9 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                   <Link className='border-none' as='button' href={route('subjects.destroy', selectedSubject.id)} method='delete'>
                     <CheckIcon className="h-6 w-6 hover:text-[#8b0d00]" />
                   </Link>
-                  <Link className='border-none' onClick={() => { setWarning(false) }} preserveScroll={true}>
+                  <button className='border-none' onClick={() => { setWarning(false) }}>
                     <XMarkIcon className="h-6 w-6 text-[#926100] hover:text-[#8b0d00]" />
-                  </Link>
+                  </button>
                 </>
               }
             />
