@@ -57,35 +57,41 @@ class FileController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/RepositoryOfFiles',[
+        return Inertia::render('Admin/RepositoryOfFiles', [
             'paginate' => ''
         ]);
     }
 
     public function allClassRecord()
     {
+        $type = 'classrecord';
         return Inertia::render('Admin/RepositoryOfFiles', [
-            'paginate' => File::where('type', 'classrecord')
+            'paginate' => File::where('type', $type)
                 ->latest()
-                ->paginate(8)
+                ->paginate(8),
+            'type' => $type
         ]);
     }
 
     public function allGradeSheet()
     {
+        $type = 'gradesheet';
         return Inertia::render('Admin/RepositoryOfFiles', [
-            'paginate' => File::where('type', 'gradesheet')
+            'paginate' => File::where('type', $type)
                 ->latest()
-                ->paginate(8)
+                ->paginate(8),
+                'type' => $type
         ]);
     }
 
     public function allSyllabus()
     {
+        $type = 'syllabus';
         return Inertia::render('Admin/RepositoryOfFiles', [
-            'paginate' => File::where('type', 'syllabus')
+            'paginate' => File::where('type', $type)
                 ->latest()
-                ->paginate(8)
+                ->paginate(8),
+                'type' => $type
         ]);
     }
 

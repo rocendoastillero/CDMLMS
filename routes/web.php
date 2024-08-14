@@ -86,7 +86,7 @@ Route::middleware('faculty')->group(function () {
         Route::resource('/admin/announcements', AnnouncementController::class)
             ->only(['index', 'store', 'update', 'destroy']);
 
-        Route::get('/admin/repositoryoffiles', [FileController::class, 'index'])->name('admin.repositoryoffiles');
+        Route::get('/admin/repositoryoffiles', [FileController::class, 'allClassRecord'])->name('admin.repositoryoffiles');
         Route::get('/admin/repositoryoffiles/classrecord', [FileController::class, 'allClassRecord'])->name('admin.repositoryoffiles.classrecord');
         Route::get('/admin/repositoryoffiles/gradesheet', [FileController::class, 'allGradeSheet'])->name('admin.repositoryoffiles.gradesheet');
         Route::get('/admin/repositoryoffiles/syllabus', [FileController::class, 'allSyllabus'])->name('admin.repositoryoffiles.syllabus');

@@ -7,7 +7,7 @@ import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
 import Dropdown from "@/Components/Dropdown";
 import Layout from "@/Layouts/Layout";
 import { CheckIcon, ChevronDownIcon, CodeBracketIcon, ExclamationTriangleIcon, HomeIcon, MagnifyingGlassIcon, MagnifyingGlassMinusIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 export default function Tests({ auth, test }) {
 
@@ -25,7 +25,25 @@ export default function Tests({ auth, test }) {
             >
 
                 <SingleCardWithHeader
-                    header="Dropdown"
+                    header={
+                        <ul className="nav nav-tabs card-header-tabs">
+                            <li className="nav-item">
+                                <Link className="nav-link" as="button">
+                                    Class Record
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" as="button">
+                                    Grade Sheet
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" as="button">
+                                    Syllabus
+                                </Link>
+                            </li>
+                        </ul>
+                    }
                     body={
                         <div className="flex flex-row mt-3">
                             <div className="flex w-1/3">

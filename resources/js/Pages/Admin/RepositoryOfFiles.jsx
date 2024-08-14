@@ -14,7 +14,7 @@ import PageNav from '@/Components/CDMLMS/PageNav'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function RepositoryOfFiles({ auth, paginate }) {
+export default function RepositoryOfFiles({ auth, paginate, type }) {
 
     const [paginated, setPaginated] = useState(paginate);
 
@@ -29,81 +29,80 @@ export default function RepositoryOfFiles({ auth, paginate }) {
                 title='Repository of Files'
                 subtitle='View Repository of Files'
             >
-                {
-                    (
-                        () => {
-                            if (paginated == '') {
-                                return (
-                                    <SingleCardWithHeader
-                                        header="Files"
-                                        body={
-                                            <div className='flex flex-col gap-3 mt-3'>
-                                                <Link href={route('admin.repositoryoffiles.classrecord')} className='nav-link text-start' as='button'>Class Record</Link>
-                                                <Link href={route('admin.repositoryoffiles.gradesheet')} className='nav-link text-start' as='button'>Grade Sheet</Link>
-                                                <Link href={route('admin.repositoryoffiles.syllabus')} className='nav-link text-start' as='button'>Syllabus</Link>
-                                            </div>
-                                        }
+                <SingleCardWithHeader
+                    //TODO convert to Navigation Card - Bootstrap
+                    header={
+                        <ul className="nav nav-tabs card-header-tabs">
+                            <li className="nav-item">
+                                <Link href={route('admin.repositoryoffiles')} className={`nav-link ${type == 'classrecord' ? "active" : ""}`} as="button">
+                                    Class Record
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link href={route('admin.repositoryoffiles.gradesheet')} className={`nav-link ${type == 'gradesheet' ? "active" : ""}`} as="button">
+                                    Grade Sheet
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link href={route('admin.repositoryoffiles.syllabus')} className={`nav-link ${type == 'syllabus' ? "active" : ""}`} as="button">
+                                    Syllabus
+                                </Link>
+                            </li>
+                        </ul>
+                    }
+                    body={
+                        <div className='table-responsive mt-3'>
+                            <table className="datatable-table text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Instructor</th>
+                                        <th>Name</th>
+                                        <th>Size</th>
+                                        <th>Uploaded</th>
+                                        <th>Download</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        paginated.data == '' ? (
+                                            <tr>
+                                                <td colSpan='5'>
+                                                    Empty
+                                                </td>
+                                            </tr>
+                                        ) : (
+                                            paginated.data.map(
+                                                file =>
+                                                    <tr>
+                                                        <td>{file.instructor}</td>
+                                                        <td>{file.name}</td>
+                                                        <td>{file.size}</td>
+                                                        <td>{file.created_at}</td>
+                                                        <td>
+                                                            <button onClick={() => window.open(route('admin.download', file.id))} as='button'>
+                                                                <ArrowDownTrayIcon className='w-4 h-4' />
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                            )
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                            <div className="flex flex-row justify-between">
+                                <div>
+                                    Page: {paginated.current_page}
+                                </div>
+                                <div className='flex flex-row'>
+                                    <PageNav
+                                        links={paginated.links}
                                     />
-                                )
-                            } else {
-                                return (
-                                    //TODO convert to Navigation Card - Bootstrap
-                                    <SingleCardWithHeader
-                                        header={
-                                            <button onClick={()=>setPaginated('')}>
-                                                <ArrowLeftIcon className='w-5 h-5' />
-                                            </button>
-                                        }
-                                        body={
-                                            <div className='table-responsive mt-3'>
-                                                <table className="datatable-table text-center">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Instructor</th>
-                                                            <th>Name</th>
-                                                            <th>Size</th>
-                                                            <th>Uploaded</th>
-                                                            <th>Download</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {
-                                                            paginated.data.map(
-                                                                file =>
-                                                                    <tr>
-                                                                        <td>{file.instructor}</td>
-                                                                        <td>{file.name}</td>
-                                                                        <td>{file.size}</td>
-                                                                        <td>{file.created_at}</td>
-                                                                        <td>
-                                                                            <button onClick={() => window.open(route('admin.download', file.id))} as='button'>
-                                                                                <ArrowDownTrayIcon className='w-4 h-4' />
-                                                                            </button>
-                                                                        </td>
-                                                                    </tr>
-                                                            )
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                                <div className="flex flex-row justify-between">
-                                                    <div>
-                                                        Page: {paginated.current_page}
-                                                    </div>
-                                                    <div className='flex flex-row'>
-                                                        <PageNav
-                                                            links={paginated.links}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    />
-                                )
-                            }
-                        }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                />
 
-                    )()
-                }
 
             </OverlapHeader>
 
