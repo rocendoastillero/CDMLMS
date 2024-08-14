@@ -70,8 +70,8 @@ export default function Layout(
                         </Dropdown.Trigger>
 
                         <Dropdown.Content contentClasses='flex flex-col gap-2' >
-                            <Link className='text-start px-3 py-1' href={route('profile.edit')} as='button'>Profile</Link>
-                            <Link className='text-start px-3 py-1' href={route('logout')} method="post" as="button">Log Out</Link>
+                            <Link className='text-start px-3 py-1 cursor-pointer hover:bg-green-50' href={route('profile.edit')} as='button'>Profile</Link>
+                            <Link className='text-start px-3 py-1 cursor-pointer hover:bg-green-50' href={route('logout')} method="post" as="button">Log Out</Link>
                         </Dropdown.Content>
                     </Dropdown>
                 </div>
