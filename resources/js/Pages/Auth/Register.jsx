@@ -57,6 +57,7 @@ export default function Register() {
                                 id="firstname"
                                 name="firstname"
                                 value={data.firstname}
+                                placeholder="First Name"
                                 autoComplete="firstname"
                                 isFocused={true}
                                 onChange={(e) => { setData('firstname', e.target.value) }}
@@ -73,6 +74,7 @@ export default function Register() {
                                 id="lastname"
                                 name="lastname"
                                 value={data.lastname}
+                                placeholder="Last Name"
                                 autoComplete="lastname"
                                 isFocused={true}
                                 onChange={(e) => { setData('lastname', e.target.value) }}
@@ -92,6 +94,7 @@ export default function Register() {
                                 type="email"
                                 name="email"
                                 value={data.email}
+                                placeholder="Email"
                                 autoComplete="email"
                                 onChange={(e) => setData('email', e.target.value)}
                                 required
@@ -130,6 +133,7 @@ export default function Register() {
                                 type={show ? "text" : "password"}
                                 name="password"
                                 value={data.password}
+                                placeholder="Password"
                                 autoComplete="new-password"
                                 onChange={(e) => setData('password', e.target.value)}
                                 required
@@ -155,6 +159,7 @@ export default function Register() {
                                 type={showC ? "text" : "password"}
                                 name="password_confirmation"
                                 value={data.password_confirmation}
+                                placeholder="Confirm Password"
                                 autoComplete="new-password"
                                 onChange={(e) => setData('password_confirmation', e.target.value)}
                                 required
@@ -175,7 +180,7 @@ export default function Register() {
                     <div className="flex items-center justify-end mt-4">
                         <Link
                             href={route('login')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="small text-primary"
                         >
                             Already registered?
                         </Link>
