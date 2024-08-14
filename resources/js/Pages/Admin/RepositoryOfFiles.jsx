@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Layout from '@/Layouts/Layout'
-import { Head } from '@inertiajs/react'
-import { CloudArrowUpIcon, WrenchIcon } from '@heroicons/react/24/outline'
+import { Head, Link } from '@inertiajs/react'
+import { ArrowDownTrayIcon, ArrowLeftIcon, CloudArrowUpIcon } from '@heroicons/react/24/outline'
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader'
-import IconCard from '@/Components/CDMLMS/IconCard'
+import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter'
+import PageNav from '@/Components/CDMLMS/PageNav'
 
 
 /**
@@ -13,7 +14,10 @@ import IconCard from '@/Components/CDMLMS/IconCard'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function RepositoryOfFiles({ auth }) {
+export default function RepositoryOfFiles({ auth, paginate }) {
+
+    const [paginated, setPaginated] = useState(paginate);
+
     return (
         <Layout
             isAdmin={auth.isAdmin}
@@ -25,12 +29,81 @@ export default function RepositoryOfFiles({ auth }) {
                 title='Repository of Files'
                 subtitle='View Repository of Files'
             >
+                {
+                    (
+                        () => {
+                            if (paginated == '') {
+                                return (
+                                    <SingleCardWithHeader
+                                        header="Files"
+                                        body={
+                                            <div className='flex flex-col gap-2 mt-3'>
+                                                <Link href={route('admin.repositoryoffiles.classrecord')} className='nav-link text-start' as='button'>Class Record</Link>
+                                                <Link href={route('admin.repositoryoffiles.gradesheet')} className='nav-link text-start' as='button'>Grade Sheet</Link>
+                                                <Link href={route('admin.repositoryoffiles.syllabus')} className='nav-link text-start' as='button'>Syllabus</Link>
+                                            </div>
+                                        }
+                                    />
+                                )
+                            } else {
+                                return (
+                                    <SingleCardWithHeader
+                                        header={
+                                            <button onClick={()=>setPaginated('')}>
+                                                <ArrowLeftIcon className='w-5 h-5' />
+                                            </button>
+                                        }
+                                        body={
+                                            <div className='table-responsive mt-3'>
+                                                <table className="datatable-table text-center">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Instructor</th>
+                                                            <th>Name</th>
+                                                            <th>Size</th>
+                                                            <th>Uploaded</th>
+                                                            <th>Download</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {
+                                                            paginated.data.map(
+                                                                file =>
+                                                                    <tr>
+                                                                        <td>{file.instructor}</td>
+                                                                        <td>{file.name}</td>
+                                                                        <td>{file.size}</td>
+                                                                        <td>{file.created_at}</td>
+                                                                        <td>
+                                                                            <button onClick={() => window.open(route('admin.download', file.id))} as='button'>
+                                                                                <ArrowDownTrayIcon className='w-4 h-4' />
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                            )
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                                <div className="flex flex-row justify-between">
+                                                    <div>
+                                                        Page: {paginated.current_page}
+                                                    </div>
+                                                    <div className='flex flex-row'>
+                                                        <PageNav
+                                                            links={paginated.links}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    />
+                                )
+                            }
+                        }
 
-                <IconCard
-                    title="Under Development"
-                    body="This page is still under development!"
-                    icon={<WrenchIcon className='w-8 h-8 text-white' />}
-                />
+                    )()
+                }
+
             </OverlapHeader>
 
         </Layout>

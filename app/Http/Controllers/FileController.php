@@ -16,13 +16,11 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function classRecord() : Response
+    public function classRecord(): Response
     {
         return Inertia::render('Faculty/ClassRecord', [
-            'paginated' => File::where('user_id', Auth::user()->id)
+            'paginated' => Auth::user()->files
                 ->where('type', 'classrecord')
-                ->latest()
-                ->get()
                 ->makeHidden('instructor')
                 ->paginate(8)
         ]);
@@ -31,13 +29,11 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function gradeSheet() : Response
+    public function gradeSheet(): Response
     {
         return Inertia::render('Faculty/GradeSheet', [
-            'paginated' => File::where('user_id', Auth::user()->id)
+            'paginated' => Auth::user()->files
                 ->where('type', 'gradesheet')
-                ->latest()
-                ->get()
                 ->makeHidden('instructor')
                 ->paginate(8)
         ]);
@@ -46,13 +42,11 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function syllabus() : Response
+    public function syllabus(): Response
     {
         return Inertia::render('Faculty/Syllabus', [
-            'paginated' => File::where('user_id', Auth::user()->id)
+            'paginated' => Auth::user()->files
                 ->where('type', 'syllabus')
-                ->latest()
-                ->get()
                 ->makeHidden('instructor')
                 ->paginate(8)
         ]);
@@ -63,7 +57,36 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Admin/RepositoryOfFiles',[
+            'paginated' => ''
+        ]);
+    }
+
+    public function allClassRecord()
+    {
+        return Inertia::render('Admin/RepositoryOfFiles', [
+            'paginate' => File::where('type', 'classrecord')
+                ->latest()
+                ->paginate(8)
+        ]);
+    }
+
+    public function allGradeSheet()
+    {
+        return Inertia::render('Admin/RepositoryOfFiles', [
+            'paginate' => File::where('type', 'gradesheet')
+                ->latest()
+                ->paginate(8)
+        ]);
+    }
+
+    public function allSyllabus()
+    {
+        return Inertia::render('Admin/RepositoryOfFiles', [
+            'paginate' => File::where('type', 'syllabus')
+                ->latest()
+                ->paginate(8)
+        ]);
     }
 
     /**
@@ -77,7 +100,7 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $path = $request->file('file')->store($request->type . 's');
 
@@ -104,7 +127,7 @@ class FileController extends Controller
      */
     public function download(File $file)
     {
-        return Storage::download($file->path,$file->name);
+        return Storage::download($file->path, $file->name);
     }
 
     /**
@@ -126,7 +149,7 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(File $file) : RedirectResponse
+    public function destroy(File $file): RedirectResponse
     {
         return redirect(route($file->type));
     }

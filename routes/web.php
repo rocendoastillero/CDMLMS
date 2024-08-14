@@ -15,38 +15,7 @@ use Inertia\Inertia;
 
 Route::get('/test', function () {
     return Inertia::render('Tests', [
-        'test' => [
-            [
-                'a' => 'a',
-                'b' => 'aa',
-                'c' => 'aaa',
-            ],
-            [
-                'a' => 'b',
-                'b' => 'bb',
-                'c' => 'bbb',
-            ],
-            [
-                'a' => 'c',
-                'b' => 'cc',
-                'c' => 'ccc',
-            ],
-            [
-                'a' => 'd',
-                'b' => 'dd',
-                'c' => 'ddd',
-            ],
-            [
-                'a' => 'e',
-                'b' => 'ee',
-                'c' => 'eee',
-            ],
-            [
-                'a' => 'f',
-                'b' => 'ff',
-                'c' => 'fff',
-            ]
-        ]
+        
     ]);
 });
 
@@ -117,10 +86,11 @@ Route::middleware('faculty')->group(function () {
         Route::resource('/admin/announcements', AnnouncementController::class)
             ->only(['index', 'store', 'update', 'destroy']);
 
-        Route::get('/repositoryoffiles', function () {
-            return Inertia::render('Admin/RepositoryOfFiles', []);
-        })->name('admin.repositoryoffiles');
-        Route::get('/admin/download/{file}', [FileController::class, 'download'])->name('admin.download');
+        Route::get('/admin/repositoryoffiles', [FileController::class, 'index'])->name('admin.repositoryoffiles');
+        Route::get('/admin/repositoryoffiles/classrecord', [FileController::class, 'allClassRecord'])->name('admin.repositoryoffiles.classrecord');
+        Route::get('/admin/repositoryoffiles/gradesheet', [FileController::class, 'allGradeSheet'])->name('admin.repositoryoffiles.gradesheet');
+        Route::get('/admin/repositoryoffiles/syllabus', [FileController::class, 'allSyllabus'])->name('admin.repositoryoffiles.syllabus');
+        Route::get('/admin/repositoryoffiles/download/{file}', [FileController::class, 'download'])->name('admin.download');
 
 
         Route::get('/admin/schedules/{subject}', [ScheduleController::class, 'scheduleOf'])->name('schedules.view');

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { Link } from '@inertiajs/react';
+
 //TODO responsiveness
 /**
  * @function Component Main Layout for the app
@@ -30,7 +31,6 @@ export default function Layout(
     const [isOpen, setIsOpen] = useState(true)
 
     const [dropdown, setDropDown] = useState(openDropdown);
-
 
     return (
         <div className={`nav-fixed ${isOpen ? "" : "sidenav-toggled"}`}>
