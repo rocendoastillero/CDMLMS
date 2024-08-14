@@ -60,12 +60,20 @@ export default function Syllabus({ auth, paginated }) {
                                         </thead>
                                         <tbody>
                                             {
-                                                paginated.data.map(file =>
-                                                    <tr key={file.id}>
-                                                        <td>{file.name}</td>
-                                                        <td>{file.size}</td>
-                                                        <td>{file.created_at}</td>
+                                                paginated.data == '' ? (
+                                                    <tr>
+                                                        <td colSpan='3'>
+                                                            Empty
+                                                        </td>
                                                     </tr>
+                                                ) : (
+                                                    paginated.data.map(file =>
+                                                        <tr key={file.id}>
+                                                            <td>{file.name}</td>
+                                                            <td>{file.size}</td>
+                                                            <td>{file.created_at}</td>
+                                                        </tr>
+                                                    )
                                                 )
                                             }
                                         </tbody>
