@@ -3,7 +3,7 @@ import PageNav from "@/Components/CDMLMS/PageNav";
 import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
 import Table from "@/Components/CDMLMS/Table";
 import Layout from "@/Layouts/Layout";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowDownTrayIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { Head, Link } from "@inertiajs/react";
 import { useEffect } from "react";
 
@@ -65,6 +65,22 @@ export default function ViewInstructor({ auth, instructor, reports, subjects, fi
                     body={
                         <Table
                             paginated={subjects}
+                            headersCount={1}
+                            headers={
+                                <th>CODE</th>
+                            }
+                            body={
+                                subjects.data.map(
+                                    subject =>
+                                        <tr key={subject.id}>
+                                            <td>
+                                                <Link className="nav-link" href={route('schedules.view', subject.id)}>
+                                                    {subject.code}
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                )
+                            }
                         />
                     }
                 />
@@ -74,6 +90,28 @@ export default function ViewInstructor({ auth, instructor, reports, subjects, fi
                     body={
                         <Table
                             paginated={files}
+                            headersCount={4}
+                            headers={
+                                <>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Size</th>
+                                    <th>Uploaded</th>
+                                </>
+                            }
+                            body={
+                                files.data.map(file =>
+                                    <tr key={file.id}>
+                                        <td>{file.name}</td>
+                                        <td>{file.type}</td>
+                                        <td>{file.size}</td>
+                                        <td>{file.created_at}</td>
+                                        <button onClick={() => window.open(route('admin.download', file.id))} as='button'>
+                                            <ArrowDownTrayIcon className='w-4 h-4' />
+                                        </button>
+                                    </tr>
+                                )
+                            }
                         />
                     }
                 />
