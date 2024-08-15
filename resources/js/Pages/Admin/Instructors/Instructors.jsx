@@ -68,8 +68,8 @@ export default function Instructors({ auth, paginated, searched }) {
                                     paginated.data.map(instructor =>
                                         //TODO tooltip
                                         <tr key={instructor.id} className='text-center'>
-                                            <td>
-                                                <Link className='font-bold' href={route('admin.instructors.view', instructor.id)} as='button'>
+                                            <td className='!p-0'>
+                                                <Link className='font-bold w-full h-full' href={route('admin.instructors.view', instructor.id)} as='button'>
                                                     {instructor.lastname + ", " + instructor.firstname}
                                                 </Link>
                                             </td>

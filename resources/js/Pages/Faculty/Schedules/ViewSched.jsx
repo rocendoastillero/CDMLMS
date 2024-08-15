@@ -1,6 +1,7 @@
 import CompactHeader from '@/Components/CDMLMS/CompactHeader'
 import Layout from '@/Layouts/Layout'
 import { CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { Head } from '@inertiajs/react';
 import React from 'react'
 
 export default function ViewSched({ auth, subject, schedules }) {
@@ -9,6 +10,7 @@ export default function ViewSched({ auth, subject, schedules }) {
             user={auth.user}
             isAdmin={auth.isAdmin}
         >
+            <Head title='View Schedule'/>
             <CompactHeader
                 icon={<CalendarDaysIcon className='w-7 h-7'/>}
                 title={`View Schedule of ${subject.code}`}

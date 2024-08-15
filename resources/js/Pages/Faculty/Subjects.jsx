@@ -47,7 +47,7 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                     >
                                         <CheckIcon className="h-6 w-6 hover:text-[#8b0d00]" />
                                     </Link>
-                                    <button className='border-none' onClick={() => { setWarning(false) }} preserveScroll={true}>
+                                    <button className='border-none' onClick={() => { setWarning(false) }}>
                                         <XMarkIcon className="h-6 w-6 text-[#926100] hover:text-[#8b0d00]" />
                                     </button>
                                 </>
@@ -127,7 +127,7 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                                             <button className='hover:hover:bg-green-50 px-1'
                                                                 onClick={
                                                                     () => {
-                                                                        if (subject.user_id == null) {
+                                                                        if (subject.user_id == null || subject.user_id == auth.user.id) {
                                                                             router.visit(route('subjects.assign'), { method: 'patch', data: { id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) } })
                                                                         } else {
                                                                             setSelected(subject.id)
@@ -135,8 +135,6 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                                                         }
                                                                     }
                                                                 }
-
-                                                                preserveScroll={true}
                                                             >
                                                                 {auth.user.id == subject.user_id ? "Drop" : "Take"}
                                                             </button>

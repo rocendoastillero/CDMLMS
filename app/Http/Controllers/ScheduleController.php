@@ -30,23 +30,19 @@ class ScheduleController extends Controller
 
     public function pickSubjects()
     {
-        try {
-            return Inertia::render('Faculty/Schedules/Schedules', [
-                'subjects' => Auth::user()->subjects->paginate(8),
-            ]);
-        } catch (Throwable $e) {
-            return redirect(route('subjects.index'));
-        }
+        return Inertia::render('Faculty/Schedules/Schedules', [
+            'subjects' => Auth::user()->subjects->paginate(8),
+        ]);
     }
 
     public function mySchedule(Subject $subject)
     {
-        try {
+        if ($subject->user_id == Auth::user()->id) {
             return Inertia::render('Faculty/Schedules/ViewSched', [
                 'subject' => $subject,
                 'schedules' => $subject->schedules->sortBy('start')
             ]);
-        } catch (Throwable $e) {
+        } else {
             return redirect(route('schedules'));
         }
     }

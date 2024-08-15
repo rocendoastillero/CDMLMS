@@ -29,11 +29,12 @@ export default function Schedules({ auth, subjects}) {
             >
 
                 <SingleCardWithHeader
-                    header='Pick a Subject'
+                    header='Pick Your Subject'
                     body={
                         <Table
                             paginated={subjects}
                             headersCount={1}
+                            headerStyle="border-b-2"
                             headers={
                                 <th>CODE</th>
                             }

@@ -27,6 +27,7 @@ export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', 
                         <Table
                             paginated={subjects}
                             headersCount={1}
+                            headerStyle="border-b-2"
                             headers={
                                 <th>CODE</th>
                             }

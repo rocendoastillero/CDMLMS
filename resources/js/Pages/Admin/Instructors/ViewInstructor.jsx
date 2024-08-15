@@ -76,6 +76,7 @@ export default function ViewInstructor({ auth, instructor, reports, subjects, fi
                         <Table
                             paginated={subjects}
                             headersCount={1}
+                            headerStyle="border-b-2"
                             headers={
                                 <th>CODE</th>
                             }
@@ -83,8 +84,8 @@ export default function ViewInstructor({ auth, instructor, reports, subjects, fi
                                 subjects.data.map(
                                     subject =>
                                         <tr key={subject.id}>
-                                            <td>
-                                                <Link className="nav-link" href={route('schedules.view', subject.id)}>
+                                            <td className="!p-0">
+                                                <Link className="nav-link w-full h-full p-3" href={route('schedules.view', subject.id)}>
                                                     {subject.code}
                                                 </Link>
                                             </td>
@@ -101,6 +102,7 @@ export default function ViewInstructor({ auth, instructor, reports, subjects, fi
                         <Table
                             paginated={files}
                             headersCount={4}
+                            headerStyle="border-b-2"
                             headers={
                                 <>
                                     <th>Name</th>
