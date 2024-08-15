@@ -9,6 +9,7 @@ import InputError from '@/Components/InputError'
 import PrimaryButton from '@/Components/PrimaryButton'
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter'
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader'
+import Table from '@/Components/CDMLMS/Table'
 
 
 /**
@@ -49,36 +50,26 @@ export default function Syllabus({ auth, paginated }) {
                         <SingleCardCenter
                             bodyPadding='p-4'
                             table={
-                                <div className='table-responsive'>
-                                    <table className='datatable-table text-center mt-3'>
-                                        <thead>
-                                            <tr className='card-header'>
-                                                <th>Name</th>
-                                                <th>Size</th>
-                                                <th>Uploaded</th>
+                                <Table
+                                    paginated={paginated}
+                                    headersCount={3}
+                                    headers={
+                                        <>
+                                            <th>Name</th>
+                                            <th>Size</th>
+                                            <th>Uploaded</th>
+                                        </>
+                                    }
+                                    body={
+                                        paginated.data.map(file =>
+                                            <tr key={file.id}>
+                                                <td>{file.name}</td>
+                                                <td>{file.size}</td>
+                                                <td>{file.created_at}</td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                paginated.data == '' ? (
-                                                    <tr>
-                                                        <td colSpan='3'>
-                                                            Empty
-                                                        </td>
-                                                    </tr>
-                                                ) : (
-                                                    paginated.data.map(file =>
-                                                        <tr key={file.id}>
-                                                            <td>{file.name}</td>
-                                                            <td>{file.size}</td>
-                                                            <td>{file.created_at}</td>
-                                                        </tr>
-                                                    )
-                                                )
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        )
+                                    }
+                                />
                             }
                         />
                     }

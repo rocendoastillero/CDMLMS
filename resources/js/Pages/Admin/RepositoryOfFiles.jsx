@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
 import Layout from '@/Layouts/Layout'
 import { Head, Link } from '@inertiajs/react'
-import { ArrowDownTrayIcon, ArrowLeftIcon, CloudArrowUpIcon } from '@heroicons/react/24/outline'
+import { ArrowDownTrayIcon, CloudArrowUpIcon } from '@heroicons/react/24/outline'
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader'
-import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter'
-import PageNav from '@/Components/CDMLMS/PageNav'
+import Table from '@/Components/CDMLMS/Table'
 
 
 /**
@@ -14,9 +13,7 @@ import PageNav from '@/Components/CDMLMS/PageNav'
  * @param  auth The Authentication 
  * @returns Page
  */
-export default function RepositoryOfFiles({ auth, paginate, type }) {
-
-    const [paginated, setPaginated] = useState(paginate);
+export default function RepositoryOfFiles({ auth, paginated, type }) {
 
     return (
         <Layout
@@ -51,55 +48,36 @@ export default function RepositoryOfFiles({ auth, paginate, type }) {
                         </ul>
                     }
                     body={
-                        <div className='table-responsive mt-3'>
-                            <table className="datatable-table text-center">
-                                <thead>
-                                    <tr>
-                                        <th>Instructor</th>
-                                        <th>Name</th>
-                                        <th>Size</th>
-                                        <th>Uploaded</th>
-                                        <th>Download</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        paginated.data == '' ? (
-                                            <tr>
-                                                <td colSpan='5'>
-                                                    Empty
-                                                </td>
-                                            </tr>
-                                        ) : (
-                                            paginated.data.map(
-                                                file =>
-                                                    <tr>
-                                                        <td>{file.instructor}</td>
-                                                        <td>{file.name}</td>
-                                                        <td>{file.size}</td>
-                                                        <td>{file.created_at}</td>
-                                                        <td>
-                                                            <button onClick={() => window.open(route('admin.download', file.id))} as='button'>
-                                                                <ArrowDownTrayIcon className='w-4 h-4' />
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                            )
-                                        )
-                                    }
-                                </tbody>
-                            </table>
-                            <div className="flex flex-row justify-between">
-                                <div>
-                                    Page: {paginated.current_page}
-                                </div>
-                                <div className='flex flex-row'>
-                                    <PageNav
-                                        links={paginated.links}
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                        <Table
+                            paginated={paginated}
+                            headersCount={5}
+                            headers={
+                                <>
+                                    <th>Instructor</th>
+                                    <th>Name</th>
+                                    <th>Size</th>
+                                    <th>Uploaded</th>
+                                    <th>Download</th>
+                                </>
+                            }
+                            body={
+                                paginated.data.map(
+                                    file =>
+                                        <tr>
+                                            <td>{file.instructor}</td>
+                                            <td>{file.name}</td>
+                                            <td>{file.size}</td>
+                                            <td>{file.created_at}</td>
+                                            <td>
+                                                <button onClick={() => window.open(route('admin.download', file.id))} as='button'>
+                                                    <ArrowDownTrayIcon className='w-4 h-4' />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                )
+                            }
+                        />
+
                     }
                 />
 

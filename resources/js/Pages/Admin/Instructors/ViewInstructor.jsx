@@ -1,6 +1,7 @@
 import CompactHeader from "@/Components/CDMLMS/CompactHeader";
 import PageNav from "@/Components/CDMLMS/PageNav";
 import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
+import Table from "@/Components/CDMLMS/Table";
 import Layout from "@/Layouts/Layout";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Head, Link } from "@inertiajs/react";
@@ -8,9 +9,9 @@ import { useEffect } from "react";
 
 export default function ViewInstructor({ auth, instructor, reports, subjects, files }) {
 
-    useEffect(()=>{
-        
-    },[])
+    useEffect(() => {
+        console.log(reports);
+    }, [])
 
     return (
         <Layout
@@ -25,66 +26,55 @@ export default function ViewInstructor({ auth, instructor, reports, subjects, fi
                 <SingleCardWithHeader
                     header='Accomplishment Reports'
                     body={
-                        <div className="table-responsive mt-2">
-                            <table className="datatable-table text-center">
-                                <thead>
-                                    <tr className="border-b-2">
-                                        <th >Date</th>
-                                        <th >Start</th>
-                                        <th >End</th>
-                                        <th >Activity</th>
-                                        <th >Designation</th>
-                                        <th >Venue</th>
-                                        <th >Time Spent</th>
-                                        <th >Report</th>
+                        <Table
+                            paginated={reports}
+                            headersCount={8}
+                            headerStyle="border-b-2"
+                            headers={
+                                <>
+                                    <th >Date</th>
+                                    <th >Start</th>
+                                    <th >End</th>
+                                    <th >Activity</th>
+                                    <th >Designation</th>
+                                    <th >Venue</th>
+                                    <th >Time Spent</th>
+                                    <th >Report</th>
+                                </>
+                            }
+                            body={
+                                reports.data.map(report =>
+                                    <tr key={report.user_id}>
+                                        <td>{report.date}</td>
+                                        <td>{report.start}</td>
+                                        <td>{report.end}</td>
+                                        <td>{report.activity}</td>
+                                        <td>{report.designation}</td>
+                                        <td>{report.venue}</td>
+                                        <td>{report.timespent}</td>
+                                        <td>{report.report}</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        reports.data.map(report =>
-                                            <tr key={report.user_id}>
-                                                <td>{report.date}</td>
-                                                <td>{report.start}</td>
-                                                <td>{report.end}</td>
-                                                <td>{report.activity}</td>
-                                                <td>{report.designation}</td>
-                                                <td>{report.venue}</td>
-                                                <td>{report.timespent}</td>
-                                                <td>{report.report}</td>
-                                            </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </table>
-                            <div className='w-full flex flex-row justify-between'>
-                                <div>
-                                    <p>Page: {reports.current_page}</p>
-                                </div>
-                                <div className='flex flex-row'>
-                                    <PageNav
-                                        links={reports.links}
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                                )
+                            }
+                        />
                     }
                 />
 
                 <SingleCardWithHeader
                     header='Subjects'
                     body={
-                        <div className="mt-4">
-
-                        </div >
+                        <Table
+                            paginated={subjects}
+                        />
                     }
                 />
 
                 <SingleCardWithHeader
                     header='Files'
                     body={
-                        <div className="mt-4">
-
-                        </div >
+                        <Table
+                            paginated={files}
+                        />
                     }
                 />
             </CompactHeader>

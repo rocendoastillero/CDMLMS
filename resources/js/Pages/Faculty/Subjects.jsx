@@ -8,6 +8,7 @@ import Dropdown from '@/Components/Dropdown';
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
 import PageNav from '@/Components/CDMLMS/PageNav';
 import AlertCard from '@/Components/CDMLMS/AlertCard';
+import Table from '@/Components/CDMLMS/Table';
 
 
 
@@ -41,7 +42,7 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                             message="Take the subject anyway?"
                             actions={
                                 <>
-                                    <Link  href={route('subjects.assign')} as='button' method='patch'
+                                    <Link href={route('subjects.assign')} as='button' method='patch'
                                         data={{ id: selected, assign: 1 }} preserveScroll={true}
                                     >
                                         <CheckIcon className="h-6 w-6 hover:text-[#8b0d00]" />
@@ -93,79 +94,67 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                     )
                                 }
                             </div>
-                            <div className='table-responsive'>
-                                <table className='datatable-table !text-center'>
-                                    <thead>
-                                        <tr className='card-header'>
-                                            <th >Instructor</th>
-                                            <th >Course</th>
-                                            <th >Code</th>
-                                            <th >Description</th>
-                                            <th >Year/Sem</th>
-                                            <th >Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            paginated.data.map(subject =>
-                                                <tr className={`${auth.user.id == subject.user_id ? "bg-green-50" : ""}`} key={subject.id}>
-                                                    <td key={subject.user_id}>{subject.instructor}</td>
-                                                    <td>{subject.course}</td>
-                                                    <td>{subject.code}</td>
-                                                    <td>{subject.description}</td>
-                                                    <td>{`${subject.year}-${subject.sem}`} </td>
-                                                    <td >
-                                                        <Dropdown>
-                                                            <Dropdown.Trigger>
-                                                                <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
-                                                                    <EllipsisVerticalIcon className='w-5 h-5 text-black' />
-                                                                </button>
-                                                            </Dropdown.Trigger>
-                                                            <Dropdown.Content contentClasses='flex flex-col gap-2' margin='mt-1'>
-                                                                <button className='hover:hover:bg-green-50 px-1'
-                                                                    onClick={
-                                                                        () => {
-                                                                            if (subject.user_id == null) {
-                                                                                router.visit(route('subjects.assign'), { method: 'patch', data: { id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) } })
-                                                                            } else {
-                                                                                setSelected(subject.id)
-                                                                                setWarning(true);
-                                                                            }
-                                                                        }
+                            <Table
+                                paginated={paginated}
+                                headersCount={6}
+                                headers={
+                                    <>
+                                        <th >Instructor</th>
+                                        <th >Course</th>
+                                        <th >Code</th>
+                                        <th >Description</th>
+                                        <th >Year/Sem</th>
+                                        <th >Actions</th>
+                                    </>
+                                }
+                                body={
+                                    paginated.data.map(subject =>
+                                        <tr className={`${auth.user.id == subject.user_id ? "bg-green-50" : ""}`} key={subject.id}>
+                                            <td key={subject.user_id}>{subject.instructor}</td>
+                                            <td>{subject.course}</td>
+                                            <td>{subject.code}</td>
+                                            <td>{subject.description}</td>
+                                            <td>{`${subject.year}-${subject.sem}`} </td>
+                                            <td >
+                                                <Dropdown>
+                                                    <Dropdown.Trigger>
+                                                        <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
+                                                            <EllipsisVerticalIcon className='w-5 h-5 text-black' />
+                                                        </button>
+                                                    </Dropdown.Trigger>
+                                                    <Dropdown.Content contentClasses='flex flex-col gap-2' margin='mt-1'>
+                                                        <button className='hover:hover:bg-green-50 px-1'
+                                                            onClick={
+                                                                () => {
+                                                                    if (subject.user_id == null) {
+                                                                        router.visit(route('subjects.assign'), { method: 'patch', data: { id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) } })
+                                                                    } else {
+                                                                        setSelected(subject.id)
+                                                                        setWarning(true);
                                                                     }
-
-                                                                    preserveScroll={true}
-                                                                >
-                                                                    {auth.user.id == subject.user_id ? "Drop" : "Take"}
-                                                                </button>
-                                                                {
-                                                                    subject.user_id == auth.user.id && (
-                                                                        <Link className='hover:hover:bg-green-50 px-1' as='button'
-                                                                        // href={route('schedules.subject', subject.id)}
-                                                                        >
-                                                                            Schedules
-                                                                        </Link>
-                                                                    )
                                                                 }
-                                                            </Dropdown.Content>
-                                                        </Dropdown>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        }
-                                    </tbody>
-                                </table>
-                                <div className='w-full flex flex-row justify-between'>
-                                    <div>
-                                        <p>Page: {paginated.current_page}</p>
-                                    </div>
-                                    <div className='flex flex-row'>
-                                        <PageNav
-                                            links={paginated.links}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                                                            }
+
+                                                            preserveScroll={true}
+                                                        >
+                                                            {auth.user.id == subject.user_id ? "Drop" : "Take"}
+                                                        </button>
+                                                        {
+                                                            subject.user_id == auth.user.id && (
+                                                                <Link className='hover:hover:bg-green-50 px-1' as='button'
+                                                                // href={route('schedules.subject', subject.id)}
+                                                                >
+                                                                    Schedules
+                                                                </Link>
+                                                            )
+                                                        }
+                                                    </Dropdown.Content>
+                                                </Dropdown>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            />
                         </>
                     }
                 />

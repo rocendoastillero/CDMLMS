@@ -1,6 +1,7 @@
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader'
 import PageNav from '@/Components/CDMLMS/PageNav'
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter'
+import Table from '@/Components/CDMLMS/Table'
 import Layout from '@/Layouts/Layout'
 import { CheckCircleIcon, MagnifyingGlassIcon, UsersIcon, XCircleIcon } from '@heroicons/react/24/outline'
 import { Head, Link, router } from '@inertiajs/react'
@@ -53,55 +54,43 @@ export default function Instructors({ auth, paginated, searched }) {
                                     )
                                 }
                             </div>
-                            <div className='table-responsive'>
-                                <table className='datatable-table mt-3'>
-                                    <thead >
-                                        <tr className='card-header'>
-                                            <th >Instructor</th>
-                                            <th >Verified</th>
-                                            <th >Verify</th>
+                            <Table
+                                paginated={paginated}
+                                headersCount={3}
+                                headers={
+                                    <>
+                                        <th >Instructor</th>
+                                        <th >Verified</th>
+                                        <th >Verify</th>
+                                    </>
+                                }
+                                body={
+                                    paginated.data.map(instructor =>
+                                        //TODO tooltip
+                                        <tr key={instructor.id} className='text-center'>
+                                            <td>
+                                                <Link className='font-bold' href={route('admin.instructors.view', instructor.id)} as='button'>
+                                                    {instructor.lastname + ", " + instructor.firstname}
+                                                </Link>
+                                            </td>
+                                            <td>
+                                                <div className="flex place-content-center">
+                                                    {instructor.verified ? <CheckCircleIcon className='w-7 h-7 text-green-600' /> : <XCircleIcon className='w-7 h-7 text-red-600' />}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <Link
+                                                    className={`btn btn-primary font-semibold ${instructor.verified ? "!bg-red-700" : ""}`}
+                                                    href={route('admin.verify')} method='patch' as='button'
+                                                    data={{ id: instructor.id, verify: (instructor.verified ? 0 : 1) }}
+                                                >
+                                                    {instructor.verified ? "Unverify" : "Verify"}
+                                                </Link>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            paginated.data.map(instructor =>
-                                                //TODO tooltip
-                                                <tr key={instructor.id} className='text-center'>
-                                                    <td>
-                                                        <Link className='font-bold' href={route('admin.instructors.view', instructor.id)} as='button'>
-                                                            {instructor.lastname + ", " + instructor.firstname}
-                                                        </Link>
-                                                    </td>
-                                                    <td>
-                                                        <div className="flex place-content-center">
-                                                            {instructor.verified ? <CheckCircleIcon className='w-7 h-7 text-green-600' /> : <XCircleIcon className='w-7 h-7 text-red-600' />}
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <Link
-                                                            className={`btn btn-primary font-semibold ${instructor.verified ? "!bg-red-700" : ""}`}
-                                                            href={route('admin.verify')} method='patch' as='button'
-                                                            data={{ id: instructor.id, verify: (instructor.verified ? 0 : 1) }}
-                                                        >
-                                                            {instructor.verified ? "Unverify" : "Verify"}
-                                                        </Link>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        }
-                                    </tbody>
-                                </table>
-                                <div className='w-full flex flex-row justify-between'>
-                                    <div>
-                                        <p>Page: {paginated.current_page}</p>
-                                    </div>
-                                    <div className='flex flex-row'>
-                                        <PageNav
-                                            links={paginated.links}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
+                                    )
+                                }
+                            />
                         </>
                     }
                 />

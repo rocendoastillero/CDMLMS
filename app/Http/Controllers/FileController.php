@@ -58,7 +58,7 @@ class FileController extends Controller
     public function index()
     {
         return Inertia::render('Admin/RepositoryOfFiles', [
-            'paginate' => ''
+            'paginated' => ''
         ]);
     }
 
@@ -66,7 +66,7 @@ class FileController extends Controller
     {
         $type = 'classrecord';
         return Inertia::render('Admin/RepositoryOfFiles', [
-            'paginate' => File::where('type', $type)
+            'paginated' => File::where('type', $type)
                 ->latest()
                 ->paginate(8),
             'type' => $type
@@ -77,7 +77,7 @@ class FileController extends Controller
     {
         $type = 'gradesheet';
         return Inertia::render('Admin/RepositoryOfFiles', [
-            'paginate' => File::where('type', $type)
+            'paginated' => File::where('type', $type)
                 ->latest()
                 ->paginate(8),
                 'type' => $type
@@ -88,7 +88,7 @@ class FileController extends Controller
     {
         $type = 'syllabus';
         return Inertia::render('Admin/RepositoryOfFiles', [
-            'paginate' => File::where('type', $type)
+            'paginated' => File::where('type', $type)
                 ->latest()
                 ->paginate(8),
                 'type' => $type

@@ -9,6 +9,7 @@ import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
 import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
+import Table from '@/Components/CDMLMS/Table';
 
 
 /**
@@ -103,61 +104,48 @@ export default function AccomplishmentReports({ auth, paginated }) {
                     () => {
 
                         if (view == 1) {
-                            if (paginated.data.length == 0) {
-                                return (
-                                    <AlertCard
-                                        type='alert-info'
-                                        icon={<ArchiveBoxXMarkIcon className="h-6 w-6 " />}
-                                        title="Empty!"
-                                        message="Reports are empty, Create a report"
-                                    />
-                                );
-                            } else {
-                                return (
-                                    <SingleCardCenter
-                                        table={
-                                            <div className='table-responsive'>
-                                                <table className='datatable-table mt-3 text-center'>
-                                                    <thead>
-                                                        <tr className='card-header'>
-                                                            <th >Date</th>
-                                                            <th >Start</th>
-                                                            <th >End</th>
-                                                            <th >Activity</th>
-                                                            <th >Designation</th>
-                                                            <th >Venue</th>
-                                                            <th >Time Spent</th>
-                                                            <th >Report</th>
-                                                            <th >Actions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {
-                                                            paginated.data.map(report =>
-                                                                <tr key={report.user_id}>
-                                                                    <td>{report.date}</td>
-                                                                    <td>{report.start}</td>
-                                                                    <td>{report.end}</td>
-                                                                    <td>{report.activity}</td>
-                                                                    <td>{report.designation}</td>
-                                                                    <td>{report.venue}</td>
-                                                                    <td>{report.timespent}</td>
-                                                                    <td>{report.report}</td>
-                                                                    <td>
+                            return (
+                                <SingleCardCenter
+                                    table={
+                                        <Table
+                                            paginated={paginated}
+                                            headersCount={8}
+                                            headers={
+                                                <>
+                                                    <th >Date</th>
+                                                    <th >Start</th>
+                                                    <th >End</th>
+                                                    <th >Activity</th>
+                                                    <th >Designation</th>
+                                                    <th >Venue</th>
+                                                    <th >Time Spent</th>
+                                                    <th >Report</th>
+                                                    <th >Actions</th>
+                                                </>
+                                            }
+                                            body={
+                                                paginated.data.map(report =>
+                                                    <tr key={report.user_id}>
+                                                        <td>{report.date}</td>
+                                                        <td>{report.start}</td>
+                                                        <td>{report.end}</td>
+                                                        <td>{report.activity}</td>
+                                                        <td>{report.designation}</td>
+                                                        <td>{report.venue}</td>
+                                                        <td>{report.timespent}</td>
+                                                        <td>{report.report}</td>
+                                                        <td>
 
-                                                                    </td>
-                                                                </tr>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            }
+                                        />
+                                    }
+                                />
 
-                                                            )
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        }
-                                    />
+                            );
 
-                                );
-                            }
                         } else if (view == 0 || view == 2) {
                             return (
                                 <SingleCardWithHeader

@@ -1,8 +1,8 @@
 import AlertCard from '@/Components/CDMLMS/AlertCard';
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky';
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
-import PageNav from '@/Components/CDMLMS/PageNav';
 import SingleCardCenter from '@/Components/CDMLMS/SingleCardCenter';
+import Table from '@/Components/CDMLMS/Table';
 import Dropdown from '@/Components/Dropdown';
 import Layout from '@/Layouts/Layout';
 import { BookOpenIcon, CheckIcon, ChevronDownIcon, EllipsisVerticalIcon, MagnifyingGlassIcon, PencilIcon, TrashIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -59,10 +59,6 @@ export default function Subjects({ auth, paginated, searched = '' }) {
       post(route('subjects.store'), { onSuccess: () => reset() });
     }
   };
-
-  useEffect((() => {
-    console.log(paginated);
-  }), []);
 
   return (
     <Layout
@@ -127,96 +123,84 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                       )
                     }
                   </div>
-                  <div className='table-responsive'>
-                    <table className='datatable-table text-center'>
+                  <Table
+                    paginated={paginated}
+                    headersCount={6}
+                    headers={
+                      <>
+                        <th>Instructor</th>
+                        <th>Course</th>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Year/Sem</th>
+                        <th>Actions</th>
+                      </>
+                    }
+                    body={
+                      paginated.data.map(
+                        subject =>
+                          <tr key={subject.id} className={`${subject.user_id == null ? "bg-red-100" : ""} ${subject.id == selectedSubject.id ? "!bg-blue-100 !font-bold" : ""}`}>
+                            <td key={subject.user_id}>{subject.instructor}</td>
+                            <td>{subject.course}</td>
+                            <td>{subject.code}</td>
+                            <td>{subject.description}</td>
+                            <td>{`${subject.year}-${subject.sem}`} </td>
+                            <td>
+                              <Dropdown>
+                                <Dropdown.Trigger>
+                                  <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
+                                    <EllipsisVerticalIcon className='w-5 h-5 text-black' />
+                                  </button>
+                                </Dropdown.Trigger>
+                                <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='mt-0' width='w-auto'>
+                                  <button className='hover:bg-green-50 '
+                                    onClick={() => {
+                                      if (editing && (subject.id != selectedSubject.id)) {
+                                        setSelectedSubject(subject);
+                                        setData(subject);
+                                      } else if (!editing && selectedSubject.id == '') {
+                                        setEditing(true);
+                                        setSelectedSubject(subject);
+                                        setData(subject);
+                                      } else if (editing && subject.id == selectedSubject.id) {
+                                        setEditing(false);
+                                        setSelectedSubject(empty);
+                                        setData(empty);
+                                      }
+                                      if (warning) {
+                                        setWarning(false);
+                                      }
+                                    }}
+                                  >
+                                    {subject.id == selectedSubject.id ? "Cancel" : "Edit"}
+                                  </button>
+                                  <button className='hover:bg-green-50 '
+                                    onClick={() => {
+                                      if (subject.id == selectedSubject.id) {
+                                        setWarning(!warning);
+                                      } else if (!editing && selectedSubject.id == '') {
+                                        setEditing(true);
+                                        setSelectedSubject(subject);
+                                        setData(subject);
+                                        setWarning(!warning);
+                                      }
+                                    }}
+                                  >
+                                    Delete
+                                  </button>
+                                  <Link className='hover:bg-green-50 px-1' as='button'
+                                    href={route('schedules.view', subject.id)}
+                                  >
+                                    Schedules
+                                  </Link>
+                                </Dropdown.Content>
+                              </Dropdown>
+                            </td>
+                          </tr>
+                      )
+                    }
+                  />
 
-                      <thead>
-                        <tr className='card-header'>
-                          <th>Instructor</th>
-                          <th>Course</th>
-                          <th>Code</th>
-                          <th>Description</th>
-                          <th>Year/Sem</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
-                          paginated.data.map(subject =>
-                            <tr key={subject.id} className={`${subject.user_id == null ? "bg-red-100" : ""} ${subject.id == selectedSubject.id ? "!bg-blue-100 !font-bold" : ""}`}>
-                              <td key={subject.user_id}>{subject.instructor}</td>
-                              <td>{subject.course}</td>
-                              <td>{subject.code}</td>
-                              <td>{subject.description}</td>
-                              <td>{`${subject.year}-${subject.sem}`} </td>
-                              <td>
-                                <Dropdown>
-                                  <Dropdown.Trigger>
-                                    <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
-                                      <EllipsisVerticalIcon className='w-5 h-5 text-black' />
-                                    </button>
-                                  </Dropdown.Trigger>
-                                  <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='mt-0' width='w-auto'>
-                                    <button className='hover:bg-green-50 '
-                                      onClick={() => {
-                                        if (editing && (subject.id != selectedSubject.id)) {
-                                          setSelectedSubject(subject);
-                                          setData(subject);
-                                        } else if (!editing && selectedSubject.id == '') {
-                                          setEditing(true);
-                                          setSelectedSubject(subject);
-                                          setData(subject);
-                                        } else if (editing && subject.id == selectedSubject.id) {
-                                          setEditing(false);
-                                          setSelectedSubject(empty);
-                                          setData(empty);
-                                        }
-                                        if (warning) {
-                                          setWarning(false);
-                                        }
-                                      }}
-                                    >
-                                      {subject.id == selectedSubject.id ? "Cancel" : "Edit"}
-                                    </button>
-                                    <button className='hover:bg-green-50 '
-                                      onClick={() => {
-                                        if (subject.id == selectedSubject.id) {
-                                          setWarning(!warning);
-                                        } else if (!editing && selectedSubject.id == '') {
-                                          setEditing(true);
-                                          setSelectedSubject(subject);
-                                          setData(subject);
-                                          setWarning(!warning);
-                                        }
-                                      }}
-                                    >
-                                      Delete
-                                    </button>
-                                    <Link className='hover:bg-green-50 px-1' as='button'
-                                      href={route('schedules.view', subject.id)}
-                                    >
-                                      Schedules
-                                    </Link>
-                                  </Dropdown.Content>
-                                </Dropdown>
-
-                              </td>
-                            </tr>
-                          )
-                        }
-                      </tbody>
-                    </table>
-                    <div className='w-full flex flex-row justify-between'>
-                      <div>
-                        <p>Page: {paginated.current_page}</p>
-                      </div>
-                      <div className='flex flex-row'>
-                        <PageNav
-                          links={paginated.links}
-                        />
-                      </div>
-                    </div>
-                  </div>
                 </>
 
               }
