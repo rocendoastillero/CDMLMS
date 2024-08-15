@@ -9,10 +9,6 @@ import { useEffect } from "react";
 
 export default function ViewInstructor({ auth, instructor, reports, subjects, files }) {
 
-    useEffect(() => {
-        console.log(reports);
-    }, [])
-
     return (
         <Layout
             user={auth.user}
