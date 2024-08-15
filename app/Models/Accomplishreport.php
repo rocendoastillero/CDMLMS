@@ -37,8 +37,8 @@ class Accomplishreport extends Model
     protected function casts(): array
     {
         return [
-            'start' => 'datetime:g:i A',
-            'end' => 'datetime:g:i A',
+            'start' => 'datetime:H:i',
+            'end' => 'datetime:H:i',
             'created_at' => 'datetime:d/m/Y g:i A',
             'updated_at' => 'datetime:d/m/Y g:i A',
         ];
@@ -83,6 +83,7 @@ class Accomplishreport extends Model
 
         $date = Carbon::parse($this->start);
 
-        return  $weekMap[$date->dayOfWeek()] . " - " .  $date->format('m/d');
+        // $weekMap[$date->dayOfWeek()] . " - " .  
+        return $date->format('Y-m-d');
     }
 }

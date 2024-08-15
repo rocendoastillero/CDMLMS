@@ -39,17 +39,31 @@ export default function ViewInstructor({ auth, instructor, reports, subjects, fi
                                 </>
                             }
                             body={
-                                reports.data.map(report =>
-                                    <tr key={report.user_id}>
-                                        <td>{report.date}</td>
-                                        <td>{report.start}</td>
-                                        <td>{report.end}</td>
-                                        <td>{report.activity}</td>
-                                        <td>{report.designation}</td>
-                                        <td>{report.venue}</td>
-                                        <td>{report.timespent}</td>
-                                        <td>{report.report}</td>
-                                    </tr>
+                                reports.data.map(report => {
+                                    let start = new Date(`${report.date} ${report.start}`);
+                                    let end = new Date(`${report.date} ${report.end}`);
+                                    let nstart = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', weekday: 'short', hour: '2-digit', minute: '2-digit' }).format(start);
+                                    let nend = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', weekday: 'short', hour: '2-digit', minute: '2-digit' }).format(end);
+
+                                    let [day, date, lstart] = nstart.split(', ')
+                                    let [day_, date_, lend] = nend.split(', ')
+
+                                    console.log(day);
+                                    console.log(date);
+                                    console.log(lstart);
+                                    return (
+                                        <tr key={report.user_id}>
+                                            <td>{report.date}</td>
+                                            <td>{report.start}</td>
+                                            <td>{report.end}</td>
+                                            <td>{report.activity}</td>
+                                            <td>{report.designation}</td>
+                                            <td>{report.venue}</td>
+                                            <td>{report.timespent}</td>
+                                            <td>{report.report}</td>
+                                        </tr>
+                                    )
+                                }
                                 )
                             }
                         />

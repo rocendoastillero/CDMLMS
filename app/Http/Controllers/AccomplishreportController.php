@@ -87,8 +87,8 @@ class AccomplishreportController extends Controller
         Gate::authorize('update', $accomplishreport);
 
         $validated = $request->validate([
-            'start' => 'required|date_format:g:i A',
-            'end' => 'required|date_format:g:i A|after:start',
+            'start' => 'required',
+            'end' => 'required|after:start',
             'venue' => 'required|string|max:255',
             'activity' => 'required|string|max:255',
             'designation' => 'required|string|max:255',
