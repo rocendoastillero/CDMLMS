@@ -93,6 +93,9 @@ export default function AccomplishmentReports({ auth, paginated }) {
                                 </button>
                             )
                         }
+                        <div>
+                            {editing ? "editing" : 'false'}
+                        </div>
                     </div>
                 </div>
                 {(
@@ -101,7 +104,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
                         if (tab == 0) {
                             return (
                                 <SingleCardCenter
-                                bodyPadding='p-4'
+                                    bodyPadding='p-4'
                                     table={
                                         <Table
                                             paginated={paginated}
@@ -137,19 +140,21 @@ export default function AccomplishmentReports({ auth, paginated }) {
                                                                         <EllipsisVerticalIcon className='w-6 h-6 text-black' />
                                                                     </button>
                                                                 </Dropdown.Trigger>
-                                                                <Dropdown.Content position={index == (paginated.data.length - 1) ? "" : "absolute"} contentClasses='flex flex-col gap-2' margin='mt-1'>                                                                    <button className='hover:bg-green-50 '
-                                                                    onClick={() => {
-                                                                        setEditing(true);
-                                                                        setSelectedAnnouncement(announcement);
-                                                                        setTab(2);
-                                                                    }}
-                                                                >
-                                                                    {/* {announcement.id == selectedAnnouncement.id ? "Cancel" : "Edit"} */}
-                                                                    Edit
-                                                                </button>
+                                                                <Dropdown.Content position={index == (paginated.data.length - 1) ? "!bottom-0 right-[105%] !mr-14" : ""} contentClasses='flex flex-col gap-2' margin='mt-1'>
+                                                                    <button className='hover:bg-green-50 '
+                                                                        onClick={() => {
+                                                                            setEditing(true);
+                                                                            setData(report);
+                                                                            console.log(report);
+                                                                            console.log(data);
+                                                                            setTab(2);
+                                                                        }}
+                                                                    >
+                                                                        Edit
+                                                                    </button>
                                                                     <button className='hover:bg-green-50 mx-1'
                                                                         onClick={() => {
-                                                                            setSelectedAnnouncement(announcement);
+                                                                            setData(report);
                                                                             setWarning(true);
                                                                         }}
                                                                     >

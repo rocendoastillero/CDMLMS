@@ -152,7 +152,7 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                     <EllipsisVerticalIcon className='w-5 h-5 text-black' />
                                   </button>
                                 </Dropdown.Trigger>
-                                <Dropdown.Content position={index == (paginated.data.length - 1) ? "" : "absolute"} contentClasses='flex flex-col gap-2 text-center !font-normal' margin='mt-0' width='w-auto'>
+                                <Dropdown.Content position={index == (paginated.data.length - 1) ? "!bottom-0 right-[105%] !mr-14" : ""} contentClasses='flex flex-col gap-2 text-center !font-normal' margin='mt-0' width='w-auto'>
                                   <button className='hover:bg-green-50 '
                                     onClick={() => {
                                       if (editing && (subject.id != selectedSubject.id)) {
