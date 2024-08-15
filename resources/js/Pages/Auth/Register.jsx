@@ -26,8 +26,6 @@ export default function Register() {
     });
 
     useEffect(() => {
-        console.log(data);
-
         return () => {
             reset('password', 'password_confirmation');
         };

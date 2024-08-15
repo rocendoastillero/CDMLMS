@@ -22,7 +22,7 @@ export default function ViewSched({ auth, schedules, title, subject }) {
         >
             <Head title='Schedules' />
             <CompactHeader
-                icon={<CalendarDaysIcon className='w-7 h-7 text-gray-500' />}
+                icon={<CalendarDaysIcon className='w-7 h-7' />}
                 title={title}
                 buttons={
                     <>

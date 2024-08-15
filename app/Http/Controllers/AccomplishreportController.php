@@ -18,8 +18,7 @@ class AccomplishreportController extends Controller
      */
     public function index()
     {
-        
-        return Inertia::render('Faculty/AccomplishmentReports', [
+        return Inertia::render('Faculty/AccomplishmentReports/AccomplishmentReports', [
             'paginated' => Auth::user()->accomplishmentreports
             ->paginate(8)
         ]);

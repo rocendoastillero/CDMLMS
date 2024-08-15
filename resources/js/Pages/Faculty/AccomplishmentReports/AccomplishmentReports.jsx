@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader'
-import { PencilIcon, TrashIcon, ArchiveBoxXMarkIcon, CheckIcon, XMarkIcon, TrophyIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon, ArchiveBoxXMarkIcon, CheckIcon, XMarkIcon, TrophyIcon, PlusIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import Layout from '@/Layouts/Layout'
 import { Head, Link, useForm } from '@inertiajs/react'
 import CardsWithSticky from '@/Components/CDMLMS/CardsWithSticky'
@@ -10,6 +10,7 @@ import TextInput from '@/Components/TextInput';
 import InputLabel from '@/Components/InputLabel';
 import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
 import Table from '@/Components/CDMLMS/Table';
+import Dropdown from '@/Components/Dropdown';
 
 
 /**
@@ -21,7 +22,7 @@ import Table from '@/Components/CDMLMS/Table';
  */
 export default function AccomplishmentReports({ auth, paginated }) {
 
-    const [view, setView] = useState(1);
+    const [tab, setTab] = useState(0);
 
     const [editing, setEditing] = useState(false);
 
@@ -38,27 +39,9 @@ export default function AccomplishmentReports({ auth, paginated }) {
         report: '',
     };
 
-    const [selectedReport, setSelectedReport] = useState({
-        id: '',
-        date: '',
-        start: '',
-        end: '',
-        activity: '',
-        venue: '',
-        designation: '',
-        report: '',
-    });
+    const [selectedReport, setSelectedReport] = useState(empty);
 
-    const { data, setData, post, patch, errors, hasErrors, processing, reset, recentlySuccessful } = useForm({
-        id: '',
-        date: '',
-        start: '',
-        end: '',
-        activity: '',
-        venue: '',
-        designation: '',
-        report: '',
-    });
+    const { data, setData, post, patch, errors, hasErrors, processing, reset, recentlySuccessful } = useForm(empty);
 
     const submit = (e) => {
         e.preventDefault();
@@ -68,7 +51,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
         } else {
             console.log(data);
             console.log('creating');
-            post(route('accomplishmentreports.store'), { onSuccess: () => { reset(); setView(1); }, preserveScroll: true });
+            post(route('accomplishmentreports.store'), { onSuccess: () => { reset(); setTab(0); }, preserveScroll: true });
             console.log(errors)
 
         }
@@ -82,34 +65,47 @@ export default function AccomplishmentReports({ auth, paginated }) {
         <Layout
             isAdmin={auth.isAdmin}
             user={auth.user}
+            warning={warning}
         >
             <Head title='Accomplishment Reports' />
             <OverlapHeader
                 icon={<TrophyIcon className='w-9 h-9 text-gray-500' />}
                 title='Accomplishment Reports'
-                subtitle='View Accomplishment Reports'
+                subtitle='tab Accomplishment Reports'
 
             >
                 <div className='relative text-gray-400 p-1 my-2'>
                     <div className='absolute bottom-[110%] w-full flex flex-row gap-2 md:mb-1 lg:mb-2'>
-                        <button onClick={() => { setView(1) }} className={`${view == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
+                        <button
+                            onClick={() => { setTab(0); setEditing(false); setSelectedReport(empty); }}
+                            className={`${tab == 0 ? "border-b-2 !text-white" : ""} p-2 `} >
                             View
                         </button>
-                        <button onClick={() => { setView(0) }} className={`${view == 0 ? "border-b-2 !text-white" : ""} p-2 `} >
+                        <button
+                            onClick={() => { setTab(1); setEditing(false); setSelectedReport(empty); }}
+                            className={`${tab == 1 ? "border-b-2 !text-white" : ""} p-2 `} >
                             Create
                         </button>
+                        {
+                            tab == 2 && (
+                                <button className="border-b-2 !text-white p-2 ">
+                                    Edit
+                                </button>
+                            )
+                        }
                     </div>
                 </div>
                 {(
                     () => {
 
-                        if (view == 1) {
+                        if (tab == 0) {
                             return (
                                 <SingleCardCenter
+                                bodyPadding='p-4'
                                     table={
                                         <Table
                                             paginated={paginated}
-                                            headersCount={8}
+                                            headersCount={9}
                                             headers={
                                                 <>
                                                     <th >Date</th>
@@ -124,7 +120,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
                                                 </>
                                             }
                                             body={
-                                                paginated.data.map(report =>
+                                                paginated.data.map((report, index) =>
                                                     <tr key={report.user_id}>
                                                         <td>{report.date}</td>
                                                         <td>{report.start}</td>
@@ -135,7 +131,32 @@ export default function AccomplishmentReports({ auth, paginated }) {
                                                         <td>{report.timespent}</td>
                                                         <td>{report.report}</td>
                                                         <td>
-
+                                                            <Dropdown>
+                                                                <Dropdown.Trigger>
+                                                                    <button className='rounded-[50%] hover:bg-gray-200 p-1 mx-2 mt-2' type='button'>
+                                                                        <EllipsisVerticalIcon className='w-6 h-6 text-black' />
+                                                                    </button>
+                                                                </Dropdown.Trigger>
+                                                                <Dropdown.Content position={index == (paginated.data.length - 1) ? "" : "absolute"} contentClasses='flex flex-col gap-2' margin='mt-1'>                                                                    <button className='hover:bg-green-50 '
+                                                                    onClick={() => {
+                                                                        setEditing(true);
+                                                                        setSelectedAnnouncement(announcement);
+                                                                        setTab(2);
+                                                                    }}
+                                                                >
+                                                                    {/* {announcement.id == selectedAnnouncement.id ? "Cancel" : "Edit"} */}
+                                                                    Edit
+                                                                </button>
+                                                                    <button className='hover:bg-green-50 mx-1'
+                                                                        onClick={() => {
+                                                                            setSelectedAnnouncement(announcement);
+                                                                            setWarning(true);
+                                                                        }}
+                                                                    >
+                                                                        Delete
+                                                                    </button>
+                                                                </Dropdown.Content>
+                                                            </Dropdown>
                                                         </td>
                                                     </tr>
                                                 )
@@ -146,7 +167,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
 
                             );
 
-                        } else if (view == 0 || view == 2) {
+                        } else if (tab == 1 || tab == 2) {
                             return (
                                 <SingleCardWithHeader
                                     header=

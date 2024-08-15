@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
+use Throwable;
 
 class FileController extends Controller
 {
@@ -80,7 +81,7 @@ class FileController extends Controller
             'paginated' => File::where('type', $type)
                 ->latest()
                 ->paginate(8),
-                'type' => $type
+            'type' => $type
         ]);
     }
 
@@ -91,7 +92,7 @@ class FileController extends Controller
             'paginated' => File::where('type', $type)
                 ->latest()
                 ->paginate(8),
-                'type' => $type
+            'type' => $type
         ]);
     }
 
@@ -133,7 +134,11 @@ class FileController extends Controller
      */
     public function download(File $file)
     {
-        return Storage::download($file->path, $file->name);
+        try {
+            return Storage::download($file->path, $file->name);
+        } catch (Throwable $e) {
+            redirect(route('admin.repositoryoffiles'));
+        }
     }
 
     /**

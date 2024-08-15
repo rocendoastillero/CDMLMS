@@ -19,34 +19,49 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Schedules/Schedules',[
-            'subjects' => Subject::select('id','code')->get()->makeHidden('instructor')->paginate(8)
+        return Inertia::render('Admin/Schedules/Schedules', [
+            'subjects' => Subject::select('id', 'code')->get()->makeHidden('instructor')->paginate(8)
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function mySchedule()
+
+    public function pickSubjects()
     {
         try {
-            return Inertia::render('Faculty/Schedules', [
-                'subjects' => Auth::user()->subjects,
-                'schedules' => Auth::user()->subjects->first()->schedules,
-                'activesubject' => Auth::user()->subjects->first()->code
+            return Inertia::render('Faculty/Schedules/Schedules', [
+                'subjects' => Auth::user()->subjects->paginate(8),
             ]);
         } catch (Throwable $e) {
             return redirect(route('subjects.index'));
         }
     }
 
+    public function mySchedule(Subject $subject)
+    {
+        try {
+            return Inertia::render('Faculty/Schedules/ViewSched', [
+                'subject' => $subject,
+                'schedules' => $subject->schedules->sortBy('start')
+            ]);
+        } catch (Throwable $e) {
+            return redirect(route('schedules'));
+        }
+    }
+
     public function scheduleOf(Subject $subject)
     {
-        return Inertia::render('Admin/Schedules/ViewSched', [
-            'schedules' => $subject->schedules->sortBy('start'),
-            'title' => "View Schedule of " . $subject->code,
-            'subject' => $subject->id
-        ]);
+        try {
+            return Inertia::render('Admin/Schedules/ViewSched', [
+                'schedules' => $subject->schedules->sortBy('start'),
+                'title' => "View Schedule of " . $subject->code,
+                'subject' => $subject->id
+            ]);
+        } catch (Throwable $e) {
+            redirect(route('schedules.index'));
+        }
     }
 
     /**

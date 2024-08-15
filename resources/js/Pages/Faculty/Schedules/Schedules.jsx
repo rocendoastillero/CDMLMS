@@ -1,24 +1,31 @@
-import OverlapHeader from "@/Components/CDMLMS/OverlapHeader";
-import SingleCardWithHeader from "@/Components/CDMLMS/SingleCardWithHeader";
-import Table from "@/Components/CDMLMS/Table";
-import Layout from "@/Layouts/Layout";
-import { CalendarDaysIcon } from "@heroicons/react/24/outline";
-import { Head, Link } from "@inertiajs/react";
+import React, { useEffect, useState } from 'react'
+import Layout from '@/Layouts/Layout'
+import { Head, Link } from '@inertiajs/react'
+import AlertCard from '@/Components/CDMLMS/AlertCard';
+import { ArchiveBoxXMarkIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
+import OverlapHeader from '@/Components/CDMLMS/OverlapHeader';
+import Table from '@/Components/CDMLMS/Table';
+import SingleCardWithHeader from '@/Components/CDMLMS/SingleCardWithHeader';
 
 
-export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', subjects }) {
+/**
+ * @function Page
+ * 
+ * @param  auth The Authentication 
+ * @returns Page
+ */
+export default function Schedules({ auth, subjects}) {
 
     return (
         <Layout
-            user={auth.user}
             isAdmin={auth.isAdmin}
+            user={auth.user}
         >
-            <Head title="Schedules" />
+            <Head title='Schedule' />
             <OverlapHeader
                 icon={<CalendarDaysIcon className='w-9 h-9 text-gray-500' />}
                 title='Schedule'
-                subtitle={pageHeaderSubtitle}
-
+                subtitle='view Schedule'
             >
 
                 <SingleCardWithHeader
@@ -35,19 +42,18 @@ export default function Schedules({ auth, pageHeaderSubtitle = 'view Schedule', 
                                     subject =>
                                         <tr key={subject.id}>
                                             <td>
-                                                <Link className="nav-link" href={route('schedules.view', subject.id)}>
+                                                <Link className="nav-link" href={route('schedules.subject', subject.id)}>
                                                     {subject.code}
                                                 </Link>
-
                                             </td>
                                         </tr>
                                 )
                             }
                         />
+
                     }
                 />
             </OverlapHeader>
-
         </Layout>
-    );
+    )
 }

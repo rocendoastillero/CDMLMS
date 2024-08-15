@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Throwable;
 
 class AdminController extends Controller
 {
@@ -42,12 +43,16 @@ class AdminController extends Controller
 
     public function viewInstructor(User $instructor): Response
     {
-        return Inertia::render('Admin/Instructors/ViewInstructor', [
-            'instructor' => $instructor,
-            'reports' => $instructor->accomplishmentreports->paginate(8),
-            'subjects' => $instructor->subjects->select(['id','code'])->paginate(8),
-            'files' => $instructor->files->makeVisible('type')->sortBy('type')->paginate(8)
-        ]);
+        try {
+            return Inertia::render('Admin/Instructors/ViewInstructor', [
+                'instructor' => $instructor,
+                'reports' => $instructor->accomplishmentreports->paginate(8),
+                'subjects' => $instructor->subjects->select(['id', 'code'])->paginate(8),
+                'files' => $instructor->files->makeVisible('type')->sortBy('type')->paginate(8)
+            ]);
+        } catch (Throwable $e) {
+            redirect(route('admin.instructors'));
+        }
     }
 
     public function searchInstructor($search): Response

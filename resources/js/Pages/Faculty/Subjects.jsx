@@ -108,50 +108,51 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                     </>
                                 }
                                 body={
-                                    paginated.data.map(subject =>
-                                        <tr className={`${auth.user.id == subject.user_id ? "bg-green-50" : ""}`} key={subject.id}>
-                                            <td key={subject.user_id}>{subject.instructor}</td>
-                                            <td>{subject.course}</td>
-                                            <td>{subject.code}</td>
-                                            <td>{subject.description}</td>
-                                            <td>{`${subject.year}-${subject.sem}`} </td>
-                                            <td >
-                                                <Dropdown>
-                                                    <Dropdown.Trigger>
-                                                        <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
-                                                            <EllipsisVerticalIcon className='w-5 h-5 text-black' />
-                                                        </button>
-                                                    </Dropdown.Trigger>
-                                                    <Dropdown.Content contentClasses='flex flex-col gap-2' margin='mt-1'>
-                                                        <button className='hover:hover:bg-green-50 px-1'
-                                                            onClick={
-                                                                () => {
-                                                                    if (subject.user_id == null) {
-                                                                        router.visit(route('subjects.assign'), { method: 'patch', data: { id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) } })
-                                                                    } else {
-                                                                        setSelected(subject.id)
-                                                                        setWarning(true);
+                                    paginated.data.map(
+                                        (subject, index) =>
+                                            <tr className={`${auth.user.id == subject.user_id ? "bg-green-50" : ""}`} key={subject.id}>
+                                                <td key={subject.user_id}>{subject.instructor}</td>
+                                                <td>{subject.course}</td>
+                                                <td>{subject.code}</td>
+                                                <td>{subject.description}</td>
+                                                <td>{`${subject.year}-${subject.sem}`} </td>
+                                                <td >
+                                                    <Dropdown>
+                                                        <Dropdown.Trigger>
+                                                            <button className='rounded-[50%] hover:bg-gray-200 p-1' type='button'>
+                                                                <EllipsisVerticalIcon className='w-5 h-5 text-black' />
+                                                            </button>
+                                                        </Dropdown.Trigger>
+                                                        <Dropdown.Content position={index == (paginated.data.length - 1) ? "" : "absolute"} contentClasses='flex flex-col gap-2' margin='mt-1'>
+                                                            <button className='hover:hover:bg-green-50 px-1'
+                                                                onClick={
+                                                                    () => {
+                                                                        if (subject.user_id == null) {
+                                                                            router.visit(route('subjects.assign'), { method: 'patch', data: { id: subject.id, assign: (auth.user.id == subject.user_id ? 0 : 1) } })
+                                                                        } else {
+                                                                            setSelected(subject.id)
+                                                                            setWarning(true);
+                                                                        }
                                                                     }
                                                                 }
-                                                            }
 
-                                                            preserveScroll={true}
-                                                        >
-                                                            {auth.user.id == subject.user_id ? "Drop" : "Take"}
-                                                        </button>
-                                                        {
-                                                            subject.user_id == auth.user.id && (
-                                                                <Link className='hover:hover:bg-green-50 px-1' as='button'
-                                                                // href={route('schedules.subject', subject.id)}
-                                                                >
-                                                                    Schedules
-                                                                </Link>
-                                                            )
-                                                        }
-                                                    </Dropdown.Content>
-                                                </Dropdown>
-                                            </td>
-                                        </tr>
+                                                                preserveScroll={true}
+                                                            >
+                                                                {auth.user.id == subject.user_id ? "Drop" : "Take"}
+                                                            </button>
+                                                            {
+                                                                subject.user_id == auth.user.id && (
+                                                                    <Link className='hover:hover:bg-green-50 px-1' as='button'
+                                                                    // href={route('schedules.subject', subject.id)}
+                                                                    >
+                                                                        Schedules
+                                                                    </Link>
+                                                                )
+                                                            }
+                                                        </Dropdown.Content>
+                                                    </Dropdown>
+                                                </td>
+                                            </tr>
                                     )
                                 }
                             />

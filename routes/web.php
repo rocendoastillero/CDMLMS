@@ -43,7 +43,8 @@ Route::middleware('faculty')->group(function () {
 
     Route::get('/announcements', [AnnouncementController::class, 'view'])->name('announcements');
 
-    Route::get('schedules', [ScheduleController::class, 'mySchedule'])->name('schedules');
+    Route::get('schedules', [ScheduleController::class, 'pickSubjects'])->name('schedules');
+    Route::get('schedules/{subject}', [ScheduleController::class, 'mySchedule'])->name('schedules.subject');
 
     Route::get('/classrecord', [FileController::class, 'classRecord'])->name('classrecord');
 

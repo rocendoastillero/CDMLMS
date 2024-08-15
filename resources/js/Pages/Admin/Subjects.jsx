@@ -138,7 +138,7 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                     }
                     body={
                       paginated.data.map(
-                        subject =>
+                        (subject, index) =>
                           <tr key={subject.id} className={`${subject.user_id == null ? "bg-red-100" : ""} ${subject.id == selectedSubject.id ? "!bg-blue-100 !font-bold" : ""}`}>
                             <td key={subject.user_id}>{subject.instructor}</td>
                             <td>{subject.course}</td>
@@ -152,7 +152,7 @@ export default function Subjects({ auth, paginated, searched = '' }) {
                                     <EllipsisVerticalIcon className='w-5 h-5 text-black' />
                                   </button>
                                 </Dropdown.Trigger>
-                                <Dropdown.Content contentClasses='flex flex-col gap-2 text-center !font-normal' margin='mt-0' width='w-auto'>
+                                <Dropdown.Content position={index == (paginated.data.length - 1) ? "" : "absolute"} contentClasses='flex flex-col gap-2 text-center !font-normal' margin='mt-0' width='w-auto'>
                                   <button className='hover:bg-green-50 '
                                     onClick={() => {
                                       if (editing && (subject.id != selectedSubject.id)) {
