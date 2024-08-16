@@ -64,8 +64,8 @@ class AdminController extends Controller
                 ->where('type', 'user')
                 ->orderBy('verified')
                 ->get()
-                ->filter(function ($item) {
-                    return $item->type != 'admin';
+                ->filter(function ($instructor) {
+                    return $instructor->type != 'admin';
                 })
                 ->makeHidden(['email', 'email_verified_at', 'created_at', 'updated_at', 'phone'])
                 ->paginate(8),
