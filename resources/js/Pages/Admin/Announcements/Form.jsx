@@ -200,8 +200,8 @@ export default function Form({ selected, editing = false, back }) {
                                 <div className='card'>
                                     <div className='card-body'>
                                         <div className='text-center'>
-                                            <h1 className='!text-lg !m-0 !max-w-40 truncate'>{data.title != '' ? data.title : "Title"}</h1>
-                                            <p className='!text-lg !mb-1 !max-w-60 truncate'>{data.content != '' ? data.content : "Content"}</p>
+                                            <h1 className='!text-lg !m-0 truncate'>{data.title != '' ? data.title : "Title"}</h1>
+                                            <p className='!text-lg !mb-1 truncate'>{data.content != '' ? data.content : "Content"}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -215,8 +215,8 @@ export default function Form({ selected, editing = false, back }) {
                                                 <IconParse icon={data.icon} color='text-white' />
                                             </div>
                                             <div className='card-body !pl-2'>
-                                                <h1 className='!text-lg !m-0 !max-w-20 truncate'>{data.title != '' ? data.title : "Title"}</h1>
-                                                <p className='!m-0 !max-w-40 truncate'>{data.content != '' ? data.content : "Content"}</p>
+                                                <h1 className='!text-lg !m-0 truncate'>{data.title != '' ? data.title : "Title"}</h1>
+                                                <p className='!m-0 truncate'>{data.content != '' ? data.content : "Content"}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -226,10 +226,10 @@ export default function Form({ selected, editing = false, back }) {
                             return (
                                 <div className='card !p-0'>
                                     <div className='card-header !p-2 !pl-4 '>
-                                        <p className='!m-0 !max-w-20 truncate'>{data.title != '' ? data.title : "Title"}</p>
+                                        <p className='!m-0 truncate'>{data.title != '' ? data.title : "Title"}</p>
                                     </div>
                                     <div className='card-body !py-2'>
-                                        <p className='!text-lg !m-0 !max-w-40 truncate'>{data.content != '' ? data.content : "Content"}</p>
+                                        <p className='!text-lg !m-0 truncate'>{data.content != '' ? data.content : "Content"}</p>
                                     </div>
                                 </div>
                             );
