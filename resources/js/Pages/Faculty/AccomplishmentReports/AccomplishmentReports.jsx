@@ -91,7 +91,7 @@ export default function AccomplishmentReports({ auth, paginated }) {
             <OverlapHeader
                 icon={<TrophyIcon className='w-9 h-9 text-gray-500' />}
                 title='Accomplishment Reports'
-                subtitle='tab Accomplishment Reports'
+                subtitle='View Accomplishment Reports'
 
             >
                 <div className='relative text-gray-400 p-1 my-2'>

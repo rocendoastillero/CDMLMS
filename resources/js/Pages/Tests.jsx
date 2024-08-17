@@ -33,29 +33,31 @@ export default function Tests({ auth, test }) {
                 subtitle="Test"
 
             >
-                <button onClick={() => setSample(sample + 1)}>
-                    click
-                </button>
 
-                {
-                    sample.map((question) => {
-                        return (
-                            <div key={question.id} className="w-full bg-slate-400 my-2">
-                                <h1>{question.question}</h1>
-                                <ul>
-                                    {
-                                        question.choices.map(choice =>
-                                            <li>
-                                                {choice.choice}
-                                            </li>
-                                        )
-                                    }
-                                </ul>
-                            </div>
-                        )
+                <CardsRow
+                    card1={
+                        <>
+                            <CardsCenter
+                                title="asdlaosd"
+                                body="askdaskdaosdoaskdoaksodkoak"
+                            />
+                        </>
                     }
-                    )
-                }
+
+                    card2={
+                        <>
+                            <CardsWithHeader
+                                header="asdasmdoasmdoasd"
+                                body={
+                                    <div className="mt-4">
+                                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos dolore quibusdam dicta alias a. Ex minus velit natus voluptatum nam, molestiae, ut quisquam, excepturi aperiam iste nostrum maxime dolor totam.
+                                    </div>
+                                }
+                            />
+                        </>
+                    }
+
+                />
 
             </OverlapHeader>
 

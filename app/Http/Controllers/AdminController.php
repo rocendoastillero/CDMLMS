@@ -59,12 +59,14 @@ class AdminController extends Controller
     {
 
         return Inertia::render('Admin/Instructors/Instructors', [
-
-            'paginated' => User::where('type', 'user')
-                ->orWhere('firstname', 'LIKE', "%{$search}%")
+            'paginated' => User::where('firstname', 'LIKE', "%{$search}%")
                 ->orWhere('lastname', 'LIKE', "%{$search}%")
+                ->where('type', 'user')
                 ->orderBy('verified')
                 ->get()
+                ->filter(function ($instructor) {
+                    return $instructor->type != 'admin';
+                })
                 ->makeHidden(['email', 'email_verified_at', 'created_at', 'updated_at', 'phone'])
                 ->paginate(8),
             'searched' => $search,

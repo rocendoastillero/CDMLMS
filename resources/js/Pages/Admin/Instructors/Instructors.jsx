@@ -50,7 +50,7 @@ export default function Instructors({ auth, paginated, searched }) {
                                     search == '' ? (
                                         <MagnifyingGlassIcon className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3  w-8 h-8 text-gray-600' />
                                     ) : (
-                                        <XCircleIcon onClick={() => { router(route('admin.subjects')) }} className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3 w-8 h-8 cursor-pointer text-gray-600' />
+                                        <XCircleIcon onClick={() => { router.visit(route('admin.instructors')) }} className='absolute !-translate-y-2/4 !m-0 !top-2/4 right-3 w-8 h-8 cursor-pointer text-gray-600' />
                                     )
                                 }
                             </div>
