@@ -74,7 +74,7 @@ export default function Form({ selected, editing = false, back }) {
                                                 <Dropdown.Content contentClasses='bg-white text-center' margin="!mt-0" width='w-full'>
                                                     <div className='custom-tooltip-parent cursor-pointer py-1 hover:bg-green-50' onClick={() => { setData('cardtype', 'center') }}>
                                                         Center
-                                                        <div className='custom-tooltip-child w-max absolute -translate-y-2/4 top-2/4 left-[105%]'>
+                                                        <div className='custom-tooltip-child w-max absolute -translate-y-2/4 top-2/4 right-[105%] sm:left-[105%]'>
                                                             <div className='card'>
                                                                 <div className='card-body'>
                                                                     <div className='text-center'>
@@ -86,7 +86,7 @@ export default function Form({ selected, editing = false, back }) {
                                                     </div>
                                                     <div className='custom-tooltip-parent cursor-pointer py-1 hover:bg-green-50' onClick={() => { setData('cardtype', 'icon') }}>
                                                         Icon
-                                                        <div className='custom-tooltip-child w-max absolute -translate-y-2/4 top-2/4 left-[105%]'>
+                                                        <div className='custom-tooltip-child w-max absolute -translate-y-2/4 top-2/4 right-[105%] sm:left-[105%]'>
                                                             <div className='card card-icon'>
                                                                 <div className='flex flex-row'>
                                                                     <div className='max-h-max w-8 bg-blue-600'>
@@ -101,7 +101,7 @@ export default function Form({ selected, editing = false, back }) {
                                                     </div>
                                                     <div className='custom-tooltip-parent cursor-pointer py-1 hover:bg-green-50' onClick={() => { setData('cardtype', 'header') }}>
                                                         Header
-                                                        <div className='custom-tooltip-child w-max absolute -translate-y-2/4 top-2/4 left-[105%]'>
+                                                        <div className='custom-tooltip-child w-max absolute -translate-y-2/4 top-2/4 right-[105%] sm:left-[105%]'>
                                                             <div className='card !p-0'>
                                                                 <div className='card-header !p-1 '>
                                                                     <p className='!m-0'>Header</p>

@@ -17,9 +17,8 @@ class Admin
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user() == null) {
-            return redirect('login');
+            return redirect(route('login'));
         } else {
-
             if (Auth::user()->type != 'admin') {
                 return redirect(route('login'));
             }
