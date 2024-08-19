@@ -1,7 +1,7 @@
 import Dropdown from '@/Components/Dropdown';
 import { useState } from 'react'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
-import { Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon, UsersIcon } from "@heroicons/react/24/outline";
+import { ArrowRightEndOnRectangleIcon, Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon, UserCircleIcon, UserIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { Link } from '@inertiajs/react';
 
 //TODO responsiveness
@@ -34,7 +34,7 @@ export default function Layout(
 
     return (
         <div className={`nav-fixed ${isOpen ? "" : "sidenav-toggled"}`}>
-            <nav className="topnav navbar shadow navbar-light bg-white"
+            <nav className="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white"
                 id="sidenavAccordion">
                 <button onClick={() => { setIsOpen(!isOpen) }} className="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0 " id="sidebarToggle">
                     <Bars3Icon className="h-5 w-5 text-gray-600" />
@@ -48,30 +48,24 @@ export default function Layout(
                         <Dropdown.Trigger>
                             <span className="inline-flex rounded-md">
                                 <button
-                                    type="button"
-                                    className="text-[#212832] inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                    className="inline-flex flex-row gap-2 text-[#212832] items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                 >
+                                    <UserCircleIcon className='w-5 h-5' />
                                     {user.lastname}
 
-                                    <svg
-                                        className="ms-2 -me-0.5 h-4 w-4"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clipRule="evenodd"
-                                        />
-                                    </svg>
                                 </button>
                             </span>
                         </Dropdown.Trigger>
 
-                        <Dropdown.Content contentClasses='flex flex-col gap-2 text-black' >
-                            <Link className='text-start px-3 py-1 cursor-pointer hover:bg-green-50' href={route('profile.edit')} as='button'>Profile</Link>
-                            <Link className='text-start px-3 py-1 cursor-pointer hover:bg-green-50' href={route('logout')} method="post" as="button">Log Out</Link>
+                        <Dropdown.Content contentClasses='flex flex-col gap-2 text-black '>
+                            <Link className='flex flex-row gap-2 px-3 py-1 cursor-pointer hover:bg-green-50' href={route('profile.edit')} as='button'>
+                                <UserIcon className='w-4 h-4' />
+                                Profile
+                            </Link>
+                            <Link className='flex flex-row gap-2 px-3 py-1 cursor-pointer hover:bg-green-50' href={route('logout')} method="post" as="button">
+                                <ArrowRightEndOnRectangleIcon className='w-4 h-4' />
+                                Log Out
+                            </Link>
                         </Dropdown.Content>
                     </Dropdown>
                 </div>
