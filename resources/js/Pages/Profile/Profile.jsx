@@ -12,9 +12,6 @@ import CompactHeader from '@/Components/CDMLMS/CompactHeader';
 
 export default function Profile({ auth, mustVerifyEmail, status }) {
 
-
-
-
     return (
         <Layout
             user={auth.user}

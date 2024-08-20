@@ -11,7 +11,7 @@ export default function Unverified() {
                         <Link className='my-3 mx-4 txt-lg text-primary' href={route('logout')} method="post">
                             Log Out
                         </Link>
-                        <Link className='my-3 mx-4 txt-lg text-primary' href={route('dashboard')}>
+                        <Link className='my-3 mx-4 txt-lg text-primary' href={route('accomplishmentreports.index')}>
                             Already Verified?
                         </Link>
                     </div>

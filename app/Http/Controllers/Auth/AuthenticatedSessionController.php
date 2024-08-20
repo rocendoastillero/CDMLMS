@@ -34,10 +34,10 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if($request->user()->type === 'admin'){
-            return redirect()->intended(route('admin.dashboard', absolute: false));
+            return redirect()->intended(route('admin.instructors', absolute: false));
         }
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('accomplishmentreports.index', absolute: false));
     }
 
     /**

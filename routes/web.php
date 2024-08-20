@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/test', function () {
-    return Inertia::render('Tests', [
+// Route::get('/test', function () {
+//     return Inertia::render('Tests', [
         
-    ]);
-});
+//     ]);
+// });
 
 Route::redirect('/', '/login', 301);
 
@@ -29,9 +29,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('faculty')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Faculty/Dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return Inertia::render('Faculty/Dashboard');
+    // })->name('dashboard');
 
     Route::get('/subjects/{search}', [SubjectController::class, 'search'])->name('subjects.search');
     Route::patch('/subjects/assign', [SubjectController::class, 'assign'])->name('subjects.assign');
@@ -74,7 +74,7 @@ Route::middleware('faculty')->group(function () {
 
     Route::middleware('admin')->group(function () {
 
-        Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        // Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
         Route::get('/admin/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
         Route::get('/admin/instructors/view/{instructor}', [AdminController::class, 'viewInstructor'])->name('admin.instructors.view');

@@ -39,9 +39,12 @@ export default function Layout(
                 <button onClick={() => { setIsOpen(!isOpen) }} className="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0 " id="sidebarToggle">
                     <Bars3Icon className="h-5 w-5 text-gray-600" />
                 </button>
-                <Link className="navbar-brand pe-3 ps-4 ps-lg-2" href={isAdmin ? route('admin.dashboard') : route('dashboard')}>
+                <div 
+                className="navbar-brand pe-3 ps-4 ps-lg-2" 
+                // href={isAdmin ? route('admin.dashboard') : route('dashboard')}
+                >
                     CDM LMS
-                </Link>
+                </div>
 
                 <div className="ms-auto !mr-6 relative">
                     <Dropdown>
@@ -57,7 +60,7 @@ export default function Layout(
                             </span>
                         </Dropdown.Trigger>
 
-                        <Dropdown.Content contentClasses='flex flex-col gap-2 text-black '>
+                        <Dropdown.Content contentClasses='flex flex-col gap-2 text-black' width='w-max'>
                             <Link className='flex flex-row gap-2 px-3 py-1 cursor-pointer hover:bg-green-50' href={route('profile.edit')} as='button'>
                                 <UserIcon className='w-4 h-4' />
                                 Profile
@@ -75,10 +78,13 @@ export default function Layout(
                     <nav className="sidenav shadow-right sidenav-light">
                         <div className="sidenav-menu">
                             <div className="nav accordion" id="accordionSidenav">
-                                <Link href={isAdmin ? route('admin.dashboard') : route('dashboard')} className="nav-link mt-4" >
+                                {/* <Link
+                                     href={isAdmin ? route('admin.dashboard') : route('dashboard')}
+                                    className="nav-link mt-4"
+                                >
                                     <div className="nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity text-gray-500"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
                                     Dashboard
-                                </Link>
+                                </Link> */}
                                 {
                                     isAdmin && (
                                         <>
