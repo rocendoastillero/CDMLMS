@@ -11,10 +11,6 @@ export default function ViewSched({ auth, schedules, title, subject }) {
 
     const [tab, setTab] = useState(0);
 
-    useEffect((() => {
-        console.log(title)
-    }), [])
-
     return (
         <Layout
             user={auth.user}

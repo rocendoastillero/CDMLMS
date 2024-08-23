@@ -4,7 +4,6 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react
 import { ArrowRightEndOnRectangleIcon, Bars3Icon, BookOpenIcon, CalendarDaysIcon, ChevronDownIcon, ChevronRightIcon, CloudArrowUpIcon, DocumentIcon, HandRaisedIcon, LockClosedIcon, MegaphoneIcon, PencilSquareIcon, TrophyIcon, UserCircleIcon, UserIcon, UsersIcon } from "@heroicons/react/24/outline";
 import { Link } from '@inertiajs/react';
 
-//TODO responsiveness
 /**
  * @function Component Main Layout for the app
  * 
@@ -186,7 +185,7 @@ export default function Layout(
                                     </div>
                                     Online Class
                                 </Link>
-                                <Link href={route('onlineexam')} className='nav-link !py-[10px]'  >
+                                <Link href={route('onlineexam.index')} className='nav-link !py-[10px]'  >
                                     <div className='nav-link-icon'>
                                         <PencilSquareIcon className='w-5 h-5 text-gray-500' />
                                     </div>

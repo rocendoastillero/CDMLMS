@@ -27,7 +27,6 @@ export default function RepositoryOfFiles({ auth, paginated, type }) {
                 subtitle='View Repository of Files'
             >
                 <SingleCardWithHeader
-                    //TODO convert to Navigation Card - Bootstrap
                     header={
                         <ul className="nav nav-tabs card-header-tabs">
                             <li className="nav-item">

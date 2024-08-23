@@ -12,10 +12,6 @@ export default function Instructors({ auth, paginated, searched }) {
 
     const [search, setSearch] = useState(searched);
 
-    useEffect((() => {
-        console.log(paginated);
-    }), []);
-
     return (
         <Layout
             isAdmin={auth.isAdmin}
@@ -66,7 +62,6 @@ export default function Instructors({ auth, paginated, searched }) {
                                 }
                                 body={
                                     paginated.data.map(instructor =>
-                                        //TODO tooltip
                                         <tr key={instructor.id} className='text-center'>
                                             <td className='!p-0'>
                                                 <Link className='font-bold w-full h-full' href={route('admin.instructors.view', instructor.id)} as='button'>

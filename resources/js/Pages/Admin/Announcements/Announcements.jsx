@@ -92,7 +92,6 @@ export default function Announcements({ auth, paginated }) {
                 </div>
                 {
                     (
-                        //TODO edit logic, edit tab
                         () => {
                             if (tab == 0) {
                                 return (

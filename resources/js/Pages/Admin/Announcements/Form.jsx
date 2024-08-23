@@ -10,7 +10,6 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline"
 import { useForm } from "@inertiajs/react"
 import { useEffect } from "react"
 
-//TODO dropdown icons, dropdown color responsiveness issues
 export default function Form({ selected, editing = false, back }) {
 
     const { data, setData, post, patch, errors, processing, reset } = useForm({

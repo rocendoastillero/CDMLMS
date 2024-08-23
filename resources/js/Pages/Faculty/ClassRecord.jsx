@@ -32,10 +32,6 @@ export default function ClassRecord({ auth, paginated }) {
 
     }
 
-    useEffect((() => {
-        console.log(paginated);
-    }), [])
-
     return (
         <Layout
             isAdmin={auth.isAdmin}
